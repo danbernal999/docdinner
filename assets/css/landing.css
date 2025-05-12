@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: black;
+    padding: 10px 0;
+    color: white;
+}
+
+.navbar__logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.navbar__logo a {
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.navbar__menu {
+    display: flex;
+    padding-right: 50px;
+}
+
+.navbar__menu li {
+    display: flex;
+    align-items: center;
+    margin: 20px 60px 20px 0;
+    gap: 1.2rem;
+}
+
+.navbar__link i {
+    padding: 5px;
+    font-size: 25px;
+}
+
+div.navbar__link {
+    display: flex;
+    align-items: center;
+}
+
+.navbar__menu li a,
+.navbar__link a,
+.navbar__logo h1 {
+    position: relative;
+    font-size: 18px;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar__menu li a::after,
+.navbar__link a::after,
+.navbar__logo h1::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(to right, #31ff58, #38a3d8);
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar__menu li a:hover::after,
+.navbar__link a:hover::after,
+.navbar__logo h1:hover::after {
+    width: 100%;
+}
+
+/* BIENVENIDA */
+.contenedor {
+    min-height: 85vh;
+    display: grid;
+    place-content: center;
+    padding: 1em;
+    text-align: center;
+}
+
+.bienvenida {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 20px;
+}
+
+.bienvenida h2 {
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-shadow: 
+        0 0 5px rgba(255, 255, 255, 0.7),
+        0 0 10px rgba(255, 255, 255, 0.5),
+        0 0 15px rgba(255, 255, 255, 0.3),
+        0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.contenedor hr {
+    height: 3px;
+    margin: 20px 40px;
+    border: none;
+    background: linear-gradient(90deg, rgba(49,255,88,1) 0%, rgba(56,163,216,1) 80%);
+}
+
+.contenedor span {
+    font-family: monospace;
+    font-size: 35px;
+    font-style: italic;
+}
+
+/* BOTÓN */
+.boton__empezar {
+    display: grid;
+    place-content: center;
+    padding: 0 20px;
+}
+
+.boton__empezar button {
+    background-color: white;
+    padding: 12px 60px;
+    border-radius: 15px;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background 1s ease, transform 1s ease;  
+}
+
+.boton:hover {
+    background: linear-gradient(90deg, rgba(49,255,88,1) 0%, rgba(56,163,216,1) 80%);
+    transform: scale(1.1);
+}
+
+/* SECCIONES */
+.seccion {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+/* ACERCA DE */
+.titulo__acerca {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    width: 30%;
+    letter-spacing: 10px;
+    font-size: 30px;
+    text-shadow: 
+        0 0 5px rgba(255, 255, 255, 0.7),
+        0 0 10px rgba(255, 255, 255, 0.5),
+        0 0 15px rgba(255, 255, 255, 0.3),
+        0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+p.uno, p.dos {
+    text-align: start;
+    font-size: 25px;
+    letter-spacing: 1px;
+    line-height: 150%;
+    margin: 20px 60px 0 0;
+}
+
+p.uno {
+    height: 40vh;
+    letter-spacing: 2px;
+}
+
+p.dos {
+    height: 20vh;
+    font-style: italic;
+}
+
+p.tres {
+    text-align: start;
+}
+
+/* CONTACTO */
+.contacto-section {
+    margin-top: 80px;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.contacto-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.mapa-container {
+    flex: 1;
+    min-width: 300px;
+    z-index: -1;
+}
+
+.mapa {
+    height: 500px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.formulario-container {
+    background-color: white;
+    color: black;
+    padding: 30px;
+    width: 420px;
+    min-height: 500px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.formulario-titulo {
+    margin: 14px 0 15px;
+    font-weight: bold;
+    color: #666;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario input,
+.formulario textarea {
+    margin-bottom: 10px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    background-color: #f9f9f9;
+}
+
+.formulario textarea {
+    height: 80px;
+}
+
+.formulario button {
+    background-color: black;
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.gmail-icon {
+    text-decoration: none;
+    color: black;
+}
+
+/* FAQs */
+.fqas-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 20% 20%, #000000 100%);
+    padding: 50px;
+}
+
+.fqas-container {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    color: #fff;
+}
+
+.fqas-info {
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.fqas-info h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.fqas-info p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #ccc;
+}
+
+.fqas-info a {
+    display: inline-block;
+    padding: 14px 30px;
+    background: white;
+    border-radius: 8px;
+    color: #000;
+    font-weight: 600;
+    transition: background 1s ease, transform 1s ease;
+}
+
+.fqas-preguntas {
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.fqas-preguntas details {
+    background: #1c1c1c;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+}
+
+.fqas-preguntas summary {
+    font-size: 1.2rem;
+}
+
+.fqas-preguntas p {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #ccc;
+}

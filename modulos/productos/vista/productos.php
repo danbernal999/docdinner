@@ -46,7 +46,7 @@
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-xl font-semibold">Lista de Gastos Fijos</h2>
         <div class="flex items-center gap-2">
-          <a href="crear.php" class="rounded-md bg-custom-gradient px-3 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-90 transition">Añadir Gasto</a>
+          <a href="index.php?ruta=main&modulo=productos&accion=crear" class="rounded-md bg-custom-gradient px-3 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-90 transition">Añadir Gasto</a>
           <form method="POST">
             <button type="submit" name="ver_total" class="rounded-md bg-custom-gradient px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-90 transition">Ver Total de Gastos</button>
           </form>
@@ -83,7 +83,7 @@
                     <button data-modal-toggle="editar-modal-<?= $gasto['id'] ?>" class="rounded-md bg-custom-gradient px-2 py-1 text-xs font-semibold text-white shadow-sm hover:opacity-90 transition">
                       Editar
                     </button>
-                    <a href="eliminar.php?id=<?= $gasto['id'] ?>" class="rounded-md bg-red-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-red-500 transition" onclick="return confirm('¿Está seguro de eliminar este gasto?')">
+                    <a href="index.php?ruta=main&modulo=productos&accion=eliminar&id=<?= $gasto['id'] ?>" class="rounded-md bg-red-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-red-500 transition" onclick="return confirm('¿Está seguro de eliminar este gasto?')">
                       Eliminar
                     </a>
                   </div>
@@ -112,7 +112,7 @@
             </button>
           </div>
           <!-- Modal body: Formulario de edición -->
-          <form action="actualizar.php" method="POST" class="p-4">
+          <form action="index.php?ruta=main&modulo=productos" method="POST" class="p-4">
             <input type="hidden" name="id" value="<?= $gasto['id'] ?>">
             <div class="mb-4">
               <label for="nombre_gasto_<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Nombre del Gasto</label>
@@ -145,7 +145,7 @@
               <label for="descripcion_<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Descripción</label>
               <textarea name="descripcion" id="descripcion_<?= $gasto['id'] ?>" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"><?= htmlspecialchars($gasto['descripcion']) ?></textarea>
             </div>
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Actualizar</button>
+            <button type="submit" name="actualizarGasto" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Actualizar</button>
           </form>
         </div>
       </div>

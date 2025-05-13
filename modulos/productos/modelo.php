@@ -45,6 +45,64 @@ class Producto{
         $stmt = $this->conn->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    //Funcion para guardar o crear un nuevo producto(Gastos)
+    public function guardarGastoFijo($nombre, $monto, $categoria, $descripcion, $fecha) {
+        try {
+            $sql = "INSERT INTO gastos_fijos (nombre_gasto, monto, categoria, descripcion, fecha) 
+                    VALUES (:nombre_gasto, :monto, :categoria, :descripcion, :fecha)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':nombre_gasto' => $nombre,
+                ':monto' => $monto,
+                ':categoria' => $categoria,
+                ':descripcion' => $descripcion,
+                ':fecha' => $fecha
+            ]);
+            return true;
+        } catch (PDOException $e) {
+            return "Error al guardar gasto fijo: " . $e->getMessage();
+        }
+    }
+
+    //Funcion para actualizar el producto(Gasto)
+    public function actualizarGasto($id, $nombre, $monto, $fecha, $categoria, $descripcion) {
+        try {
+            $sql = "UPDATE gastos_fijos SET 
+                        nombre_gasto = :nombre, 
+                        monto = :monto, 
+                        fecha = :fecha, 
+                        categoria = :categoria, 
+                        descripcion = :descripcion 
+                    WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->execute([
+                ':nombre' => $nombre,
+                ':monto' => $monto,
+                ':fecha' => $fecha,
+                ':categoria' => $categoria,
+                ':descripcion' => $descripcion,
+                ':id' => $id
+            ]);
+
+            return true; // Retornar true si todo fue bien
+        } catch (PDOException $e) {
+            return "Error al actualizar gasto: " . $e->getMessage();
+        }
+    }
+
+    //Funcion para eliminar un gasto recibiendo el ID
+    public function eliminarGasto($id) {
+        try {
+            $sql = "DELETE FROM gastos_fijos WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([':id' => $id]);
+            return true;
+        } catch (PDOException $e) {
+            return "Error al eliminar gasto: " . $e->getMessage();
+        }
+    }
 }
 
 

@@ -1,43 +1,4 @@
-<?php
-include_once('db_connect.php');
-
-$id = $_GET['id'];
-
-$database = new Connection();
-$db = $database->open();
-
-try {
-    $sql = "SELECT * FROM metas_ahorro WHERE id = :id";
-    $stmt = $db->prepare($sql);
-    $stmt->execute([':id' => $id]);
-    $meta = $stmt->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
-
-$database->close();
-?>
-
-<!DOCTYPE html>
-<html lang="es" class="h-full bg-black">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Meta</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    backgroundImage: {
-                        'custom-gradient': 'linear-gradient(to right, #31ff58, #38a3d8)',
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="h-full bg-black text-white">
+<div class="h-full bg-black text-white">
     <div class="min-h-full">
         <nav class="bg-gray-900 border-b border-gray-700">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -50,7 +11,7 @@ $database->close();
         <main class="py-10">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="rounded-lg bg-gray-900 px-5 py-6 shadow sm:px-6">
-                    <form method="POST" action="actualizar_meta.php" class="space-y-6">
+                    <form method="POST" action="index.php?ruta=main&modulo=ahorro" class="space-y-6">
                         <input type="hidden" name="id" value="<?php echo $meta['id']; ?>">
                         
                         <div>
@@ -110,10 +71,11 @@ $database->close();
 
                         <div class="flex gap-4">
                             <button type="submit" 
+                                    name="actualizarMeta"
                                     class="rounded-md px-4 py-2 text-sm font-semibold text-white shadow-sm bg-gray-800 hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700">
                                 Actualizar Meta
                             </button>
-                            <a href="index.php" 
+                            <a href="index.php?ruta=main&modulo=ahorro" 
                                class="rounded-md bg-gray-800 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700">
                                 Cancelar
                             </a>
@@ -123,5 +85,4 @@ $database->close();
             </div>
         </main>
     </div>
-</body>
-</html>
+</div>

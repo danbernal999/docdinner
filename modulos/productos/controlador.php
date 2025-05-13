@@ -10,6 +10,14 @@ class ProductosController {
     }
 
     public function productos() {
+        $total_gastos = null;
+        $categoriaSeleccionada = null;
+        $total_categoria = null;
+        $gastos = [];
+        $ordenSeleccionado = null;
+        $resultado = null;
+        $mensaje = null;
+        $id = null;
 
         if(isset($_GET['accion'])){
             $accion = $_GET['accion'];
@@ -80,6 +88,8 @@ class ProductosController {
             if (isset($_POST['ver_total'])) {
                 $total_gastos = $this->productoModel->obtenerTotalGastos();
             }
+            // Manejar la búsqueda por nombre
+            $gastos = $this->productoModel->obtenerTodos();
             // Manejar la búsqueda por categoría
             if (isset($_POST['buscar_categoria'])) {
                 $categoriaSeleccionada = $_POST['categoria'];
@@ -96,8 +106,8 @@ class ProductosController {
                 $gastos = $this->productoModel->obtenerOrdenado($ordenSeleccionado);
             }
             include 'modulos/productos/vista/productos.php';
+
         }else{
-            
             // Obtener todos los gastos fijos por defecto
             $gastos = $this->productoModel->obtenerTodos();
             include 'modulos/productos/vista/productos.php';
@@ -105,6 +115,4 @@ class ProductosController {
 
     }
 }
-
-
 ?>

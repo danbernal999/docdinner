@@ -73,7 +73,7 @@
             <td class="text-center">
               <div class="flex flex-col space-y-1">
               <!-- botones aquí -->
-                <a href="editar_meta.php?id=<?= $row['id'] ?>" class="block bg-blue-500 hover:bg-blue-600 text-white text-xs px-2 py-1 rounded-md">Editar</a>
+                <a href="index.php?ruta=main&modulo=ahorro&accion=editar&id=<?= $row['id'] ?>" class="block bg-blue-500 hover:bg-blue-600 text-white text-xs px-2 py-1 rounded-md">Editar</a>
                 <button onclick="confirmarEliminacion(<?= $row['id'] ?>)" class="block w-full bg-red-500 hover:bg-red-600 text-white text-xs px-2 py-1 rounded-md">Eliminar</button>
                 <button onclick="toggleModal('historialModal<?= $row['id'] ?>')" class="block w-full bg-gray-500 hover:bg-gray-600 text-white text-xs px-2 py-1 rounded-md">Historial</button>
                 <?php if (!$metaCumplida): ?>
@@ -91,7 +91,7 @@
                   <h5 class="text-xl font-bold">Añadir Ahorro a "<?= htmlspecialchars($row['nombre_meta']) ?>"</h5>
                   <button onclick="toggleModal('modalAhorro<?= $row['id'] ?>')" class="text-gray-500 text-2xl leading-none">&times;</button>
                 </div>
-                <form action="añadir_ahorro.php" method="POST">
+                <form action="index.php?ruta=main&modulo=ahorro&accion=ahorroGuardar" method="POST">
                   <input type="hidden" name="meta_id" value="<?= $row['id'] ?>">
                   <label class="block text-sm font-medium text-neutral-700">Cantidad:</label>
                   <input type="number" name="cantidad_ahorrada" required class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 focus:border-primary focus:ring-primary p-2 mt-1">
@@ -105,7 +105,7 @@
                     <label class="block text-sm font-medium text-neutral-700">Descripción:</label>
                     <textarea name="descripcion" rows="3" class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 focus:border-primary focus:ring-primary p-2 mt-1"></textarea>
                   </div>
-                  <button type="submit" class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md transition-opacity">Guardar</button>
+                  <button type="submit" name="guardarAhorro" class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md transition-opacity">Guardar</button>
                 </form>
               </div>
             </div>
@@ -162,7 +162,7 @@
     // Confirmar eliminación
     function confirmarEliminacion(metaId) {
       if (confirm("¿Estás seguro de que deseas eliminar esta meta?")) {
-        window.location.href = "eliminar_meta.php?id=" + metaId;
+        window.location.href = "index.php?ruta=main&modulo=ahorro&accion=eliminar&id=" + metaId;
       }
     }
   </script>

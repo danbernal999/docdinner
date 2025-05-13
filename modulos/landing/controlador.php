@@ -2,7 +2,7 @@
 
 class LandingController {
     public function index() {
-        include 'landing/landing.php';
+        include 'modulos/landing/vista/landing.php';
     }
 }
 

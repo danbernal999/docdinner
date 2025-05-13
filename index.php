@@ -5,7 +5,7 @@ $ruta = $_GET['ruta'] ?? 'home';
 //Para manejar rutas en php 
 switch ($ruta) {
     case 'home':
-        include 'landing/controlador.php';
+        include 'modulos/landing/controlador.php';
         $controller = new LandingController();
         $controller->index(); //Funcion del index. no tiene mucha ciencia 
         break;

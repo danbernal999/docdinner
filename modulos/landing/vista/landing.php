@@ -84,7 +84,7 @@
                     <button type="submit">Enviar Mensaje →</button>
                 </form>
                 <br><br>
-                <a class="gmail-icon" href="https://mail.google.com/mail/u/3/#inbox?compose=CllgCJvpbJggxwJdRXdGjPrNlLhzSLPLWVdRVHGGpzvjgdHvcGSdFLrfXrNhbHFMrBQjnMSNHCL">
+                <a class="gmail-icon" href="https://mail.google.com/mail/u/3/#inbox?compose=CllgCJvpbJggxwJdRXdGjPrNlLhzSLPLWVdRVHGGpzvjgdHvcGSdFLrfXrNhbHFMrBQjnMSNHCL" target="_blank">
                     <i class="ri-google-fill"></i>
                 </a>
             </div>
@@ -96,24 +96,24 @@
         <div class="fqas-container">
             <!-- Lado Izquierdo -->
             <div class="fqas-info">
-                <h2>Get all your questions answered here</h2>
-                <p>It's extremely embarrassing adding the same contact in two different campaigns.</p>
-                <a href="#" class="boton">Start for Free Now</a>
+                <h2>Preguntas Frecuentes</h2>
+                <p>Usa la aplicacion mas facil de control de gastos y deudas.</p>
+                <a href="#" class="boton">Estas listo?</a>
             </div>
 
             <!-- Lado Derecho -->
             <div class="fqas-preguntas">
                 <details>
-                    <summary>What Is ManyReach Used For?</summary>
-                    <p>ManyReach is used for automating outreach campaigns, saving time, and ensuring your messages are sent to the right contacts.</p>
+                    <summary>Que puedo hacer en DocDinner?</summary>
+                    <p>Puedes controlar desde pequeñas cantidas hasta grandes cantidades de tus Gastos.</p>
                 </details>
                 <details>
-                    <summary>Can I Upload As Many Contacts As I Want?</summary>
-                    <p>Yes, you can upload as many contacts as your plan allows, making it flexible to scale your campaigns as needed.</p>
+                    <summary>Que beneficio tiene DocDinner?</summary>
+                    <p>En el mundo digital cualquier persona podra controlar sus gastos para que no se les olvide en que gastaron.</p>
                 </details>
                 <details>
-                    <summary>What Is a Credit?</summary>
-                    <p>A credit typically represents a single outreach action, like sending one email or message to a contact.</p>
+                    <summary>DocDinner es gratis?</summary>
+                    <p>Si DocDinner es Gratis y puedes usarla siempre.</p>
                 </details>
                 <details>
                     <summary>What Is ManyReach Used For?</summary>

@@ -301,7 +301,7 @@ p.tres {
     align-items: center;
     justify-content: center;
     background: radial-gradient(circle at 20% 20%, #000000 100%);
-    padding: 50px;
+    padding: 40px;
 }
 
 .fqas-container {
@@ -336,7 +336,7 @@ p.tres {
 
 .fqas-info a {
     display: inline-block;
-    padding: 14px 30px;
+    padding: 14px 20px;
     background: white;
     border-radius: 8px;
     color: #000;

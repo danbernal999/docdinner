@@ -32,9 +32,6 @@
                 <span>o utiliza tu correo electrónico para registrarte</span>
                 <div class="social-icons">
                     <a href="#" class="icon"><i class="ri-google-fill"></i></a>
-                    <a href="#" class="icon"><i class="ri-facebook-fill"></i></a>
-                    <a href="#" class="icon"><i class="ri-github-fill"></i></a>
-                    <a href="#" class="icon"><i class="ri-linkedin-fill"></i></a>
                 </div>
             </form>
         </div>
@@ -49,10 +46,7 @@
                 <button type="submit" name="login">Iniciar Sesión</button>
                 <span>o continuar con</span>
                 <div class="social-icons">
-                    <a href="#" class="icon"><i class="ri-google-fill"></i></a>
-                    <a href="#" class="icon"><i class="ri-facebook-fill"></i></a>
-                    <a href="#" class="icon"><i class="ri-github-fill"></i></a>
-                    <a href="#" class="icon"><i class="ri-linkedin-fill"></i></a>
+                    <a href="#" class="icon" id="google-login-btn"><i class="ri-google-fill"></i></a>
                 </div>
             </form>
         </div>
@@ -75,5 +69,8 @@
     </div>
     <!-- Seccion para los scripts.js -->
     <script src="assets/js/auth/login.js"></script>
+    <!-- Asegúrate de importar los scripts -->
+    <script type="module" src="../firebase/firebase.js"></script>
+    <script type="module" src="../firebase/login.js"></script>
 </body>
 </html>

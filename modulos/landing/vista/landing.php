@@ -104,24 +104,24 @@
             <!-- Lado Derecho -->
             <div class="fqas-preguntas">
                 <details>
-                    <summary>Que puedo hacer en DocDinner?</summary>
-                    <p>Puedes controlar desde pequeñas cantidas hasta grandes cantidades de tus Gastos.</p>
+                    <summary>¿Qué puedo hacer con DocDinner?</summary>
+                    <p>Con DocDinner puedes llevar un control detallado de todos tus gastos, desde pequeñas compras hasta grandes inversiones.</p>
                 </details>
                 <details>
-                    <summary>Que beneficio tiene DocDinner?</summary>
-                    <p>En el mundo digital cualquier persona podra controlar sus gastos para que no se les olvide en que gastaron.</p>
+                    <summary>¿Qué beneficios ofrece DocDinner?</summary>
+                    <p>DocDinner te ayuda a tener un mejor control financiero, recordándote en qué has gastado tu dinero para que no pierdas el rumbo de tus finanzas.</p>
                 </details>
                 <details>
-                    <summary>DocDinner es gratis?</summary>
-                    <p>Si DocDinner es Gratis y puedes usarla siempre.</p>
+                    <summary>¿DocDinner es gratis?</summary>
+                    <p>Sí, DocDinner es completamente gratis y puedes usarla siempre que lo necesites.</p>
                 </details>
                 <details>
-                    <summary>What Is ManyReach Used For?</summary>
-                    <p>ManyReach is used for accelerating and streamlining business communication by automating your contact outreach process.</p>
+                    <summary>¿Necesito crear una cuenta para usar DocDinner?</summary>
+                    <p>Sí, necesitas registrarte para que podamos guardar y proteger tus datos de forma segura, y así puedas acceder a ellos desde cualquier dispositivo.</p>
                 </details>
                 <details>
-                    <summary>What Is ManyReach Used For?</summary>
-                    <p>You can also use ManyReach for segmenting your audience, personalizing messages, and tracking performance in real time.</p>
+                    <summary>¿Cómo puedo registrar mis gastos en DocDinner?</summary>
+                    <p>Una vez que inicies sesión, puedes ingresar tus gastos fácilmente desde el panel principal. Solo debes indicar el monto, la categoría y una breve descripción.</p>
                 </details>
             </div>
         </div>

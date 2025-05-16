@@ -23,10 +23,10 @@
         //Para seccionar modulos en el main
         switch ($modulo) {
             case 'dashboard':
-                include 'modulos/dashboard/controlador.php';
-                $controller = new DashboardController();
-                $controller->dashboard();
-                break;
+              include 'modulos/dashboard/controlador.php';
+              $controller = new DashboardController();
+              $controller->dashboard();
+              break;
 
             case 'analisis':
               include 'modulos/analisis/controlador.php';
@@ -63,6 +63,15 @@
               $controller = new ConfiguracionController();
               $controller->configuracion();
               break;
+
+            case 'cuenta':
+              include 'modulos/cuenta/controlador.php';
+              $controller = new CuentaController();
+              $controller->cuenta();
+              break;
+
+
+
         }
       ?>
   </main>

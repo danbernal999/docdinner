@@ -23,7 +23,12 @@ switch ($ruta) {
         $controller = new MainController(); //Este maneja Toda las Rutas de los modulos
         $controller->main(); //Funcion que si la ven, tiene el auth para validar si hay usuario
         break;
-    
+        
+    case 'logout':
+        include 'auth/logout.php'; //Este maneja el logout y destruye la session
+        $controller = new LogoutController();
+        $controller->logout(); //Funcion que destruye la session
+        break;
 }
 
 ?>

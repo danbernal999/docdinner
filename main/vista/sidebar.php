@@ -36,7 +36,7 @@
         </div>
     </div>
     <!-- Enlace de Cuenta -->
-    <a class="flex items-center w-full mb-4 h-12 px-3 mt-auto rounded hover:bg-cyan-500 hover:text-cyan-50" href="#perfil">
+    <a class="flex items-center w-full mb-4 h-12 px-3 mt-auto rounded hover:bg-cyan-500 hover:text-cyan-50" href="index.php?ruta=main&modulo=cuenta">
         <i class="ri-user-line text-2xl"></i>
         <span class="ml-2 text-sm font-medium">Cuenta</span>
     </a>

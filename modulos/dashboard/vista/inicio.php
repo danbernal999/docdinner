@@ -20,9 +20,9 @@
     </div>
     <!-- Botón de acción (visible siempre o desde md hacia arriba, según necesidad) -->
     <div class="flex items-center gap-4">
-      <button class="bg-neutral-950 text-white text-sm px-4 py-2 rounded-xl hover:bg-cyan-500 transition">
-        Cerrar Sesión
-      </button>
+      <a href="index.php?ruta=logout">
+        <button class="bg-neutral-950 text-white text-sm px-4 py-2 rounded-xl hover:bg-cyan-500 transition">Cerrar Sesión</button>
+      </a>
     </div>
   </div>
 </header>

@@ -66,7 +66,9 @@
 
             case 'cuenta':
               include 'modulos/cuenta/controlador.php';
-              $controller = new CuentaController();
+              require_once 'config/database.php';
+              $conn = getDB();
+              $controller = new CuentaController($conn);
               $controller->cuenta();
               break;
 

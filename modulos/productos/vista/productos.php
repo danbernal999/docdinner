@@ -151,6 +151,69 @@
       </div>
     </div>
   <?php endforeach; ?>
+
+  <!-- Modal para añadir gasto -->
+  <?php foreach ($gastos as $gasto): ?>
+    <!-- Modal para añadir gasto -->
+    <div id="modal-crear-gasto" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-[calc(100%)] max-h-full bg-black/70 backdrop-blur-md">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+      <div class="relative bg-white rounded-lg shadow">
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between p-4 border-b rounded-t">
+          <h3 class="text-lg font-semibold text-gray-900">Añadir Gasto</h3>
+          <button type="button" class="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center" data-modal-toggle="modal-crear-gasto">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+            <span class="sr-only">Cerrar modal</span>
+          </button>
+        </div>
+
+        <!-- Modal Body: Formulario -->
+        <form action="index.php?ruta=main&modulo=productos" method="POST" class="p-4">
+          <div class="mb-4">
+            <label for="nombre_gasto" class="block mb-2 text-sm font-medium text-gray-900">Nombre del Gasto</label>
+            <input type="text" name="nombre_gasto" id="nombre_gasto" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" />
+          </div>
+
+          <div class="mb-4">
+            <label for="monto" class="block mb-2 text-sm font-medium text-gray-900">Monto</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
+              <input type="number" name="monto" id="monto" step="0.01" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5" />
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="fecha" class="block mb-2 text-sm font-medium text-gray-900">Fecha</label>
+            <input type="date" name="fecha" id="fecha" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" />
+          </div>
+
+          <div class="mb-4">
+            <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900">Categoría</label>
+            <select name="categoria" id="categoria" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+              <option value="">Seleccione una categoría</option>
+              <?php
+              $categorias = ['Alimentación', 'Transporte', 'Vivienda', 'Servicios', 'Entretenimiento', 'Salud y Belleza', 'Educación', 'Electrónica', 'Ropa y Accesorios', 'Hogar y Decoración', 'Deportes y Aire Libre', 'Juguetes y Juegos', 'Automóviles y Accesorios', 'Tecnología y Software', 'Otro'];
+              foreach ($categorias as $cat) {
+                echo "<option value=\"" . htmlspecialchars($cat) . "\">" . htmlspecialchars($cat) . "</option>";
+              }
+              ?>
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <label for="descripcion" class="block mb-2 text-sm font-medium text-gray-900">Descripción</label>
+            <textarea name="descripcion" id="descripcion" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"></textarea>
+          </div>
+
+          <button type="submit" name="crearGasto" class="text-white bg-blue-700 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Guardar Gasto</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <?php endforeach; ?>
   
   <!-- Script para toggle de modales -->
   <script src="assets/js/productos/modals.js"></script>

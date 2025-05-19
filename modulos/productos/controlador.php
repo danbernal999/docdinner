@@ -10,109 +10,124 @@ class ProductosController {
     }
 
     public function productos() {
-        $total_gastos = null;
-        $categoriaSeleccionada = null;
-        $total_categoria = null;
+        // Inicialización de variables
         $gastos = [];
+        $total_gastos = null;
+        $total_categoria = null;
+        $categoriaSeleccionada = null;
         $ordenSeleccionado = null;
-        $resultado = null;
         $mensaje = null;
-        $id = null;
 
-        if(isset($_GET['accion'])){
+        // Manejo de acciones GET
+        if (isset($_GET['accion'])) {
             $accion = $_GET['accion'];
 
-            switch($accion){
+            switch ($accion) {
                 case 'crear':
                     include 'modulos/productos/vista/crear.php';
-                    break;
+                    return;
                 case 'eliminar':
                     if (isset($_GET['id'])) {
                         $id = $_GET['id'];
                         $resultado = $this->productoModel->eliminarGasto($id);
-                    
+
                         if ($resultado === true) {
                             header("Location: index.php?ruta=main&modulo=productos&mensaje=gasto_eliminado");
-                            exit();
                         } else {
                             echo $resultado;
                         }
+                        exit();
                     } else {
                         echo "ID no recibido.";
+                        exit();
                     }
             }
+        }
 
-        }elseif($_SERVER['REQUEST_METHOD'] === 'POST'){
-            if(isset($_POST['crearGasto'])){
-                $nombre_gasto = $_POST['nombre_gasto'];
-                $monto = $_POST['monto'];
-                $categoria = $_POST['categoria'];
-                $descripcion = $_POST['descripcion'];
-                $fecha = $_POST['fecha'];
-            
+        // Manejo de acciones POST
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Crear gasto
+            if (isset($_POST['crearGasto'])) {
+                $nombre = $_POST['nombre_gasto'] ?? '';
+                $monto = $_POST['monto'] ?? '';
+                $categoria = $_POST['categoria'] ?? '';
+                $descripcion = $_POST['descripcion'] ?? '';
+                $fecha = $_POST['fecha'] ?? '';
+                
+
                 // Validación simple
-                if (empty($nombre_gasto) || empty($monto) || empty($categoria) || empty($descripcion) || empty($fecha)) {
-                    header('Location: index.php?ruta=main&modulo=productos&mensaje=error');
+                if (empty($nombre) || empty($monto) || empty($categoria) || empty($descripcion) || empty($fecha)) {
+                    header('Location: index.php?ruta=main&modulo=productos&mensaje=error_campos');
                     exit();
                 }
-            
-                $resultado = $this->productoModel->guardarGastoFijo($nombre_gasto, $monto, $categoria, $descripcion, $fecha);
-            
+
+                $resultado = $this->productoModel->guardarGastoFijo($nombre, $monto, $categoria, $descripcion, $fecha);
+
                 if ($resultado === true) {
                     header('Location: index.php?ruta=main&modulo=productos&mensaje=gasto_guardado');
                 } else {
                     header('Location: index.php?ruta=main&modulo=productos&mensaje=error_bd');
-                    // También podrías guardar el error en $_SESSION si lo deseas mostrar en la vista.
                 }
                 exit();
-                
-            }elseif(isset($_POST['actualizarGasto'])){
-                $id = $_POST['id'];
-                $nombre = $_POST['nombre_gasto'];
-                $monto = $_POST['monto'];
-                $fecha = $_POST['fecha'];
-                $categoria = $_POST['categoria'];
-                $descripcion = $_POST['descripcion'];
-            
+            }
 
-                $resultado = $this->productoModel->actualizarGasto($id, $nombre, $monto, $fecha, $categoria, $descripcion);
-            
-                if ($resultado === true) {
-                    header("Location: index.php?ruta=main&modulo=productos&mensaje=gasto_actualizado");
-                    exit();
-                } else {
-                    echo $resultado; // Muestra el mensaje de error
+            // Actualizar gasto
+            if (isset($_POST['actualizarGasto'])) {
+                $id = $_POST['id'] ?? null;
+                $nombre = $_POST['nombre_gasto'] ?? '';
+                $monto = $_POST['monto'] ?? '';
+                $fecha = $_POST['fecha'] ?? '';
+                $categoria = $_POST['categoria'] ?? '';
+                $descripcion = $_POST['descripcion'] ?? '';
+
+                if ($id) {
+                    $resultado = $this->productoModel->actualizarGasto($id, $nombre, $monto, $fecha, $categoria, $descripcion);
+
+                    if ($resultado === true) {
+                        header("Location: index.php?ruta=main&modulo=productos&mensaje=gasto_actualizado");
+                        exit();
+                    } else {
+                        echo $resultado;
+                        exit();
+                    }
                 }
             }
-            // Mostrar el total si se presiona el botón
+
+            // Ver total general
             if (isset($_POST['ver_total'])) {
                 $total_gastos = $this->productoModel->obtenerTotalGastos();
             }
-            // Manejar la búsqueda por nombre
-            $gastos = $this->productoModel->obtenerTodos();
-            // Manejar la búsqueda por categoría
+
+            // Buscar por categoría
             if (isset($_POST['buscar_categoria'])) {
-                $categoriaSeleccionada = $_POST['categoria'];
+                $categoriaSeleccionada = $_POST['categoria'] ?? '';
                 $gastos = $this->productoModel->buscarPorCategoria($categoriaSeleccionada);
             }
-            // Calcular el total de una categoría seleccionada
+
+            // Ver total por categoría
             if (isset($_POST['ver_total_categoria'])) {
-                $categoriaSeleccionada = $_POST['categoria'];
+                $categoriaSeleccionada = $_POST['categoria'] ?? '';
                 $total_categoria = $this->productoModel->obtenerTotalPorCategoria($categoriaSeleccionada);
             }
-            // Manejar el orden por fecha o monto
+
+            // Ordenar
             if (isset($_POST['ordenar_por'])) {
-                $ordenSeleccionado = $_POST['orden'];
+                $ordenSeleccionado = $_POST['orden'] ?? '';
                 $gastos = $this->productoModel->obtenerOrdenado($ordenSeleccionado);
             }
-            include 'modulos/productos/vista/productos.php';
 
-        }else{
-            // Obtener todos los gastos fijos por defecto
-            $gastos = $this->productoModel->obtenerTodos();
+            // Si no hay filtros aplicados, cargar todos
+            if (empty($gastos)) {
+                $gastos = $this->productoModel->obtenerTodos();
+            }
+
             include 'modulos/productos/vista/productos.php';
+            return;
         }
 
+        // Si no hay POST ni GET, mostrar todos los gastos
+        $gastos = $this->productoModel->obtenerTodos();
+        include 'modulos/productos/vista/productos.php';
     }
 }
 ?>

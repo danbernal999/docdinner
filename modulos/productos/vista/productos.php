@@ -96,9 +96,9 @@
     </div>
   </main>
   
-  <!-- Modals para edición (uno por cada gasto) -->
+  <!-- Modals para editar cada producto -->
   <?php foreach ($gastos as $gasto): ?>
-    <div id="editar-modal-<?= $gasto['id'] ?>" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full bg-black/70 backdrop-blur-md">
+    <div id="editar-modal-<?= $gasto['id'] ?>" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-[calc(100%)] max-h-full bg-black/70 backdrop-blur-md">
       <div class="relative p-4 w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow-sm">
           <!-- Modal header -->
@@ -133,7 +133,7 @@
               <label for="categoria_<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Categoría</label>
               <select name="categoria" id="categoria_<?= $gasto['id'] ?>" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 <?php
-                $categorias = ['Alimentación', 'Transporte', 'Vivienda', 'Servicios', 'Entretenimiento', 'Salud', 'Educación', 'Otro'];
+                $categorias = ['Alimentación', 'Transporte', 'Vivienda', 'Servicios', 'Entretenimiento', 'Salud y Belleza', 'Educación', 'Electronica', 'Ropa y Accesorios', 'Hogar y Decoración', 'Deportes y Aire Libre', 'Juguetes y Accesorios', 'Automóviles y Accesorios', 'Tecnología y Software', 'Otro'];
                 foreach ($categorias as $cat) {
                     $selected = ($gasto['categoria'] == $cat) ? 'selected' : '';
                     echo "<option value=\"" . htmlspecialchars($cat) . "\" $selected>" . htmlspecialchars($cat) . "</option>";

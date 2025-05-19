@@ -5,3 +5,4 @@ document.querySelectorAll('[data-modal-toggle]').forEach(btn => {
       modal.classList.toggle('hidden');
     });
   });
+

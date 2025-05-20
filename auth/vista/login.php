@@ -19,6 +19,10 @@
         <div class="alert success"><?= htmlspecialchars($mensaje) ?></div>
     <?php endif; ?>
 
+    <div class="">
+        <a href="index.php" class="icono"><i class="ri-arrow-left-s-line"></i><span>Volver</span></a>
+    </div>
+
     <div class="container" id="container">
         <!-- REGISTRO -->
         <div class="form-container sign-up">

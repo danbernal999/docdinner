@@ -46,7 +46,10 @@
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-xl font-semibold">Lista de Gastos Fijos</h2>
         <div class="flex items-center gap-2">
-          <a href="index.php?ruta=main&modulo=productos&accion=crear" class="rounded-md bg-custom-gradient px-3 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-90 transition">Añadir Gasto</a>
+          <button data-modal-target="modal-crear-gasto" data-modal-toggle="modal-crear-gasto" class="bg-custom-gradient text-white text-sm px-4 py-2 rounded-lg hover:bg-green-700">
+            Añadir Gasto
+          </button>
+
           <form method="POST">
             <button type="submit" name="ver_total" class="rounded-md bg-custom-gradient px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-90 transition">Ver Total de Gastos</button>
           </form>

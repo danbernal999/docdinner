@@ -54,6 +54,7 @@ class ProductosController {
                 $descripcion = $_POST['descripcion'] ?? '';
                 $fecha = $_POST['fecha'] ?? '';
                 
+                
 
                 // Validación simple
                 if (empty($nombre) || empty($monto) || empty($categoria) || empty($descripcion) || empty($fecha)) {

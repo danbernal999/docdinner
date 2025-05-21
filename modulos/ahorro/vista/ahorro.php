@@ -9,9 +9,9 @@
       </div>
       <!-- Botón para Agregar Nueva Meta -->
       <div>
-        <a href="index.php?ruta=main&modulo=ahorro&accion=crear" class="bg-neutral-950 text-sm hover:bg-cyan-500 text-white px-4 py-2 rounded-full transition-all shadow-xl">
+        <button onclick="toggleModal('modalCrearMeta')" class="bg-neutral-950 text-sm hover:bg-cyan-500 text-white px-4 py-2 rounded-full transition-all shadow-xl">
           Agregar Nueva Meta
-        </a>
+        </button>
       </div>
     </div>
   </header>
@@ -72,16 +72,80 @@
             </td>
             <td class="text-center">
               <div class="flex flex-col space-y-1">
-              <!-- botones aquí -->
-                <a href="index.php?ruta=main&modulo=ahorro&accion=editar&id=<?= $row['id'] ?>" class="block bg-blue-500 hover:bg-blue-600 text-white text-xs px-2 py-1 rounded-md">Editar</a>
+              
+              <!-- Botón Editar con Modal -->
+                <button onclick="toggleModal('modalEditar<?= $row['id'] ?>')" class="block bg-blue-500 hover:bg-blue-600 text-white text-xs px-2 py-1 rounded-md">Editar</button>
                 <button onclick="confirmarEliminacion(<?= $row['id'] ?>)" class="block w-full bg-red-500 hover:bg-red-600 text-white text-xs px-2 py-1 rounded-md">Eliminar</button>
                 <button onclick="toggleModal('historialModal<?= $row['id'] ?>')" class="block w-full bg-gray-500 hover:bg-gray-600 text-white text-xs px-2 py-1 rounded-md">Historial</button>
                 <?php if (!$metaCumplida): ?>
-                  <button onclick="toggleModal('modalAhorro<?= $row['id'] ?>')" class="block w-full bg-green-500 hover:bg-green-600 text-white text-xs px-2 py-1 rounded-md">Añadir Ahorro</button>
+                <button onclick="toggleModal('modalAhorro<?= $row['id'] ?>')" class="block w-full bg-green-500 hover:bg-green-600 text-white text-xs px-2 py-1 rounded-md">Añadir Ahorro</button>
                 <?php endif; ?>
               </div>
             </td>
           </tr>
+
+          <!-- Modal Crear Nueva Meta -->
+          <div id="modalCrearMeta" class="hidden fixed inset-0 z-50 overflow-y-auto">
+            <div class="flex items-center justify-center min-h-screen bg-black bg-opacity-50 px-4">
+              <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
+                <div class="flex justify-between items-center mb-4">
+                  <h5 class="text-xl font-bold">Agregar Nueva Meta de Ahorro</h5>
+                  <button onclick="toggleModal('modalCrearMeta')" class="text-gray-500 text-2xl leading-none">&times;</button>
+                </div>
+                <form action="index.php?ruta=main&modulo=ahorro" method="POST">
+                  <label class="block text-sm font-medium text-neutral-700 mt-2">Nombre de la Meta</label>
+                  <input type="text" name="nombre_meta" required class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1">
+
+                  <label class="block text-sm font-medium text-neutral-700 mt-3">Cantidad Objetivo</label>
+                  <input type="number" name="cantidad_meta" step="0.01" required class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1">
+
+                  <label class="block text-sm font-medium text-neutral-700 mt-3">Fecha Límite</label>
+                  <input type="date" name="fecha_limite" required class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1">
+
+                  <label class="block text-sm font-medium text-neutral-700 mt-3">Descripción (opcional)</label>
+                  <textarea name="descripcion" rows="3" class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1"></textarea>
+
+                  <div class="mt-4 flex justify-end space-x-2">
+                    <button type="button" onclick="toggleModal('modalCrearMeta')" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancelar</button>
+                    <button type="submit" name="crearMeta" class="px-4 py-2 bg-neutral-950 text-white rounded-md hover:bg-cyan-600">Guardar Meta</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Modal Editar Meta -->
+          <div id="modalEditar<?= $row['id'] ?>" class="hidden fixed inset-0 z-50 overflow-y-auto">
+            <div class="flex items-center justify-center min-h-screen bg-black bg-opacity-50 px-4">
+              <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
+                <div class="flex justify-between items-center mb-4">
+                  <h5 class="text-xl font-bold">Editar Meta<br><span class="text-base font-normal">"<?= htmlspecialchars($row['nombre_meta']) ?>"</span></h5>
+                  <button onclick="toggleModal('modalEditar<?= $row['id'] ?>')" class="text-gray-500 text-2xl leading-none">&times;</button>
+                </div>
+                <form action="index.php?ruta=main&modulo=ahorro" method="POST">
+                  <input type="hidden" name="id" value="<?= $row['id'] ?>">
+
+                  <label class="block text-sm font-medium text-neutral-700 mt-2">Nombre de la Meta</label>
+                  <input type="text" name="nombre_meta" value="<?= htmlspecialchars($row['nombre_meta']) ?>" required class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1">
+
+                  <label class="block text-sm font-medium text-neutral-700 mt-3">Cantidad</label>
+                  <input type="number" name="cantidad_meta" step="0.01" value="<?= htmlspecialchars($row['cantidad_meta']) ?>" required class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1">
+
+                  <label class="block text-sm font-medium text-neutral-700 mt-3">Fecha Límite</label>
+                  <input type="date" name="fecha_limite" value="<?= htmlspecialchars($row['fecha_limite']) ?>" required class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1">
+
+                  <label class="block text-sm font-medium text-neutral-700 mt-3">Descripción</label>
+                  <textarea name="descripcion" rows="3" class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1"><?= htmlspecialchars($row['descripcion']) ?></textarea>
+
+                  <div class="mt-4 flex justify-end space-x-2">
+                    <button type="button" onclick="toggleModal('modalEditar<?= $row['id'] ?>')" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancelar</button>
+                    <button type="submit" name="actualizarMeta" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Guardar Cambios</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
 
           <!-- Modal Añadir Ahorro -->
           <div id="modalAhorro<?= $row['id'] ?>" class="hidden fixed inset-0 z-50 overflow-y-auto">
@@ -142,30 +206,7 @@
     </div>
   </main>
 
-  <!-- Scripts para modales y comportamiento -->
-  <script>
-    // Función para mostrar/ocultar modales
-    function toggleModal(id) {
-      const modal = document.getElementById(id);
-      modal.classList.toggle('hidden');
-    }
-
-    // Mostrar/ocultar campo de descripción
-    document.querySelectorAll('[id^="descripcionCheck"]').forEach(checkbox => {
-      checkbox.addEventListener('change', function() {
-        const id = this.id.replace('descripcionCheck', '');
-        const descDiv = document.getElementById('descripcionDiv' + id);
-        descDiv.classList.toggle('hidden', !this.checked);
-      });
-    });
-
-    // Confirmar eliminación
-    function confirmarEliminacion(metaId) {
-      if (confirm("¿Estás seguro de que deseas eliminar esta meta?")) {
-        window.location.href = "index.php?ruta=main&modulo=ahorro&accion=eliminar&id=" + metaId;
-      }
-    }
-  </script>
+  <script src="assets/js/ahorro/modals.js"></script>
 </div>
 
 

@@ -84,9 +84,9 @@
                     <button type="submit">Enviar Mensaje →</button>
                 </form>
                 <br><br>
-                <a class="gmail-icon" href="https://mail.google.com/mail/u/3/#inbox?compose=CllgCJvpbJggxwJdRXdGjPrNlLhzSLPLWVdRVHGGpzvjgdHvcGSdFLrfXrNhbHFMrBQjnMSNHCL" target="_blank">
-                    <i class="ri-google-fill"></i>
-                </a>
+                <button id="googleLogin">
+                    <i class="ri-google-fill"></i> Iniciar sesión con Google
+                </button>
             </div>
         </div>
     </section>
@@ -130,5 +130,6 @@
     <!-- Seccion para los scripts -->
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="assets/js/landing/maps.js"></script>
+    <script type="module" src="/docdinner/auth/firebase/login.js"></script>
 </body>
 </html>

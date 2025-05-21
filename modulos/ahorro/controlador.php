@@ -29,12 +29,6 @@ class AhorroController {
                         echo $resultado; // o redirigir con un mensaje de error
                     }
 
-                case 'editar':
-                    $id = $_GET['id'];
-                    $meta = $this->metaAhorroModel->obtenerMetaPorId($id); //obtiene la meta como array
-                    include 'modulos/ahorro/vista/editar.php';
-                    break;
-
                 case 'ahorroGuardar':
                     $meta_id = intval($_POST["meta_id"]);
                     $cantidad_ahorrada = floatval($_POST["cantidad_ahorrada"]);

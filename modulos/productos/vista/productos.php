@@ -1,16 +1,13 @@
 <div class="bg-neutral-50 min-h-screen text-neutral-950 p-4 md:p-8">
-  <!-- Encabezado -->
-  <header class="mb-6">
-    <h1 class="text-2xl font-bold">Tus Gastos</h1>
-  </header>
-
   <main class="mx-auto space-y-8">
     <!-- Tarjeta de Formularios: Búsqueda por Categoría -->
-    <div class="rounded-xl bg-white p-6 shadow-lg">
+    <div class="rounded-xl bg-white p-6 shadow-2xl">
+      <h2 class="text-xl font-semibold mb-4">Tus Gastos</h2>
+
       <form method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
         <div>
           <label for="categoria" class="block text-sm font-medium">Buscar por Categoría:</label>
-          <select id="categoria" name="categoria" required class="mt-1 block w-full rounded-md bg-gray-100 border border-gray-300 py-2 pl-3 pr-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm">
+          <select id="categoria" name="categoria" required class="mt-1 block w-full rounded-md bg-gray-100 border border-gray-300 py-2 pl-3 pr-10 focus:border-cyan-500 focus:outline-none focus:ring-primary sm:text-sm">
             <option value="">Seleccione una categoría</option>
             <option value="Alimentación" <?= $categoriaSeleccionada == 'Alimentación' ? 'selected' : '' ?>>Alimentación</option>
             <option value="Transporte" <?= $categoriaSeleccionada == 'Transporte' ? 'selected' : '' ?>>Transporte</option>
@@ -30,8 +27,8 @@
           </select>
         </div>
         <div class="flex justify-end gap-2">
-          <button type="submit" name="buscar_categoria" class="rounded-md bg-custom-gradient px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-90 transition">Buscar</button>
-          <button type="submit" name="ver_total_categoria" class="rounded-md bg-gray-800 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 transition">Ver Total de la Categoría</button>
+          <button type="submit" name="buscar_categoria" class="rounded-md bg-neutral-950 px-5 py-2 text-sm font-semibold text-white shadow-lg hover:bg-cyan-500 transition">Buscar</button>
+          <button type="submit" name="ver_total_categoria" class="rounded-md bg-neutral-950 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-cyan-500 transition">Ver Total de la Categoría</button>
         </div>
       </form>
       <?php if ($total_categoria !== null): ?>
@@ -42,22 +39,22 @@
     </div>
 
     <!-- Tarjeta de Tabla de Gastos Fijos y Botones de Acción -->
-    <div class="rounded-xl bg-white p-6 shadow-lg">
+    <div class="rounded-xl bg-white p-6 shadow-2xl">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-xl font-semibold">Lista de Gastos Fijos</h2>
         <div class="flex items-center gap-2">
-          <button data-modal-target="modal-crear-gasto" data-modal-toggle="modal-crear-gasto" class="bg-custom-gradient text-white text-sm px-4 py-2 rounded-lg hover:bg-green-700">
+          <button data-modal-target="modal-crear-gasto" data-modal-toggle="modal-crear-gasto" class="rounded-md bg-neutral-950 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-cyan-500 transition">
             Añadir Gasto
           </button>
 
           <form method="POST">
-            <button type="submit" name="ver_total" class="rounded-md bg-custom-gradient px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-90 transition">Ver Total de Gastos</button>
+            <button type="submit" name="ver_total" class="rounded-md bg-neutral-950 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-cyan-500 transition">Ver Total de Gastos</button>
           </form>
         </div>
       </div>
       <?php if ($total_gastos !== null): ?>
         <div class="mt-4 rounded-md bg-gray-100 p-4">
-          <h2 class="text-lg font-semibold">Total de gastos realizados: $<?= number_format($total_gastos, 2, ',', '.'); ?></h2>
+          <h2 class="text-lg font-semibold">Total de Gastos: $<?= number_format($total_gastos, 2, ',', '.'); ?></h2>
         </div>
       <?php endif; ?>
       <div class="mt-8 overflow-x-auto">
@@ -83,10 +80,10 @@
                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600">
                   <div class="flex flex-col gap-2">
                     <!-- Botón Editar: activa el modal correspondiente -->
-                    <button data-modal-toggle="editar-modal-<?= $gasto['id'] ?>" class="rounded-md bg-custom-gradient px-2 py-1 text-xs font-semibold text-white shadow-sm hover:opacity-90 transition">
+                    <button data-modal-toggle="editar-modal-<?= $gasto['id'] ?>" class="rounded-md bg-cyan-500 px-2 py-1 text-xs font-semibold text-white shadow-lg hover:opacity-90 transition">
                       Editar
                     </button>
-                    <a href="index.php?ruta=main&modulo=productos&accion=eliminar&id=<?= $gasto['id'] ?>" class="rounded-md bg-red-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-red-500 transition" onclick="return confirm('¿Está seguro de eliminar este gasto?')">
+                    <a href="index.php?ruta=main&modulo=productos&accion=eliminar&id=<?= $gasto['id'] ?>" class="rounded-md bg-red-600 px-2 py-1 text-xs font-semibold text-white shadow-lg hover:bg-red-500 transition text-center" onclick="return confirm('¿Está seguro de eliminar este gasto?')">
                       Eliminar
                     </a>
                   </div>
@@ -220,6 +217,7 @@
   
   <!-- Script para toggle de modales -->
   <script src="assets/js/productos/modals.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </div>
 
 

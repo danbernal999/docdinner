@@ -1,25 +1,22 @@
 <div class="bg-neutral-50 min-h-screen p-4 md:p-8 text-neutral-950">
-  <!-- Encabezado con mayor anchura -->
-  <header class="mb-4">
-    <div class="flex items-center justify-between">
-      <!-- Título de la sección -->
-      <div>
-        <h1 class="text-2xl font-bold">Metas de Ahorro</h1>
-      </div>
-      <!-- Botón para Agregar Nueva Meta -->
-      <div>
-        <button onclick="toggleModal('modalCrearMeta')" class="bg-neutral-950 text-sm hover:bg-cyan-500 text-white mx-2 px-6 py-2 rounded-xl transition-all shadow-xl">
-          Agregar Nueva Meta
-        </button>
-      </div>
-    </div>
-  </header>
-
   <!-- Contenedor principal, ahora con max-w-screen-2xl -->
   <main class="bg-white p-1 max-w-screen-3xl rounded-xl shadow-2xl">
 
     <!-- Tabla de Metas de Ahorro -->
-    <div class="">
+    <div class="flex flex-col mb-4">
+      <div class="flex items-center justify-between">
+      <!-- Título de la sección -->
+      <div>
+        <h2 class="text-xl font-semibold m-4">Metas de Ahorro</h2>
+      </div>
+      <!-- Botón para Agregar Nueva Meta -->
+      <div>
+        <button onclick="toggleModal('modalCrearMeta')" class="bg-neutral-950 text-sm hover:bg-cyan-500 text-white mx-2 px-6 py-2 rounded-xl transition-all shadow-2xl">
+          Agregar Nueva Meta
+        </button>
+      </div>
+    </div>
+
       <table class="w-full text-md table-fixed">
         <thead class="bg-gray-100">
           <tr>

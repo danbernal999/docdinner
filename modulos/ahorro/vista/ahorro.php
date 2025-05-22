@@ -1,7 +1,6 @@
 <div class="bg-neutral-50 min-h-screen p-4 md:p-8 text-neutral-950">
-  
   <!-- Encabezado con mayor anchura -->
-  <header class="mb-6">
+  <header class="mb-4">
     <div class="flex items-center justify-between">
       <!-- Título de la sección -->
       <div>
@@ -9,7 +8,7 @@
       </div>
       <!-- Botón para Agregar Nueva Meta -->
       <div>
-        <button onclick="toggleModal('modalCrearMeta')" class="bg-neutral-950 text-sm hover:bg-cyan-500 text-white px-4 py-2 rounded-full transition-all shadow-xl">
+        <button onclick="toggleModal('modalCrearMeta')" class="bg-neutral-950 text-sm hover:bg-cyan-500 text-white mx-2 px-6 py-2 rounded-xl transition-all shadow-xl">
           Agregar Nueva Meta
         </button>
       </div>
@@ -17,10 +16,10 @@
   </header>
 
   <!-- Contenedor principal, ahora con max-w-screen-2xl -->
-  <main class="bg-white p-1 rounded-xl shadow-2xl">
+  <main class="bg-white p-1 max-w-screen-3xl rounded-xl shadow-2xl">
 
     <!-- Tabla de Metas de Ahorro -->
-    <div class="overflow-x-auto">
+    <div class="">
       <table class="w-full text-md table-fixed">
         <thead class="bg-gray-100">
           <tr>
@@ -43,7 +42,8 @@
             $progreso = ($cantidad_meta > 0) ? ($ahorrado / $cantidad_meta) * 100 : 0;
             $estado = (strtotime($row['fecha_limite']) < time()) ? "¡Meta vencida!" : "En curso";
             $claseFila = (strtotime($row['fecha_limite']) < time() && $ahorrado < $cantidad_meta) ? "bg-red-50" : "";
-            $colorBarra = ($progreso < 30) ? "bg-danger" : (($progreso < 70) ? "bg-yellow-500" : "bg-primary");
+            $colorBarra = ($progreso < 30) ? "bg-danger" : (($progreso < 70) ? "bg-cyan-500" : "bg-green-400");
+            $progreso = min($progreso, 100); // Limitar el progreso al 100%
             $metaCumplida = $ahorrado >= $cantidad_meta;
           ?>
           <tr class="<?= $claseFila ?>">
@@ -54,7 +54,7 @@
             <td>
               <div class="bg-gray-200 rounded-full h-4 overflow-hidden">
                 <div
-                  class="h-4 text-[10px] font-semibold text-white text-center rounded-full <?= $colorBarra ?>"
+                  class="h-4 text-[10px] font-semibold text-black text-center rounded-full <?= $colorBarra ?>"
                   style="width: <?= $progreso ?>%;">
                   <?= round($progreso) ?>%
                 </div>
@@ -64,22 +64,44 @@
             <td class="text-center text-sm">
               <?php if ($metaCumplida): ?>
                 <span class="inline-block bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs font-semibold">
-                  🎉 ¡Meta alcanzada!
+                  🎉 ¡Meta Alcanzada!
                 </span>
               <?php else: ?>
                 <?= htmlspecialchars($estado) ?>
               <?php endif; ?>
             </td>
             <td class="text-center">
-              <div class="flex flex-col space-y-1">
-              
-              <!-- Botón Editar con Modal -->
-                <button onclick="toggleModal('modalEditar<?= $row['id'] ?>')" class="block bg-blue-500 hover:bg-blue-600 text-white text-xs px-2 py-1 rounded-md">Editar</button>
-                <button onclick="confirmarEliminacion(<?= $row['id'] ?>)" class="block w-full bg-red-500 hover:bg-red-600 text-white text-xs px-2 py-1 rounded-md">Eliminar</button>
-                <button onclick="toggleModal('historialModal<?= $row['id'] ?>')" class="block w-full bg-gray-500 hover:bg-gray-600 text-white text-xs px-2 py-1 rounded-md">Historial</button>
-                <?php if (!$metaCumplida): ?>
-                <button onclick="toggleModal('modalAhorro<?= $row['id'] ?>')" class="block w-full bg-green-500 hover:bg-green-600 text-white text-xs px-2 py-1 rounded-md">Añadir Ahorro</button>
-                <?php endif; ?>
+              <div class="flex flex-col space-y-4">
+                <!-- Botón Editar con Modal -->
+                <div class="relative inline-block text-center">
+                <!-- Botón principal -->
+                <button onclick="toggleDropdown('acciones<?= $row['id'] ?>')" 
+                  class="bg-cyan-500 hover:bg-cyan-600 text-white text-xs px-2 py-1 rounded-md">
+                  Acciones +
+                </button>
+
+                <!-- Menú desplegable -->
+                <div id="acciones<?= $row['id'] ?>" class="hidden absolute z-10 mt-1 w-36 bg-white rounded-md shadow-md border border-gray-200">
+                  <button onclick="toggleModal('modalEditar<?= $row['id'] ?>')" 
+                    class="w-full text-center text-[11px] px-2 py-1 hover:bg-gray-100">
+                    ✏️ Editar
+                  </button>
+                  <button onclick="confirmarEliminacion(<?= $row['id'] ?>')" 
+                    class="w-full text-center text-[11px] px-2 py-1 hover:bg-red-100 text-red-600">
+                    🗑️ Eliminar
+                  </button>
+                  <button onclick="toggleModal('historialModal<?= $row['id'] ?>')" 
+                    class="w-full text-center text-[11px] px-2 py-1 hover:bg-gray-100">
+                    📜 Historial
+                  </button>
+                  <?php if (!$metaCumplida): ?>
+                  <button onclick="toggleModal('modalAhorro<?= $row['id'] ?>')" 
+                    class="w-full text-center text-[11px] px-2 py-1 hover:bg-green-100 text-green-700">
+                    💰 Añadir Ahorro
+                  </button>
+                  <?php endif; ?>
+                </div>
+              </div>
               </div>
             </td>
           </tr>
@@ -113,7 +135,6 @@
               </div>
             </div>
           </div>
-
 
           <!-- Modal Editar Meta -->
           <div id="modalEditar<?= $row['id'] ?>" class="hidden fixed inset-0 z-50 overflow-y-auto">

@@ -15,7 +15,7 @@
   ?>
 
   <!-- Main Content (ocupa el resto de la pantalla) -->
-  <main class="ml-60 flex-1">
+  <main class="ml-20 md:ml-60 flex-1">
       <?php
 
         $modulo = $_GET['modulo'] ?? 'dashboard';

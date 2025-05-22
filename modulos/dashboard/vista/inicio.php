@@ -14,7 +14,7 @@
         <h2 class="text-gray-800 text-lg font-semibold leading-tight">
           Bienvenido! <?= htmlspecialchars($_SESSION['nombre'] ?? 'Usuario') ?>
         </h2>
-        <p class="text-gray-500 text-sm">Controla y organiza tus gastos con la seguridad y facilidad que mereces.</p>
+        <p class="text-gray-500 text-sm">Controla & organiza tus gastos con la seguridad & facilidad que mereces.</p>
       </div>
 
     </div>

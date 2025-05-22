@@ -1,5 +1,5 @@
 <div class="bg-neutral-50 min-h-screen p-4 md:p-8">
-<header class="bg-white rounded-xl shadow-xl w-full mb-5">
+<header class="bg-white rounded-xl shadow-2xl w-full mb-5">
   <div class="max-w-8xl px-3 py-2 flex items-center justify-between">
     <!-- Sección de usuario -->
     <div class="flex items-center gap-4">
@@ -37,13 +37,13 @@
             <h2 class="text-xl font-semibold text-neutral-950">Balance General</h2>
           </div>
           <div>
-            <span class="text-2xl font-bold text-gray-800">$17,643.41</span>
+            <span class="text-xl font-bold text-gray-800">$17,643.41</span>
           </div>
         </div>
 
         <!-- Gráfico (placeholder) -->
         <div class="bg-gray-100 h-64 rounded-lg flex items-center justify-center p-4">
-          <canvas id="" class="w-full h-full">Grafica Aqui</canvas>
+          <canvas id="graficoDashboard" class="w-full h-full">Grafica Aqui</canvas>
         </div>
 
         <!-- Valor adicional o cambio -->
@@ -153,5 +153,11 @@
       </div>
     </div>
   </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="assets/js/dashboard/grafico.js"></script>
 </div>
+
+
 

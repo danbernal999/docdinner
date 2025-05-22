@@ -73,8 +73,5 @@
     </div>
     <!-- Seccion para los scripts.js -->
     <script src="assets/js/auth/login.js"></script>
-    <!-- Asegúrate de importar los scripts -->
-    <script type="module" src="../firebase/firebase.js"></script>
-    <script type="module" src="../firebase/login.js"></script>
 </body>
 </html>

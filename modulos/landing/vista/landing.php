@@ -130,6 +130,5 @@
     <!-- Seccion para los scripts -->
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="assets/js/landing/maps.js"></script>
-    <script type="module" src="/docdinner/auth/firebase/login.js"></script>
 </body>
 </html>

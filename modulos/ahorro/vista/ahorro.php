@@ -86,7 +86,7 @@
                     class="w-full text-center text-[11px] px-2 py-1 hover:bg-gray-100">
                     ✏️ Editar
                   </button>
-                  <button onclick="confirmarEliminacion(<?= $row['id'] ?>')" 
+                  <button onclick="confirmarEliminacion(<?= $row['id'] ?>)" 
                     class="w-full text-center text-[11px] px-2 py-1 hover:bg-red-100 text-red-600">
                     🗑️ Eliminar
                   </button>

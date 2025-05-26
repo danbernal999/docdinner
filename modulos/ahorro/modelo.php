@@ -29,9 +29,7 @@ class MetaAhorro {
         try{
             $sql = "INSERT INTO metas_ahorro (usuario_id ,nombre_meta, cantidad_meta, fecha_limite, descripcion) 
                     VALUES (:usuario_id, :nombre, :cantidad, :fecha, :descripcion)";
-            
             $stmt = $this->conn->prepare($sql);
-            
             $stmt->execute([
                 ':nombre' => $nombre_meta,
                 ':cantidad' => $cantidad_meta,
@@ -47,12 +45,15 @@ class MetaAhorro {
     }
 
     // Funcion para la eliminacion de Metas de Ahorro
-    public function eliminarMetaPorId($id) {
+    public function eliminarMetaPorId($id, $id_usuario) {
         try {
-            $sql = "DELETE FROM metas_ahorro WHERE id = :id";
+            $sql = "DELETE FROM metas_ahorro WHERE id = :id AND usuario_id = :usuario_id";
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute([':id' => $id]);
-            return true;
+            $stmt->execute([
+                ':id' => $id,
+                ':usuario_id' => $id_usuario
+            ]);
+            return $stmt->rowCount() > 0; // Retorna true si se eliminó al menos una fila
         } catch (PDOException $e) {
             // Puedes loguear esto en lugar de hacer echo directamente
             return "Error al eliminar: " . $e->getMessage();
@@ -64,7 +65,7 @@ class MetaAhorro {
         try {
             $sql = "SELECT * FROM metas_ahorro WHERE id = :id";
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute([':id' => $id]);
+            $stmt->execute([':id' => $id]); // Asegúrate de que el usuario tenga acceso a esta meta
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             return "Error al obtener la meta: " . $e->getMessage();
@@ -72,14 +73,14 @@ class MetaAhorro {
     }
 
     //funcion para actualizar los datos en una meta de ahorro
-    public function actualizarMeta($id, $nombre_meta, $cantidad_meta, $fecha_limite, $descripcion) {
+    public function actualizarMeta($id, $nombre_meta, $cantidad_meta, $fecha_limite, $descripcion, $id_usuario) {
         try {
             $sql = "UPDATE metas_ahorro 
                     SET nombre_meta = :nombre_meta, 
                         cantidad_meta = :cantidad_meta, 
                         fecha_limite = :fecha_limite, 
                         descripcion = :descripcion 
-                    WHERE id = :id";
+                    WHERE id = :id AND usuario_id = :usuario_id";
     
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
@@ -87,42 +88,38 @@ class MetaAhorro {
                 ':cantidad_meta' => $cantidad_meta,
                 ':fecha_limite' => $fecha_limite,
                 ':descripcion' => $descripcion,
-                ':id' => $id
+                ':id' => $id,
+                ':usuario_id' => $id_usuario 
             ]);
     
-            return true; // Actualización exitosa
+            return $stmt->rowCount() > 0; // Retorna true si se actualizó al menos una fila
         } catch (PDOException $e) {
             return "Error al actualizar la meta: " . $e->getMessage();
         }
     } 
 
     //Funcion sirve para actualizar las metas añadiendonle una cantidad 
-    public function añadirAhorroAMeta($meta_id, $cantidad_ahorrada, $descripcion = null) {
-        // Validar que la cantidad ingresada sea válida
+    public function añadirAhorroAMeta($meta_id, $cantidad_ahorrada, $descripcion = null, $id_usuario) {
         if ($cantidad_ahorrada <= 0) {
             return "La cantidad ahorrada debe ser mayor a 0.";
         }
-    
-        // Verificar si la meta existe
+
         $meta = $this->obtenerMetaPorId($meta_id);
         if (!$meta) {
-            return "Meta de ahorro no encontrada.";
+            return "Meta de ahorro no encontrada o no pertenece al usuario.";
         }
-    
+
         try {
-            // Iniciar transacción
-            $this->conn->beginTransaction(); //es de PDO inicia una transacción de base de datos .
-            //Luego puedes ejecutar varias consultas (INSERT, UPDATE, DELETE...) con el commit y el rollback.
-    
-            // Actualizar la meta
-            $sql_update = "UPDATE metas_ahorro SET ahorrado = ahorrado + :cantidad WHERE id = :id";
+            $this->conn->beginTransaction();
+
+            $sql_update = "UPDATE metas_ahorro SET ahorrado = ahorrado + :cantidad WHERE id = :id AND usuario_id = :usuario_id";
             $stmt_update = $this->conn->prepare($sql_update);
             $stmt_update->execute([
                 ':cantidad' => $cantidad_ahorrada,
-                ':id' => $meta_id
+                ':id' => $meta_id,
+                ':usuario_id' => $id_usuario
             ]);
-    
-            // Registrar en historial
+
             $sql_historial = "INSERT INTO historial_ahorros (meta_id, cantidad, descripcion1) VALUES (:meta_id, :cantidad, :descripcion)";
             $stmt_historial = $this->conn->prepare($sql_historial);
             $stmt_historial->execute([
@@ -130,12 +127,13 @@ class MetaAhorro {
                 ':cantidad' => $cantidad_ahorrada,
                 ':descripcion' => $descripcion
             ]);
-    
-            $this->conn->commit(); // Confirmar la transacción
+
+            $this->conn->commit();
             return true;
         } catch (PDOException $e) {
-            $this->conn->rollBack(); // Deshacer si hay error
+            $this->conn->rollBack();
             return "Error al añadir el ahorro: " . $e->getMessage();
         }
     }
+
 }

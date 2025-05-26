@@ -13,12 +13,23 @@
       });
     });
 
-    // Confirmar eliminación
+     // Confirmar eliminación
     function confirmarEliminacion(metaId) {
       if (confirm("¿Estás seguro de que deseas eliminar esta meta?")) {
         window.location.href = "index.php?ruta=main&modulo=ahorro&accion=eliminar&id=" + metaId;
       }
-    }
+    } 
+
+/*  function openDeleteModal(metaId) {
+      const modal = document.getElementById('confirmDeleteModal');
+      const confirmBtn = document.getElementById('confirmDeleteBtn');
+      confirmBtn.href = `index.php?ruta=main&modulo=ahorro&accion=eliminar&id=${metaId}`;
+      modal.classList.remove('hidden');
+  }
+
+  function closeDeleteModal() {
+    document.getElementById('confirmDeleteModal').classList.add('hidden');
+  } */
 
 function toggleDropdown(id) {
       const menu = document.getElementById(id);
@@ -33,3 +44,4 @@ function toggleDropdown(id) {
         }
       });
     });
+

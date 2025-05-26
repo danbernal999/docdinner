@@ -9,7 +9,7 @@ class AhorroController {
     }
 
     public function ahorro() {
-        $id_usuario = $_SESSION['usuario_id'] ?? null;
+        $id_usuario = $_SESSION['usuario_id'];
 
         if(isset($_GET['accion'])){
             $accion = $_GET['accion'];
@@ -17,7 +17,7 @@ class AhorroController {
             switch($accion){
                 case 'eliminar':
                     $id = $_GET['id'];
-                    $resultado = $this->metaAhorroModel->eliminarMetaPorId($id);
+                    $resultado = $this->metaAhorroModel->eliminarMetaPorId($id, $id_usuario);
                 
                     if ($resultado === true) {
                         header("Location: index.php?ruta=main&modulo=ahorro&mensaje=meta_eliminada");
@@ -31,7 +31,7 @@ class AhorroController {
                     $cantidad_ahorrada = floatval($_POST["cantidad_ahorrada"]);
                     $descripcion = $_POST["descripcion"] ?? null;
 
-                    $resultado = $this->metaAhorroModel->añadirAhorroAMeta($meta_id, $cantidad_ahorrada, $descripcion);
+                    $resultado = $this->metaAhorroModel->añadirAhorroAMeta($meta_id, $cantidad_ahorrada, $descripcion, $id_usuario);
 
                     if ($resultado === true) {
                         header("Location: index.php?ruta=main&modulo=ahorro&mensaje=ahorro_guardado");
@@ -61,7 +61,7 @@ class AhorroController {
                 $fecha_limite = $_POST['fecha_limite'];
                 $descripcion = $_POST['descripcion'];
 
-                $resultado = $this->metaAhorroModel->actualizarMeta($id, $nombre_meta, $cantidad_meta, $fecha_limite, $descripcion);                 
+                $resultado = $this->metaAhorroModel->actualizarMeta($id, $nombre_meta, $cantidad_meta, $fecha_limite, $descripcion, $id_usuario);                 
                 if ($resultado === true) {
                     header("Location: index.php?ruta=main&modulo=ahorro&mensaje=meta_actualizada");
                     exit;

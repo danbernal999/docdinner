@@ -8,6 +8,7 @@ class MainController {
             exit;
         }
         $nombreUsuario = $_SESSION["nombre"];
+
         include 'main/vista/main.php';
     }
 }

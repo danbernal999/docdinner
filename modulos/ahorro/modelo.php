@@ -7,10 +7,12 @@ class MetaAhorro {
         $this->conn = $conn;
     }
 
-    // Obtener todas las metas de ahorro
-    public function obtenerTodasLasMetas(){
-        $sql = "SELECT * FROM metas_ahorro";
-        $stmt = $this->conn->query($sql);
+    // Obtener todas las metas de ahorro por usuario
+    public function obtenerTodasLasMetasPorUsuario($id_usuario) {
+        $sql = "SELECT * FROM metas_ahorro WHERE usuario_id = :usuario_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':usuario_id' => $id_usuario]);
+        
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -23,10 +25,10 @@ class MetaAhorro {
     }
 
     //Funcion para crear una nueva meta de ahorro 
-    public function guardarMeta($nombre_meta, $cantidad_meta, $fecha_limite, $descripcion) {
+    public function guardarMeta($nombre_meta, $cantidad_meta, $fecha_limite, $descripcion, $id_usuario) {
         try{
-            $sql = "INSERT INTO metas_ahorro (nombre_meta, cantidad_meta, fecha_limite, descripcion) 
-                    VALUES (:nombre, :cantidad, :fecha, :descripcion)";
+            $sql = "INSERT INTO metas_ahorro (usuario_id ,nombre_meta, cantidad_meta, fecha_limite, descripcion) 
+                    VALUES (:usuario_id, :nombre, :cantidad, :fecha, :descripcion)";
             
             $stmt = $this->conn->prepare($sql);
             
@@ -34,7 +36,8 @@ class MetaAhorro {
                 ':nombre' => $nombre_meta,
                 ':cantidad' => $cantidad_meta,
                 ':fecha' => $fecha_limite,
-                ':descripcion' => $descripcion
+                ':descripcion' => $descripcion,
+                ':usuario_id' => $id_usuario
             ]);
             return "✅ Meta guardada exitosamente.";
 

@@ -17,15 +17,13 @@ class ProductosController {
         $categoriaSeleccionada = null;
         $ordenSeleccionado = null;
         $mensaje = null;
+        $id_usuario = $_SESSION['usuario_id'] ?? null;
 
         // Manejo de acciones GET
         if (isset($_GET['accion'])) {
             $accion = $_GET['accion'];
 
             switch ($accion) {
-                case 'crear':
-                    include 'modulos/productos/vista/crear.php';
-                    return;
                 case 'eliminar':
                     if (isset($_GET['id'])) {
                         $id = $_GET['id'];
@@ -53,6 +51,7 @@ class ProductosController {
                 $categoria = $_POST['categoria'] ?? '';
                 $descripcion = $_POST['descripcion'] ?? '';
                 $fecha = $_POST['fecha'] ?? '';
+                $idUsuario = $_POST['id_usuario'] ?? '';
                 
                 
 
@@ -62,7 +61,7 @@ class ProductosController {
                     exit();
                 }
 
-                $resultado = $this->productoModel->guardarGastoFijo($nombre, $monto, $categoria, $descripcion, $fecha);
+                $resultado = $this->productoModel->guardarGastoFijo($nombre, $monto, $categoria, $descripcion, $fecha, $idUsuario);
 
                 if ($resultado === true) {
                     header('Location: index.php?ruta=main&modulo=productos&mensaje=gasto_guardado');
@@ -96,7 +95,7 @@ class ProductosController {
 
             // Ver total general
             if (isset($_POST['ver_total'])) {
-                $total_gastos = $this->productoModel->obtenerTotalGastos();
+                $total_gastos = $this->productoModel->obtenerTotalGastosPorUsuario($id_usuario);
             }
 
             // Buscar por categoría
@@ -119,7 +118,7 @@ class ProductosController {
 
             // Si no hay filtros aplicados, cargar todos
             if (empty($gastos)) {
-                $gastos = $this->productoModel->obtenerTodos();
+                $gastos = $this->productoModel->obtenerTodosPorUsuario($id_usuario);
             }
 
             include 'modulos/productos/vista/productos.php';
@@ -127,7 +126,7 @@ class ProductosController {
         }
 
         // Si no hay POST ni GET, mostrar todos los gastos
-        $gastos = $this->productoModel->obtenerTodos();
+        $gastos = $this->productoModel->obtenerTodosPorUsuario($id_usuario);
         include 'modulos/productos/vista/productos.php';
     }
 }

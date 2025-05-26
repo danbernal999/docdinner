@@ -9,15 +9,12 @@ class AhorroController {
     }
 
     public function ahorro() {
+        $id_usuario = $_SESSION['usuario_id'] ?? null;
 
         if(isset($_GET['accion'])){
             $accion = $_GET['accion'];
 
             switch($accion){
-                case 'crear':
-                    include 'modulos/ahorro/vista/crear.php';
-                    break;
-
                 case 'eliminar':
                     $id = $_GET['id'];
                     $resultado = $this->metaAhorroModel->eliminarMetaPorId($id);
@@ -50,8 +47,9 @@ class AhorroController {
                 $cantidad_meta = $_POST['cantidad_meta'];
                 $fecha_limite = $_POST['fecha_limite'];
                 $descripcion = $_POST['descripcion'];
+                $id_usuario = $_POST['id_usuario'];
 
-                $mensaje = $this->metaAhorroModel->guardarMeta($nombre_meta, $cantidad_meta, $fecha_limite, $descripcion); //Crea la meta en el modelo                
+                $mensaje = $this->metaAhorroModel->guardarMeta($nombre_meta, $cantidad_meta, $fecha_limite, $descripcion, $id_usuario); //Crea la meta en el modelo                
                 // Redirige después de procesar el formulario (previene reenvío)
                 header("Location: index.php?ruta=main&modulo=ahorro&mensaje=meta_creada"); //mensaje se puede capturar mostrar la alerta
                 exit; // 👈 Detiene aquí mismo el script después de una redirección con header().
@@ -74,7 +72,7 @@ class AhorroController {
 
         }else{
             // Consulta metas de ahorro
-            $result = $this->metaAhorroModel->obtenerTodasLasMetas();
+            $result = $this->metaAhorroModel->obtenerTodasLasMetasPorUsuario($id_usuario);
             include 'modulos/ahorro/vista/ahorro.php';
         }
         

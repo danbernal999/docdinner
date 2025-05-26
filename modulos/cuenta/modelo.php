@@ -49,6 +49,13 @@ class UsuarioModel {
             return "Falla al realizar cambio de correo";
         }
     }
+
+    public function actualizarFoto($idUsuario, $rutaFoto) {
+        $sql = "UPDATE usuarios SET foto = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$rutaFoto, $idUsuario]);
+    }
+
 }
 
 ?>

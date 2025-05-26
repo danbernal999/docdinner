@@ -70,6 +70,8 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">
+
+          <!-- foreach = Por cada | as = Como -->
             <?php foreach ($gastos as $gasto): ?>
               <tr>
                 <td class="whitespace-nowrap px-4 py-3 text-sm font-medium text-neutral-950"><?= htmlspecialchars($gasto['nombre_gasto']) ?></td>
@@ -153,7 +155,7 @@
   <?php endforeach; ?>
 
   <!-- Modal para añadir gasto -->
-  <?php foreach ($gastos as $gasto): ?>
+  
     <!-- Modal para añadir gasto -->
     <div id="modal-crear-gasto" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-[calc(100%)] max-h-full bg-black/70 backdrop-blur-md">
     <div class="relative p-4 w-full max-w-md max-h-full">
@@ -171,6 +173,8 @@
 
         <!-- Modal Body: Formulario -->
         <form action="index.php?ruta=main&modulo=productos" method="POST" class="p-4">
+          <input type="hidden" name="id_usuario" value="<?= $_SESSION['usuario_id'] ?>">
+
           <div class="mb-4">
             <label for="nombre_gasto" class="block mb-2 text-sm font-medium text-gray-900">Nombre del Gasto</label>
             <input type="text" name="nombre_gasto" id="nombre_gasto" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" />
@@ -212,8 +216,7 @@
       </div>
     </div>
   </div>
-
-  <?php endforeach; ?>
+  
   
   <!-- Script para toggle de modales -->
   <script src="assets/js/productos/modals.js"></script>

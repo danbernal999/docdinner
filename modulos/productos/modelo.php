@@ -6,17 +6,23 @@ class Producto{
         $this->conn = $db;
     }
 
-    // Obtener todos los gastos
-    public function obtenerTodos() {
-        $sql = "SELECT * FROM gastos_fijos";
-        $stmt = $this->conn->query($sql);
+    // Obtener todos los gastos por cada usuario
+    public function obtenerTodosPorUsuario($id_usuario) {
+        $sql = "SELECT * FROM gastos_fijos WHERE usuario_id = :usuario_id ORDER BY fecha DESC";
+        $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':usuario_id' => $id_usuario
+            ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Obtener el total de todos los gastos
-    public function obtenerTotalGastos() {
-        $sql = "SELECT SUM(monto) AS total_gastos FROM gastos_fijos";
-        $stmt = $this->conn->query($sql);
+    public function obtenerTotalGastosPorUsuario($id_usuario) {
+        $sql = "SELECT SUM(monto) AS total_gastos FROM gastos_fijos WHERE usuario_id = :usuario_id";
+        $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':usuario_id' => $id_usuario
+            ]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_gastos'] ?? 0;
     }
@@ -47,12 +53,13 @@ class Producto{
     }
 
     //Funcion para guardar o crear un nuevo producto(Gastos)
-    public function guardarGastoFijo($nombre, $monto, $categoria, $descripcion, $fecha) {
+    public function guardarGastoFijo($nombre, $monto, $categoria, $descripcion, $fecha, $idUsuario) {
         try {
-            $sql = "INSERT INTO gastos_fijos (nombre_gasto, monto, categoria, descripcion, fecha) 
-                    VALUES (:nombre_gasto, :monto, :categoria, :descripcion, :fecha)";
+            $sql = "INSERT INTO gastos_fijos (usuario_id, nombre_gasto, monto, categoria, descripcion, fecha) 
+                    VALUES (:id_usuario, :nombre_gasto, :monto, :categoria, :descripcion, :fecha)";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
+                ':id_usuario' => $idUsuario,
                 ':nombre_gasto' => $nombre,
                 ':monto' => $monto,
                 ':categoria' => $categoria,

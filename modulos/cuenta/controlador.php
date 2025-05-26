@@ -43,7 +43,6 @@ include 'modulos/cuenta/modelo.php';
 
                if (filter_var($nuevoCorreo, FILTER_VALIDATE_EMAIL)) {
 
-                    $usuarioModel = new UsuarioModel($conn);
                     $resultado = $this->usuarioModel->actualizarCorreo($idUsuario, $nuevoCorreo);
 
                     if ($resultado === true) {
@@ -57,10 +56,38 @@ include 'modulos/cuenta/modelo.php';
                     exit();
                 }
             }
-        }else{
+        } elseif (isset($_POST['changeFoto']) && isset($_FILES['foto_perfil'])) {
+            $foto = $_FILES['foto_perfil'];
+
+            if ($foto['error'] === UPLOAD_ERR_OK) {
+                $nombreTemporal = $foto['tmp_name'];
+                $extension = pathinfo($foto['name'], PATHINFO_EXTENSION);
+                $nombreFinal = uniqid("perfil_") . '.' . $extension;
+
+                $rutaDestino = 'uploads/' . $nombreFinal;
+
+                if (move_uploaded_file($nombreTemporal, $rutaDestino)) {
+                    // Guardar la ruta en la base de datos
+                    $this->usuarioModel->actualizarFoto($idUsuario, $rutaDestino);
+
+                    // Guardar la ruta en la sesión
+                    $_SESSION['foto'] = $rutaDestino;
+
+                    header("Location: index.php?ruta=main&modulo=cuenta&mensaje=foto_cambiada");
+                    exit();
+                } else {
+                    header("Location: index.php?ruta=main&modulo=cuenta&mensaje=error_subida");
+                    exit();
+                }
+            } else {
+                header("Location: index.php?ruta=main&modulo=cuenta&mensaje=archivo_invalido");
+                exit();
+            }
+        } else {
             $usuario = $this->usuarioModel->obtenerUsuarioPorId($idUsuario);
             include 'modulos/cuenta/vista/cuenta.php';
         }
+
         
 
     }

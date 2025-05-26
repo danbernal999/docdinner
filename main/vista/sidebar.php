@@ -14,6 +14,10 @@
                 <i class="ri-bar-chart-line text-2xl"></i>
                 <span class="ml-2 text-sm font-medium hidden md:inline">Análisis</span>
             </a>
+            <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-cyan-500 hover:text-cyan-50" href="index.php?ruta=main&modulo=productos">
+                <i class="ri-price-tag-3-line text-2xl"></i>
+                <span class="ml-2 text-sm font-medium hidden md:inline">Productos</span>
+            </a>
             <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-cyan-500 hover:text-cyan-50" href="index.php?ruta=main&modulo=ahorro">
                 <i class="ri-bank-line text-2xl"></i>
                 <span class="ml-2 text-sm font-medium hidden md:inline">Ahorro</span>
@@ -21,11 +25,7 @@
         </div>
 
         <div class="flex flex-col w-full mb-4 border-t border-gray-700 pt-4">
-            <a class="flex items-center w-full h-12 px-3 rounded hover:bg-cyan-500 hover:text-cyan-50" href="index.php?ruta=main&modulo=productos">
-                <i class="ri-price-tag-3-line text-2xl"></i>
-                <span class="ml-2 text-sm font-medium hidden md:inline">Productos</span>
-            </a>
-            <a class="relative flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-cyan-500 hover:text-cyan-50" href="index.php?ruta=main&modulo=notificaciones">
+            <a class="relative flex items-center w-full h-12 px-3 rounded hover:bg-cyan-500 hover:text-cyan-50" href="index.php?ruta=main&modulo=notificaciones">
                 <i class="ri-chat-1-line text-2xl"></i>
                 <span class="ml-2 text-sm font-medium hidden md:inline">Notificaciones</span>
             </a>

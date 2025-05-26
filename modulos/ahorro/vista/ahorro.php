@@ -11,16 +11,14 @@
       </div>
       <!-- Botón para Agregar Nueva Meta -->
       <div>
-        <button onclick="toggleModal('modalCrearMeta')" class="bg-neutral-950 text-sm hover:bg-cyan-500 text-white mx-2 px-6 py-2 rounded-xl transition-all shadow-2xl">
-          Agregar Nueva Meta
-        </button>
+        <button onclick="toggleModal('modalCrearMeta')" class="bg-neutral-950 text-sm hover:bg-cyan-500 text-white mx-2 px-6 py-2 rounded-xl transition-all shadow-2xl">Agregar Nueva Meta</button>
       </div>
     </div>
 
       <table class="w-full text-md table-fixed">
         <thead class="bg-gray-100">
           <tr>
-            <th class="px-4 py-3 font-semibold text-center">ID</th>
+            <!-- <th class="px-4 py-3 font-semibold text-center">ID</th> -->
             <th class="px-4 py-3 font-semibold text-center">Nombre</th>
             <th class="px-4 py-3 font-semibold text-center">Cantidad</th>
             <th class="px-4 py-3 font-semibold text-center">Ahorrado</th>
@@ -44,7 +42,7 @@
             $metaCumplida = $ahorrado >= $cantidad_meta;
           ?>
           <tr class="<?= $claseFila ?>">
-            <td class="text-center text-sm font-medium"><?= $row['id'] ?></td>
+            <!-- <td class="text-center text-sm font-medium"><?= $row['id'] ?></td> -->
             <td class="text-center text-sm"><?= htmlspecialchars($row['nombre_meta']) ?></td>
             <td class="text-center text-sm whitespace-nowrap">$<?= number_format($cantidad_meta, 2) ?> COP</td>
             <td class="text-center text-sm whitespace-nowrap">$<?= number_format($ahorrado, 2) ?> COP</td>
@@ -103,42 +101,12 @@
             </td>
           </tr>
 
-          <!-- Modal Crear Nueva Meta -->
-          <div id="modalCrearMeta" class="hidden fixed inset-0 z-50 overflow-y-auto">
-            <div class="flex items-center justify-center min-h-screen bg-black bg-opacity-50 px-4">
-              <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
-                <div class="flex justify-between items-center mb-4">
-                  <h5 class="text-xl font-bold">Agregar Nueva Meta de Ahorro</h5>
-                  <button onclick="toggleModal('modalCrearMeta')" class="text-gray-500 text-2xl leading-none">&times;</button>
-                </div>
-                <form action="index.php?ruta=main&modulo=ahorro" method="POST">
-                  <label class="block text-sm font-medium text-neutral-700 mt-2">Nombre de la Meta</label>
-                  <input type="text" name="nombre_meta" required class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1">
-
-                  <label class="block text-sm font-medium text-neutral-700 mt-3">Cantidad Objetivo</label>
-                  <input type="number" name="cantidad_meta" step="0.01" required class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1">
-
-                  <label class="block text-sm font-medium text-neutral-700 mt-3">Fecha Límite</label>
-                  <input type="date" name="fecha_limite" required class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1">
-
-                  <label class="block text-sm font-medium text-neutral-700 mt-3">Descripción (opcional)</label>
-                  <textarea name="descripcion" rows="3" class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1"></textarea>
-
-                  <div class="mt-4 flex justify-end space-x-2">
-                    <button type="button" onclick="toggleModal('modalCrearMeta')" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancelar</button>
-                    <button type="submit" name="crearMeta" class="px-4 py-2 bg-neutral-950 text-white rounded-md hover:bg-cyan-600">Guardar Meta</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
           <!-- Modal Editar Meta -->
           <div id="modalEditar<?= $row['id'] ?>" class="hidden fixed inset-0 z-50 overflow-y-auto">
             <div class="flex items-center justify-center min-h-screen bg-black bg-opacity-50 px-4">
               <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
                 <div class="flex justify-between items-center mb-4">
-                  <h5 class="text-xl font-bold">Editar Meta<br><span class="text-base font-normal">"<?= htmlspecialchars($row['nombre_meta']) ?>"</span></h5>
+                  <h5 class="text-xl font-bold">Editar Meta<br></h5>
                   <button onclick="toggleModal('modalEditar<?= $row['id'] ?>')" class="text-gray-500 text-2xl leading-none">&times;</button>
                 </div>
                 <form action="index.php?ruta=main&modulo=ahorro" method="POST">
@@ -170,7 +138,7 @@
             <div class="flex items-center justify-center min-h-screen bg-black bg-opacity-50 px-4">
               <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
                 <div class="flex justify-between items-center mb-4">
-                  <h5 class="text-xl font-bold">Añadir Ahorro a "<?= htmlspecialchars($row['nombre_meta']) ?>"</h5>
+                  <h5 class="text-xl font-bold">Añadir Ahorro a <?= htmlspecialchars($row['nombre_meta']) ?></h5>
                   <button onclick="toggleModal('modalAhorro<?= $row['id'] ?>')" class="text-gray-500 text-2xl leading-none">&times;</button>
                 </div>
                 <form action="index.php?ruta=main&modulo=ahorro&accion=ahorroGuardar" method="POST">
@@ -198,7 +166,7 @@
             <div class="flex items-center justify-center min-h-screen bg-black bg-opacity-50 px-4">
               <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
                 <div class="flex justify-between items-center mb-4">
-                  <h5 class="text-xl font-bold">Historial de Ahorros<br><span class="text-base font-normal">"<?= htmlspecialchars($row['nombre_meta']) ?>"</span></h5>
+                  <h5 class="text-xl font-bold">Historial de Ahorros<br></h5>
                   <button onclick="toggleModal('historialModal<?= $row['id'] ?>')" class="text-gray-500 text-2xl leading-none">&times;</button>
                 </div>
                 <div class="max-h-72 overflow-y-auto space-y-3">
@@ -221,7 +189,40 @@
           <?php endforeach; ?>
         </tbody>
       </table>
-    </div>
+
+      <!-- Modal Crear Nueva Meta -->
+      <div id="modalCrearMeta" class="hidden fixed inset-0 z-50 overflow-y-auto">
+            <div class="flex items-center justify-center min-h-screen bg-black bg-opacity-50 px-4">
+              <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
+                <div class="flex justify-between items-center mb-4">
+                  <h5 class="text-xl font-bold">Agregar Nueva Meta de Ahorro</h5>
+                  <button onclick="toggleModal('modalCrearMeta')" class="text-gray-500 text-2xl leading-none">&times;</button>
+                </div>
+                <form action="index.php?ruta=main&modulo=ahorro" method="POST">
+                  <input type="hidden" name="id_usuario" value="<?= $_SESSION['usuario_id'] ?>">
+
+                  <label class="block text-sm font-medium text-neutral-700 mt-2">Nombre de la Meta</label>
+                  <input type="text" name="nombre_meta" required class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1">
+
+                  <label class="block text-sm font-medium text-neutral-700 mt-3">Cantidad Objetivo</label>
+                  <input type="number" name="cantidad_meta" step="0.01" required class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1">
+
+                  <label class="block text-sm font-medium text-neutral-700 mt-3">Fecha Límite</label>
+                  <input type="date" name="fecha_limite" required class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1">
+
+                  <label class="block text-sm font-medium text-neutral-700 mt-3">Descripción (opcional)</label>
+                  <textarea name="descripcion" rows="3" class="w-full bg-gray-100 text-neutral-950 rounded-md border border-gray-300 p-2 mt-1"></textarea>
+
+                  <div class="mt-4 flex justify-end space-x-2">
+                    <button type="button" onclick="toggleModal('modalCrearMeta')" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancelar</button>
+                    <button type="submit" name="crearMeta" class="px-4 py-2 bg-neutral-950 text-white rounded-md hover:bg-cyan-600">Guardar Meta</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+      </div>
   </main>
 
   <script src="assets/js/ahorro/modals.js"></script>

@@ -7,6 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="assets/js/main/tailwind-config.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon">
 </head>
 <body class="bg-dark text-white flex">
   <!-- Sidebar -->

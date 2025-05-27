@@ -1,9 +1,9 @@
 <div class="bg-neutral-50 min-h-screen p-4 md:p-8 text-neutral-950">
   <!-- Contenedor principal, ahora con max-w-screen-2xl -->
-  <main class="bg-white p-1 max-w-screen-3xl rounded-xl shadow-2xl">
+  <main class="bg-white p-1 max-w-svw rounded-xl shadow-2xl">
 
     <!-- Tabla de Metas de Ahorro -->
-    <div class="flex flex-col mb-4">
+    <div class="flex flex-col m-2">
       <div class="flex items-center justify-between">
       <!-- Título de la sección -->
       <div>
@@ -15,7 +15,8 @@
       </div>
     </div>
 
-      <table class="w-full text-md table-fixed">
+    <div class="">
+      <table class="w-full text-md table-auto md:table-fixed">
         <thead class="bg-gray-100">
           <tr>
             <!-- <th class="px-4 py-3 font-semibold text-center">ID</th> -->
@@ -202,6 +203,8 @@
           <?php endforeach; ?>
         </tbody>
       </table>
+    </div>
+      
 
       <!-- Modal Crear Nueva Meta -->
       <div id="modalCrearMeta" class="hidden fixed inset-0 z-50 overflow-y-auto">
@@ -234,7 +237,6 @@
               </div>
             </div>
           </div>
-
       </div>
   </main>
 

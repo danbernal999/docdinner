@@ -1,4 +1,4 @@
-<div class="bg-neutral-50 min-h-screen p-4 md:p-8 text-neutral-950">
+<div class="bg-neutral-50 min-h-screen p-4 md:p-8 text-neutral-950 max-w-svw">
   <!-- Contenedor principal -->
   <div class="space-y-6">
     <!-- Filtros -->

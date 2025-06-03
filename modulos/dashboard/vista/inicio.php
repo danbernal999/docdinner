@@ -191,18 +191,19 @@
   <!-- Resumen del Mes (a la derecha) -->
   <div class="md:col-span-2 bg-white p-6 rounded-xl shadow-2xl h-full">
     <div class="flex flex-col md:flex-row items-start justify-between gap-5">
-      
       <!-- Columna de texto -->
       <div class="flex-1">
         <h3 class="text-lg font-semibold text-gray-800 mb-2">Resumen del Mes</h3>
         <p class="text-sm text-gray-600">Gasto total: <strong>$1.500.000</strong></p>
         <p class="text-sm text-gray-600">Categoría más activa: <strong>Comida</strong></p>
-        <p class="text-sm text-gray-600 text-red-500">¡Cuidado! Superaste tu límite diario.</p>
         <p class="text-sm text-gray-600">Ahorro mensual: <strong>$500.000</strong></p>
         <p class="text-sm text-gray-600">Objetivo de ahorro: <strong>$1.000.000</strong></p>
         <p class="text-sm text-gray-600">Progreso: <strong>50%</strong></p>
         <p class="text-sm text-gray-600">Próximo vencimiento: <strong>05 Jun 2025</strong></p>
-        <p class="text-sm text-gray-600">Gasto más alto: <strong>Vivienda - $1.000.000</strong></p>
+        <p class="text-sm text-gray-600">Gasto más alto: <strong>Vivienda - $1.000.000</strong></p> 
+        
+        <br><br><br><br>
+        <p class="text-sm text-gray-600 text-red-500">¡Cuidado! Superaste tu límite diario.</p>
       </div>
 
       <!-- Columna de gráfica -->

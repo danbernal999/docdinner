@@ -46,7 +46,7 @@
                 <h1>Iniciar Sesión</h1>
                 <input type="email" name="correo" placeholder="Correo" required>
                 <input type="password" name="password" placeholder="Contraseña" required>
-                <a href="index.php?ruta=recovery.php">¿Olvidaste tu contraseña?</a>
+                <a href="index.php?ruta=recovery">¿Olvidaste tu contraseña?</a>
                 <button type="submit" name="login">Iniciar Sesión</button>
                 <span>o continuar con</span>
                 <div class="social-icons">

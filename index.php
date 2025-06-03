@@ -29,6 +29,14 @@ switch ($ruta) {
         $controller = new LogoutController();
         $controller->logout(); //Funcion que destruye la session
         break;
+
+    case 'recovery':
+        include 'auth/recuperar/controlador.php';
+        require_once 'config/database.php';
+        $conn = getDB(); 
+        $controller = new RecuperarController($conn);
+        $controller->recuperar(); //Funcion del index. no tiene mucha ciencia 
+        break;
 }
 
 ?>

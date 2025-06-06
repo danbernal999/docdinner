@@ -51,8 +51,13 @@ class AhorroController {
 
                 $mensaje = $this->metaAhorroModel->guardarMeta($nombre_meta, $cantidad_meta, $fecha_limite, $descripcion, $id_usuario); //Crea la meta en el modelo                
                 // Redirige después de procesar el formulario (previene reenvío)
-                header("Location: index.php?ruta=main&modulo=ahorro&mensaje=meta_creada"); //mensaje se puede capturar mostrar la alerta
-                exit; // 👈 Detiene aquí mismo el script después de una redirección con header().
+                if($mensaje){
+                    header("Location: index.php?ruta=main&modulo=ahorro&mensaje=meta_creada"); //mensaje se puede capturar mostrar la alerta
+                    exit; // 👈 Detiene aquí mismo el script después de una redirección con header().
+                }else{
+                    header("Location: index.php?ruta=main&modulo=ahorro&mensaje=error_al_crear"); 
+                    exit;
+                }
 
             }elseif(isset($_POST['actualizarMeta'])){ 
                 $id = $_POST['id'];

@@ -110,6 +110,22 @@ class Producto{
             return "Error al eliminar gasto: " . $e->getMessage();
         }
     }
+    // Función para obtener el gasto fijo más alto de un usuario
+    public function obtenerGastoFijoMasAlto($idUsuario) {
+        try {
+            $sql = "SELECT nombre_gasto, monto, categoria 
+                    FROM gastos_fijos 
+                    WHERE usuario_id = :id_usuario 
+                    ORDER BY monto DESC 
+                    LIMIT 1";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([':id_usuario' => $idUsuario]);
+
+            return $stmt->fetch(PDO::FETCH_ASSOC); // Retorna nombre_gasto, monto y categoría
+        } catch (PDOException $e) {
+            return "Error al obtener gasto más alto: " . $e->getMessage();
+        }
+    }
 }
 
 

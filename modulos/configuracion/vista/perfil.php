@@ -5,7 +5,7 @@
       <!-- Tarjeta de Usuario -->
       <div class="md:w-1/2 bg-white p-6 rounded-lg shadow-2xl">
         <div class="flex flex-col items-center mb-6">
-          <img src="assets/icons/user-profile-icon-free-vector.jpg" alt="Perfil" class="rounded-full w-25 h-24">
+          <img src="<?= htmlspecialchars($rutaFoto) ?>" alt="Perfil" class="rounded-full w-25 h-24">
           <button class="mt-4 bg-neutral-500 hover:bg-cyan-500 text-white py-2 px-4 rounded-full transition">
             Modificar
           </button>

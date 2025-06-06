@@ -5,7 +5,7 @@
     <div class="flex items-center gap-4">
       <!-- Imagen de perfil -->
       <img
-        src="assets/icons/user-profile-icon-free-vector.jpg"
+        src="<?= htmlspecialchars($rutaFoto) ?>"
         alt="Foto Perfil"
         class="w-12 h-12 rounded-full object-cover"
       />

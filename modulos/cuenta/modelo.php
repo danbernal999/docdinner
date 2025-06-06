@@ -51,9 +51,10 @@ class UsuarioModel {
     }
 
     public function actualizarFoto($idUsuario, $rutaFoto) {
-        $sql = "UPDATE usuarios SET foto = ? WHERE id = ?";
-        $stmt = $this->conn->prepare($sql);
-        return $stmt->execute([$rutaFoto, $idUsuario]);
+        $stmt = $this->conn->prepare("UPDATE usuarios SET foto = :foto WHERE id = :id");
+        $stmt->bindParam(":foto", $rutaFoto);
+        $stmt->bindParam(":id", $idUsuario, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 
 }

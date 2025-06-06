@@ -19,23 +19,22 @@
         </div>
 
         <!-- RECUPERAR CONTRASEÑA -->
-        <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
-            <form action="index.php?ruta=recovery" method="POST">
+        <div id="recovery-container" class="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+            <form id="recovery-form" action="index.php?ruta=recovery" method="POST">
                 <h1 class="text-2xl font-bold mb-4 text-center">Recuperar Contraseña</h1>
                 <p class="text-sm text-gray-600 mb-4 text-center">Ingresa tu correo electrónico y te enviaremos instrucciones para restablecer tu contraseña.</p>
 
                 <!-- Alertas -->
-                <?php if (!empty($mensaje)): ?>
-                    <div class="bg-blue-100 text-blue-800 px-4 py-2 rounded mb-4 text-sm text-center">
-                        <?= htmlspecialchars($mensaje) ?>
-                    </div>
-                <?php endif; ?>
+                <div id="alerta-recuperar"></div>
 
                 <input type="email" name="correo" placeholder="Correo electrónico" required class="w-full mb-4 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
                 <button type="submit" name="recuperar" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">Enviar</button>
             </form>
         </div>
     </div>
+    <!-- Scripts -->
+     <script src="assets/js/alertas.js"></script>
+     <script src="assets/js/recuperacion/formRecovery.js"></script>
 </body>
 </html>
 

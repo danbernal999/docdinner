@@ -24,6 +24,7 @@ class AuthController {
                         session_start();
                         $_SESSION["usuario_id"] = $user["id"];
                         $_SESSION["nombre"] = $user["nombre"];
+                        $_SESSION["foto"] = $user["foto"];
                         header('Location: index.php?ruta=main');
                         exit;
                     } else {

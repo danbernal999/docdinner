@@ -55,36 +55,60 @@ include 'modulos/cuenta/modelo.php';
                     header("Location: index.php?ruta=main&modulo=cuenta&mensaje=correo_no_valido");
                     exit();
                 }
-            }
-        } elseif (isset($_POST['changeFoto']) && isset($_FILES['foto_perfil'])) {
-            $foto = $_FILES['foto_perfil'];
+            }elseif(isset($_POST['changeFoto']) && isset($_FILES['foto_perfil'])) {
+                $foto = $_FILES['foto_perfil'];
 
-            if ($foto['error'] === UPLOAD_ERR_OK) {
-                $nombreTemporal = $foto['tmp_name'];
-                $extension = pathinfo($foto['name'], PATHINFO_EXTENSION);
-                $nombreFinal = uniqid("perfil_") . '.' . $extension;
+                if ($foto['error'] === UPLOAD_ERR_OK) {
+                    $nombreTemporal = $foto['tmp_name'];
 
-                $rutaDestino = 'uploads/' . $nombreFinal;
+                    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                    $mime = finfo_file($finfo, $nombreTemporal);
+                    finfo_close($finfo);
 
-                if (move_uploaded_file($nombreTemporal, $rutaDestino)) {
-                    // Guardar la ruta en la base de datos
-                    $this->usuarioModel->actualizarFoto($idUsuario, $rutaDestino);
+                    $tiposPermitidos = ['image/jpeg', 'image/png', 'image/gif'];
+                    $tamanoMax = 2 * 1024 * 1024; // 2MB
 
-                    // Guardar la ruta en la sesión
-                    $_SESSION['foto'] = $rutaDestino;
+                    if (!in_array($mime, $tiposPermitidos)) {
+                        // Manejar error tipo no válido
+                        header("Location: index.php?ruta=main&modulo=cuenta&mensaje=tipo_invalido");
+                        exit();
+                    }
 
-                    header("Location: index.php?ruta=main&modulo=cuenta&mensaje=foto_cambiada");
-                    exit();
+                    if ($foto['size'] > $tamanoMax) {
+                        // Manejar error tamaño
+                        header("Location: index.php?ruta=main&modulo=cuenta&mensaje=tamano_excedido");
+                        exit();
+                    }
+
+                    $extension = pathinfo($foto['name'], PATHINFO_EXTENSION);
+                    $extension = strtolower($extension);
+
+                    $nombreFinal = uniqid("perfil_") . '.' . $extension;
+                    $rutaDestino = 'uploads/' . $nombreFinal;
+
+                    if (move_uploaded_file($nombreTemporal, $rutaDestino)) {
+                        $this->usuarioModel->actualizarFoto($idUsuario, $rutaDestino);
+                        $_SESSION['foto'] = $rutaDestino;
+
+                        header("Location: index.php?ruta=main&modulo=cuenta&mensaje=foto_cambiada");
+                        exit();
+                    } else {
+                        header("Location: index.php?ruta=main&modulo=cuenta&mensaje=error_subida");
+                        exit();
+                    }
                 } else {
-                    header("Location: index.php?ruta=main&modulo=cuenta&mensaje=error_subida");
+                    header("Location: index.php?ruta=main&modulo=cuenta&mensaje=archivo_invalido");
                     exit();
                 }
-            } else {
-                header("Location: index.php?ruta=main&modulo=cuenta&mensaje=archivo_invalido");
-                exit();
             }
-        } else {
+        }else {
             $usuario = $this->usuarioModel->obtenerUsuarioPorId($idUsuario);
+            $foto = trim($_SESSION['foto'] ?? '');
+            $rutaFoto = 'assets/icons/user-profile-icon-free-vector.jpg';
+            // Validar que la ruta no esté vacía y que el archivo exista
+            if ($foto !== '' && file_exists($foto)) {
+                $rutaFoto = $foto;
+            }
             include 'modulos/cuenta/vista/cuenta.php';
         }
 

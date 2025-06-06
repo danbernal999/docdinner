@@ -8,7 +8,7 @@ class MainController {
             exit;
         }
         $nombreUsuario = $_SESSION["nombre"];
-
+        $moduloActivo = $_GET['modulo'] ?? '';
         include 'main/vista/main.php';
     }
 }

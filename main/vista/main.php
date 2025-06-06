@@ -25,7 +25,9 @@
         switch ($modulo) {
             case 'dashboard':
               include 'modulos/dashboard/controlador.php';
-              $controller = new DashboardController();
+              require_once 'config/database.php';
+              $conn = getDB();
+              $controller = new DashboardController($conn);
               $controller->dashboard();
               break;
 

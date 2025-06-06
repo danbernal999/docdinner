@@ -45,12 +45,12 @@
       </div>
 
       <!-- Tarjetas de Saldo, Gasto y Deuda alineadas horizontalmente -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
         <!-- Saldo -->
         <div class="bg-white p-5 rounded-xl shadow-2xl">
           <div class="flex items-center justify-between">
             <span class="font-medium text-neutral-800">Ingreso</span>
-            <span class="font-semibold text-green-500">$2.500.000</span>
+            <span class="font-semibold text-yellow-500">$2.500.000</span>
           </div>
         </div>
 
@@ -59,6 +59,14 @@
           <div class="flex items-center justify-between">
             <span class="font-medium text-neutral-800">Gasto</span>
             <span class="font-semibold text-cyan-500">$2.500.000</span>
+          </div>
+        </div>
+
+        <!-- Ahorro -->
+         <div class="bg-white p-5 rounded-xl shadow-2xl">
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-neutral-800">Ahorro</span>
+            <span class="font-semibold text-green-500">$2.500.000</span>
           </div>
         </div>
 
@@ -79,53 +87,24 @@
     <!-- Contenedor con scroll -->
     <div class="flex flex-col space-y-4 max-h-80 overflow-y-auto pr-2">
       <!-- Div de cada meta de ahorro -->
-      <div>
-        <p class="text-sm font-semibold text-neutral-900 mb-1">Ahorro Para Vivienda</p>
-        <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
-          <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full" style="width: 35%;"></div>
-        </div>
-        <p class="text-xs mt-1 text-gray-500">Llevas $250.000 de $1.000.000</p>
-      </div>
+      <?php foreach ($result as $row): ?> 
 
-      <div>
-        <p class="text-sm font-semibold text-neutral-900 mb-1">Ahorro Para Vivienda</p>
-        <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
-          <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full" style="width: 20%;"></div>
+        <?php
+          $nombreMeta = $row['nombre_meta'];
+          $ahorrado = $row['ahorrado'] ?? 0;
+          $cantidad_meta = $row['cantidad_meta'] ?? 0;
+          $progreso = ($cantidad_meta > 0) ? round(($ahorrado / $cantidad_meta) * 100) : 0;
+        ?>
+        
+        <div>
+          <p class="text-sm font-semibold text-neutral-900 mb-1"><?= htmlspecialchars($nombreMeta) ?></p>
+          <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full" style="width: <?= $progreso ?>%;"></div>
+          </div>
+          <p class="text-xs mt-1 text-gray-500">Llevas $<?= number_format($ahorrado) ?> de $<?= number_format($cantidad_meta) ?></p>
         </div>
-        <p class="text-xs mt-1 text-gray-500">Llevas $250.000 de $1.000.000</p>
-      </div>
 
-      <div>
-        <p class="text-sm font-semibold text-neutral-900 mb-1">Ahorro Para Vivienda</p>
-        <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
-          <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full" style="width: 10%;"></div>
-        </div>
-        <p class="text-xs mt-1 text-gray-500">Llevas $250.000 de $1.000.000</p>
-      </div>
-
-      <div>
-        <p class="text-sm font-semibold text-neutral-900 mb-1">Ahorro Para Vivienda</p>
-        <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
-          <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full" style="width: 5%;"></div>
-        </div>
-        <p class="text-xs mt-1 text-gray-500">Llevas $250.000 de $1.000.000</p>
-      </div>
-
-      <div>
-        <p class="text-sm font-semibold text-neutral-900 mb-1">Ahorro Para Vivienda</p>
-        <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
-          <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full" style="width: 85%;"></div>
-        </div>
-        <p class="text-xs mt-1 text-gray-500">Llevas $250.000 de $1.000.000</p>
-      </div>
-      
-      <div>
-        <p class="text-sm font-semibold text-neutral-900 mb-1">Ahorro Para Vivienda</p>
-        <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
-          <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full" style="width: 55%;"></div>
-        </div>
-        <p class="text-xs mt-1 text-gray-500">Llevas $250.000 de $1.000.000</p>
-      </div>
+      <?php endforeach; ?>
 
     </div>
   </div>
@@ -146,13 +125,13 @@
       <!-- Total de Gastos Fijos -->
       <div class="bg-gray-50 p-4 rounded-lg shadow">
         <p class="text-sm text-gray-600">Total Gastos Fijos</p>
-        <p class="text-xl font-bold text-red-600">$100.150.000</p>
+        <p class="text-xl font-bold text-red-600">$<?= number_format($total_gastos) ?></p>
       </div>
 
       <!-- Gasto más alto -->
       <div class="bg-gray-50 p-4 rounded-lg shadow">
         <p class="text-sm text-gray-600">Gasto más alto</p>
-        <p class="text-base font-semibold text-gray-800">Vivienda: <span class="text-red-600">$100.000.000</span></p>
+        <p class="text-base font-semibold text-gray-800"><?= htmlspecialchars($gastoMasAlto['nombre_gasto']) ?>: <span class="text-red-600">$<?= number_format($gastoMasAlto['monto']) ?></span></p>
       </div>
 
       <!-- Próximo vencimiento -->

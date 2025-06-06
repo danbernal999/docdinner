@@ -5,7 +5,7 @@
           <div class="relative group">
               <!-- Imagen de perfil -->
               <img
-                  src="<?= htmlspecialchars($_SESSION['foto'] ?? 'assets/icons/user-profile-icon-free-vector.jpg') ?>"
+                  src="<?= htmlspecialchars($rutaFoto) ?>"
                   alt="Foto Perfil"
                   class="w-32 h-32 rounded-full object-cover border-2 border-gray-300 shadow"
               />

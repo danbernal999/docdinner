@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <!-- Estilos Personalizados -->
     <link rel="stylesheet" href="assets/css/login.css">
     <title>Login / Registro</title>
@@ -35,7 +36,7 @@
                 <button type="submit" name="registro">Crear Cuenta</button>
                 <span>o utiliza tu correo electrónico para registrarte</span>
                 <div class="social-icons">
-                    <a href="#" class="icon"><i class="ri-google-fill"></i></a>
+                    <!-- <a href="" class="icon" id="googleSignInBtn"><i class="ri-google-fill"></i></a> -->
                 </div>
             </form>
         </div>
@@ -49,9 +50,8 @@
                 <a href="index.php?ruta=recovery">¿Olvidaste tu contraseña?</a>
                 <button type="submit" name="login">Iniciar Sesión</button>
                 <span>o continuar con</span>
-                <div class="social-icons">
-                    <a href="#" class="icon" id="google-login-btn"><i class="ri-google-fill"></i></a>
-                </div>
+                <!-- Google Sign-In -->
+                <div id="g_id_signin" data-type="icon"></div>
             </form>
         </div>
 
@@ -74,5 +74,6 @@
 
     <!-- Seccion para los scripts.js -->
     <script src="assets/js/auth/login.js"></script>
+
 </body>
 </html>

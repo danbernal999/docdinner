@@ -13,12 +13,9 @@ class DashboardController {
     public function Dashboard() {
         $id_usuario = $_SESSION['usuario_id']; //Id del usuario
 
-        $foto = trim($_SESSION['foto'] ?? '');
-        $rutaFoto = 'assets/icons/user-profile-icon-free-vector.jpg';
-        // Validar que la ruta no esté vacía y que el archivo exista
-        if ($foto !== '' && file_exists($foto)) {
-            $rutaFoto = $foto;
-        }
+        require_once 'utils/fotoPerfil.php';
+        $foto = $_SESSION['foto'] ?? '';
+        $rutaFoto = obtenerRutaFoto($foto);
         //Funciones gastos, card abajo a la izquierda
         $total_gastos = $this->productoModel->obtenerTotalGastosPorUsuario($id_usuario); //Para obtener el Total gastos (Productos)
         $gastoMasAlto = $this->productoModel->obtenerGastoFijoMasAlto($id_usuario); //Para obtener el Total gastos (Productos)

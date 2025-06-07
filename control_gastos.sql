@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 27-05-2025 a las 01:34:04
+-- Servidor: localhost
+-- Tiempo de generación: 07-06-2025 a las 01:57:20
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.1.25
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -94,7 +94,7 @@ CREATE TABLE `metas_ahorro` (
   `descripcion` text DEFAULT NULL,
   `creada_en` timestamp NOT NULL DEFAULT current_timestamp(),
   `cumplida` tinyint(1) DEFAULT 0,
-  `ahorrado` decimal(20,2) NOT NULL
+  `ahorrado` decimal(20,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -125,16 +125,17 @@ CREATE TABLE `usuarios` (
   `ultimo_login` datetime DEFAULT NULL,
   `reset_token` varchar(255) DEFAULT NULL,
   `reset_expires` datetime DEFAULT NULL,
-  `foto` varchar(255) DEFAULT NULL
+  `foto` varchar(255) DEFAULT NULL,
+  `auth_provider` varchar(50) DEFAULT 'local'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `password`, `fecha_registro`, `ultimo_login`, `reset_token`, `reset_expires`, `foto`) VALUES
-(1, 'Brayan Daniel', 'bblopezbenal123@gmail.com', '$2y$10$WW42vzq8pV6xOUyLthKd2OUXa7/ohTGcEMz4tHddbo3ayeODSo8jy', '2025-05-24 21:22:24', NULL, NULL, NULL, NULL),
-(2, 'draoky999', 'draoky@gmail.com', '$2y$10$BmJBKLB7BIpjJSx18sgj9uJFWbIEtkGfe0jCX3GerE2QphG6k8PqS', '2025-05-25 00:30:24', NULL, NULL, NULL, NULL);
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `password`, `fecha_registro`, `ultimo_login`, `reset_token`, `reset_expires`, `foto`, `auth_provider`) VALUES
+(1, 'Brayan Daniel', 'bblopezbenal123@gmail.com', '$2y$10$WW42vzq8pV6xOUyLthKd2OUXa7/ohTGcEMz4tHddbo3ayeODSo8jy', '2025-05-24 21:22:24', NULL, NULL, NULL, NULL, 'local'),
+(2, 'draoky999', 'draoky@gmail.com', '$2y$10$BmJBKLB7BIpjJSx18sgj9uJFWbIEtkGfe0jCX3GerE2QphG6k8PqS', '2025-05-25 00:30:24', NULL, NULL, NULL, NULL, 'local');
 
 --
 -- Índices para tablas volcadas
@@ -176,25 +177,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `gastos_fijos`
 --
 ALTER TABLE `gastos_fijos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_ahorros`
 --
 ALTER TABLE `historial_ahorros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `metas_ahorro`
 --
 ALTER TABLE `metas_ahorro`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas

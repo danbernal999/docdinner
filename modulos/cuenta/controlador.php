@@ -103,12 +103,9 @@ include 'modulos/cuenta/modelo.php';
             }
         }else {
             $usuario = $this->usuarioModel->obtenerUsuarioPorId($idUsuario);
-            $foto = trim($_SESSION['foto'] ?? '');
-            $rutaFoto = 'assets/icons/user-profile-icon-free-vector.jpg';
-            // Validar que la ruta no esté vacía y que el archivo exista
-            if ($foto !== '' && file_exists($foto)) {
-                $rutaFoto = $foto;
-            }
+            require_once 'utils/fotoPerfil.php';
+            $foto = $_SESSION['foto'] ?? '';
+            $rutaFoto = obtenerRutaFoto($foto);
             include 'modulos/cuenta/vista/cuenta.php';
         }
 

@@ -59,6 +59,7 @@ class AuthController {
     
             }
         }else {
+            header_remove("Cross-Origin-Opener-Policy");
             include 'auth/vista/login.php';
         }
     }

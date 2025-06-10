@@ -129,10 +129,20 @@
       </div>
 
       <!-- Gasto más alto -->
-      <div class="bg-gray-50 p-4 rounded-lg shadow">
-        <p class="text-sm text-gray-600">Gasto más alto</p>
-        <p class="text-base font-semibold text-gray-800"><?= htmlspecialchars($gastoMasAlto['nombre_gasto']) ?>: <span class="text-red-600">$<?= number_format($gastoMasAlto['monto']) ?></span></p>
-      </div>
+      <?php if ($gastoMasAlto): ?>
+        <div class="bg-gray-50 p-4 rounded-lg shadow">
+          <p class="text-sm text-gray-600">Gasto más alto</p>
+          <p class="text-base font-semibold text-gray-800">
+            <?= htmlspecialchars($gastoMasAlto['nombre_gasto']) ?>:
+            <span class="text-red-600">$<?= number_format($gastoMasAlto['monto']) ?></span>
+          </p>
+        </div>
+      <?php else: ?>
+        <div class="bg-gray-50 p-4 rounded-lg shadow">
+          <p class="text-sm text-gray-600">Gasto más alto</p>
+          <p class="text-base font-semibold text-gray-800 text-gray-400">No hay datos disponibles</p>
+        </div>
+      <?php endif; ?>
 
       <!-- Próximo vencimiento -->
       <div class="bg-gray-50 p-4 rounded-lg shadow">
@@ -232,6 +242,5 @@
     }
   });
 </script>
-
 
 

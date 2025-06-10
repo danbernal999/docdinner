@@ -45,7 +45,7 @@
       <p><strong>Nombre:</strong> <?= htmlspecialchars($usuario['nombre']) ?></p>
       <p><strong>Correo actual:</strong> <?= htmlspecialchars($usuario['correo']) ?></p>
       <p><strong>Fecha de registro:</strong> <?=  $usuario['fecha_registro'] ?></p>
-      <p><strong>Último inicio de sesión:</strong> <?= $usuario['ultimo_login'] ?? 'Nunca' ?></p>
+      
     </div>
 
     <!-- Actualizar correo -->

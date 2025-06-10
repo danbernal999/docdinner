@@ -63,7 +63,7 @@
         </div>
 
         <!-- Ahorro -->
-         <div class="bg-white p-5 rounded-xl shadow-2xl">
+        <div class="bg-white p-5 rounded-xl shadow-2xl">
           <div class="flex items-center justify-between">
             <span class="font-medium text-neutral-800">Ahorro</span>
             <span class="font-semibold text-green-500">$2.500.000</span>

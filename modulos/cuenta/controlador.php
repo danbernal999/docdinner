@@ -1,17 +1,21 @@
 <?php
 include 'modulos/cuenta/modelo.php';
 
- class CuentaController {
+class CuentaController {
     private $usuarioModel;
 
     public function __construct($db) {
-       $this->usuarioModel = new UsuarioModel($db);
+        $this->usuarioModel = new UsuarioModel($db);
     }
 
     public function cuenta() {
 
-        $idUsuario = $_SESSION["usuario_id"]; //obtener el id del usuario actuali
-
+        $idUsuario = $_SESSION["usuario_id"];
+        $nombre = $_SESSION["nombre"] ?? "Usuario";
+        $apellido = $_SESSION["apellido"] ?? "";
+        $usuario = $_SESSION["usuario"] ?? "";
+        $info = ""; //obtener el id del usuario actuali
+        
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if(isset($_POST['changePass'])){
                 $passwordActual = $_POST['password_actual'];

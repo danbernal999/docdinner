@@ -1,5 +1,5 @@
 # Ignorar la carpeta de dependencias de Composer
 /vendor/
 /uploads/
-#Tiene que usar siempre al iniciar el proyecto "composer update"
+#Tiene que usar siempre al iniciar el proyecto "composer install"
 

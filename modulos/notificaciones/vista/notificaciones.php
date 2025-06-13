@@ -14,7 +14,6 @@
     count($sinProgreso) > 0
   ): ?>
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6">
-      
       <!-- Metas vencidas -->
       <?php if (count($vencidas) > 0): ?>
         <div class="bg-white rounded-xl shadow-2xl p-6 border-t-4 border-red-500">

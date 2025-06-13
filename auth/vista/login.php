@@ -34,10 +34,6 @@
                 <input type="password" name="password" placeholder="Contraseña" required>
                 <input type="password" name="confirm_password" placeholder="Confirmar contraseña" required>
                 <button type="submit" name="registro">Crear Cuenta</button>
-                <span>o utiliza tu correo electrónico para registrarte</span>
-                <div class="social-icons">
-                    <!-- <a href="" class="icon" id="googleSignInBtn"><i class="ri-google-fill"></i></a> -->
-                </div>
             </form>
         </div>
 

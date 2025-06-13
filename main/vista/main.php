@@ -10,75 +10,66 @@
   <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon">
 </head>
 <body class="bg-dark text-white flex">
+
   <!-- Sidebar -->
+  <?php include 'main/vista/sidebar.php'; ?>
+
+  <!-- Conexión a la base de datos -->
   <?php
-  include 'main/vista/sidebar.php';
+    require_once 'config/database.php';
+    $conn = getDB(); // Conexión disponible para todos los módulos
   ?>
 
-  <!-- Main Content (ocupa el resto de la pantalla) -->
+  <!-- Main Content -->
   <main class="ml-20 md:ml-60 flex-1">
-      <?php
+    <?php
+      $modulo = $_GET['modulo'] ?? 'dashboard';
 
-        $modulo = $_GET['modulo'] ?? 'dashboard';
+      switch ($modulo) {
+        case 'dashboard':
+          include 'modulos/dashboard/controlador.php';
+          $controller = new DashboardController($conn);
+          $controller->dashboard();
+          break;
 
-        //Para seccionar modulos en el main
-        switch ($modulo) {
-            case 'dashboard':
-              include 'modulos/dashboard/controlador.php';
-              require_once 'config/database.php';
-              $conn = getDB();
-              $controller = new DashboardController($conn);
-              $controller->dashboard();
-              break;
+        case 'analisis':
+          include 'modulos/analisis/controlador.php';
+          $controller = new AnalisisController(); // sin conexión
+          $controller->analisis();
+          break;
 
-            case 'analisis':
-              include 'modulos/analisis/controlador.php';
-              $controller = new AnalisisController();
-              $controller->analisis();
-              break;
+        case 'ahorro':
+          include 'modulos/ahorro/controlador.php';
+          $controller = new AhorroController($conn);
+          $controller->ahorro();
+          break;
 
-            case 'ahorro':
-              include 'modulos/ahorro/controlador.php';
-              require_once 'config/database.php';
-              $conn = getDB();
-              $controller = new AhorroController($conn);
-              $controller->ahorro();
-              break;
+        case 'productos':
+          include 'modulos/productos/controlador.php';
+          $controller = new ProductosController($conn);
+          $controller->productos();
+          break;
 
-            case 'productos':
-              include 'modulos/productos/controlador.php';
-              require_once 'config/database.php';
-              $conn = getDB();
-              $controller = new ProductosController($conn);
-              $controller->productos();
-              break;
+        case 'notificaciones':
+          include 'modulos/notificaciones/controlador.php';
+          $controller = new NotificacionesController($conn);
+          $controller->notificaciones();
+          break;
 
-            case 'notificaciones':
-              include 'modulos/notificaciones/controlador.php';
-              require_once 'config/database.php';
-              $conn = getDB();
-              $controller = new NotificacionesController($conn);
-              $controller->notificaciones();
-              break;
+        case 'configuracion':
+          include 'modulos/configuracion/controlador.php';
+          $controller = new ConfiguracionController($conn);
+          $controller->configuracion();
+          break;
 
-            case 'configuracion':
-              include 'modulos/configuracion/controlador.php';
-              $controller = new ConfiguracionController();
-              $controller->configuracion();
-              break;
-
-            case 'cuenta':
-              include 'modulos/cuenta/controlador.php';
-              require_once 'config/database.php';
-              $conn = getDB();
-              $controller = new CuentaController($conn);
-              $controller->cuenta();
-              break;
-
-
-
-        }
-      ?>
+        case 'cuenta':
+          include 'modulos/cuenta/controlador.php';
+          $controller = new CuentaController($conn);
+          $controller->cuenta();
+          break;
+      }
+    ?>
   </main>
+
 </body>
 </html>

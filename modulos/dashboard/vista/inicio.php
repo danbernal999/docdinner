@@ -44,13 +44,13 @@
         <canvas id="graficoDashboard" class="w-full h-full">Grafica Aqui</canvas>
       </div>
 
-      <!-- Tarjetas de Saldo, Gasto y Deuda alineadas horizontalmente -->
+      <!-- Tarjetas de Ingreso, Gasto, Ahorro y Deuda alineadas horizontalmente -->
       <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <!-- Saldo -->
+        <!-- Ingreso (Saldo Inicial) -->
         <div class="bg-white p-5 rounded-xl shadow-2xl">
           <div class="flex items-center justify-between">
-            <span class="font-medium text-neutral-800">Ingreso</span>
-            <span class="font-semibold text-yellow-500">$2.500.000</span>
+            <span class="font-medium text-neutral-800">Saldo Inicial</span>
+            <span class="font-semibold text-yellow-500">$<?= number_format($saldoInicial) ?></span>
           </div>
         </div>
 
@@ -58,26 +58,27 @@
         <div class="bg-white p-5 rounded-xl shadow-2xl">
           <div class="flex items-center justify-between">
             <span class="font-medium text-neutral-800">Gasto</span>
-            <span class="font-semibold text-cyan-500">$2.500.000</span>
+            <span class="font-semibold text-cyan-500">$<?= number_format($totalGastos) ?></span>
           </div>
         </div>
 
-        <!-- Ahorro -->
+        <!-- Disponible -->
         <div class="bg-white p-5 rounded-xl shadow-2xl">
           <div class="flex items-center justify-between">
-            <span class="font-medium text-neutral-800">Ahorro</span>
-            <span class="font-semibold text-green-500">$2.500.000</span>
+            <span class="font-medium text-neutral-800">Disponible</span>
+            <span class="font-semibold text-green-500">$<?= number_format($disponible) ?></span>
           </div>
         </div>
 
-        <!-- Deuda -->
+        <!-- Deuda (si existe) -->
         <div class="bg-white p-5 rounded-xl shadow-2xl">
           <div class="flex items-center justify-between">
             <span class="font-medium text-neutral-800">Deuda</span>
-            <span class="font-semibold text-red-500">$-1.300.000</span>
+            <span class="font-semibold text-red-500"><?= $deuda > 0 ? "-$" . number_format($deuda) : "$0" ?></span>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -242,5 +243,6 @@
     }
   });
 </script>
+
 
 

@@ -5,6 +5,7 @@ class UsuarioModel {
     // Constructor con la conexión a la base de datos
     public function __construct($db) {
         $this->conn = $db;
+        
     }
 
     // Obtener usuario por ID
@@ -56,6 +57,21 @@ class UsuarioModel {
         $stmt->bindParam(":id", $idUsuario, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public function actualizarNombre($id, $nuevoNombre) {
+        $stmt = $this->conn->prepare("UPDATE usuarios SET nombre = :nombre WHERE id = :id");
+        $stmt->bindParam(":nombre", $nuevoNombre);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function eliminarUsuario($id) {
+        $stmt = $this->conn->prepare("DELETE FROM usuarios WHERE id = :id");
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+
 
 }
 

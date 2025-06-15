@@ -39,6 +39,9 @@ class DashboardController {
         $deuda = max(0, $totalGastos - $saldoInicial);
         $_SESSION['saldo_disponible'] = $disponible;
 
+
+        
+
         $foto     = $_SESSION['foto'] ?? '';
         $rutaFoto = obtenerRutaFoto($foto);
 
@@ -46,6 +49,9 @@ class DashboardController {
         $gastoMasAlto = $this->productoModel->obtenerGastoFijoMasAlto($id_usuario);
         $result       = $this->AhorroModel->obtenerTodasLasMetasPorUsuario($id_usuario);
 
+
+
+        
         include 'modulos/dashboard/vista/inicio.php';
     }
 }

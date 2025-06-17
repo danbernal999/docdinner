@@ -126,5 +126,39 @@ class Producto{
             return "Error al obtener gasto más alto: " . $e->getMessage();
         }
     }
+
+    //Funcion para obtener los valores de la grafia de Balance general Anual
+    public function obtenerGastosMensuales($usuario_id){
+
+        $sql = "SELECT 
+                    MONTH(fecha) AS mes_num,
+                    SUM(monto) AS total_gastos
+                FROM 
+                    gastos_fijos
+                WHERE 
+                    usuario_id = ?
+                GROUP BY 
+                    mes_num
+                ORDER BY 
+                    mes_num";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$usuario_id]);
+        $resultado = $stmt->fetchAll(PDO::FETCH_KEY_PAIR); // [mes_num => total_gastos]
+
+        // Armar array con los 12 meses (enero a diciembre)
+        $data = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $data[] = isset($resultado[$i]) ? floatval($resultado[$i]) : 0;
+        }
+
+        echo json_encode([
+            'labels' => [ // Si quieres, puedes incluirlo desde PHP o usar el fijo del JS
+                'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+            ],
+            'data' => $data
+        ]);
+    }
 }
 ?>

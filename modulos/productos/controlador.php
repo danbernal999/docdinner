@@ -24,6 +24,7 @@ class ProductosController {
             $accion = $_GET['accion'];
 
             switch ($accion) {
+
                 case 'eliminar':
                     if (isset($_GET['id'])) {
                         $id = $_GET['id'];
@@ -125,9 +126,21 @@ class ProductosController {
             return;
         }
 
+        //
+
         // Si no hay POST ni GET, mostrar todos los gastos
         $gastos = $this->productoModel->obtenerTodosPorUsuario($id_usuario);
         include 'modulos/productos/vista/productos.php';
+    }
+
+    public function apiGastos($valores) {
+        $id_usuario = $_SESSION['usuario_id'] ?? null;
+
+        switch ($valores){
+            case 'gastosMensuales':
+                $this->productoModel->obtenerGastosMensuales($id_usuario);
+                exit();
+        }
     }
 }
 ?>

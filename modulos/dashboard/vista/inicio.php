@@ -41,7 +41,7 @@
 
       <!-- Gráfico (placeholder) -->
       <div class="bg-gray-100 h-64 rounded-lg flex items-center justify-center p-4 mb-6">
-        <canvas id="graficoDashboard" class="w-full h-full">Grafica Aqui</canvas>
+        <canvas id="graficoAnalisis" class="w-full h-full"></canvas>
       </div>
 
       <!-- Tarjetas de Ingreso, Gasto, Ahorro y Deuda alineadas horizontalmente -->
@@ -210,7 +210,6 @@
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="assets/js/dashboard/grafico.js"></script>
-<script src="assets/js/dashboard/graficoGeneral.js"></script>
 
 
 

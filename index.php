@@ -37,6 +37,19 @@ switch ($ruta) {
         $controller = new RecuperarController($conn);
         $controller->recuperar(); //Funcion del index. no tiene mucha ciencia 
         break;
+
+    case 'apiGastos':
+        if (isset($_GET['accion'])){
+            $accion = $_GET['accion'];
+
+            include 'modulos/productos/controlador.php';
+            require_once 'config/database.php';
+            $conn = getDB(); 
+            $controller = new ProductosController($conn);
+            $controller->apiGastos($accion);
+
+        }
+        break;
 }
 
 ?>

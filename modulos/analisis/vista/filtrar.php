@@ -43,49 +43,137 @@
       </form>
     </div>
 
-    <!-- Visualización -->
-    <div class="bg-white p-6 rounded-xl shadow-2xl">
-      <h4 class="text-lg font-semibold mb-4">Visualizaciones Avanzadas</h4>
-      <div class="bg-gray-100 h-64 rounded-lg flex items-center justify-center p-4">
-        <canvas id="graficoAnalisis" class="w-full h-full"></canvas>
-      </div>
-    </div>
-
     <!-- Reportes + KPIs -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <!-- Grafico de Ahorros -->
       <div class="bg-white p-6 rounded-xl shadow-2xl">
+        <h4 class="text-lg font-semibold mb-4">Visualización de Gastos</h4>
         <div class="bg-gray-100 h-64 rounded-lg flex items-center justify-center p-4">
-          <canvas id="graficoAhorro" class="w-full h-full">Grafico de Ahorros</canvas>
+          <canvas id="graficoAnalisisAhorro" class="w-full h-full"></canvas>
         </div>
       </div>
 
-      <!-- KPIs -->
+      <!-- Gráfico comparativo -->
       <div class="bg-white p-6 rounded-xl shadow-2xl">
-        <h2 class="text-xl font-semibold mb-4">Indicadores Clave (KPIs)</h2>
-        <ul class="space-y-2 text-gray-600">
-          <li>Porcentaje de crecimiento: 15%</li>
-          <li>Margen de ahorro: 10%</li>
-          <li>Objetivo de ventas: $50,000</li>
-        </ul>
-
-        <div class="mt-4 flex flex-wrap gap-4">
-          <button class="bg-cyan-500 text-white px-4 py-2 rounded-md hover:opacity-90 transition-opacity">
-            Exportar PDF
-          </button>
-          <button class="bg-cyan-500 text-white px-4 py-2 rounded-md hover:opacity-90 transition-opacity">
-            Exportar Excel
-          </button>
-          <button class="bg-cyan-500 text-white px-4 py-2 rounded-md hover:opacity-90 transition-opacity">
-            Exportar CSV
-          </button>
+        <h4 class="text-lg font-semibold mb-4">Visualizacion de Ahorro</h4>
+        <div class="bg-gray-100 h-64 rounded-lg flex items-center justify-center p-4">
+          <canvas id="graficoComparativo" class="w-full h-full"></canvas>
         </div>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="bg-white p-6 rounded-xl shadow-2xl">
+      <h2 class="text-xl font-semibold mb-4">Indicadores Clave (KPIs)</h2>
+      <ul class="space-y-2 text-gray-600">
+        <li>Porcentaje de crecimiento: 15%</li>
+        <li>Margen de ahorro: 10%</li>
+        <li>Objetivo de ventas: $50,000</li>
+      </ul>
+
+      <div class="mt-4 flex flex-wrap gap-4">
+        <button class="bg-cyan-500 text-white px-4 py-2 rounded-md hover:opacity-90 transition-opacity">
+          Exportar PDF
+        </button>
+        <button class="bg-cyan-500 text-white px-4 py-2 rounded-md hover:opacity-90 transition-opacity">
+          Exportar Excel
+        </button>
+        <button class="bg-cyan-500 text-white px-4 py-2 rounded-md hover:opacity-90 transition-opacity">
+          Exportar CSV
+        </button>
       </div>
     </div>
   </div>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="assets/js/analisis/grafico.js"></script>
   <script src="assets/js/analisis/graficoAhorro.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    let graficoAnalisisAhorro;
+    let graficoComparativo;
+
+    const ctx = document.getElementById('graficoAnalisisAhorro').getContext('2d');
+    const ctxComparativo = document.getElementById('graficoComparativo').getContext('2d');
+
+    // Datos de ejemplo
+    const datos = {
+      labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+      datasets: [{
+        label: 'Ventas',
+        data: [1200, 1900, 3000, 2500, 3200],
+        backgroundColor: 'rgba(6, 182, 212, 0.3)',
+        borderColor: 'rgba(6, 182, 212, 1)',
+        borderWidth: 2,
+        fill: true,
+        tension: 0.4
+      }]
+    };
+
+    const opciones = {
+      responsive: true,
+      plugins: {
+        legend: { display: true },
+        tooltip: { enabled: true }
+      },
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    };
+
+    function crearGrafico(tipo = 'line') {
+      if (graficoAnalisisAhorro) graficoAnalisisAhorro.destroy();
+
+      graficoAnalisisAhorro = new Chart(ctx, {
+        type: tipo,
+        data: datos,
+        options: opciones
+      });
+    }
+
+    function crearGraficoComparativo() {
+      if (graficoComparativo) graficoComparativo.destroy();
+
+      graficoComparativo = new Chart(ctxComparativo, {
+        type: 'line',
+        data: {
+          labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+          datasets: [
+            {
+              label: 'Este Año',
+              data: [1200, 1900, 3000, 2500, 3200],
+              borderColor: 'rgba(6, 182, 212, 1)',
+              backgroundColor: 'rgba(6, 182, 212, 0.2)',
+              fill: true,
+              tension: 0.4
+            },
+            {
+              label: 'Año Pasado',
+              data: [1000, 1500, 2800, 2200, 2900],
+              borderColor: 'rgba(234, 179, 8, 1)',
+              backgroundColor: 'rgba(234, 179, 8, 0.2)',
+              fill: true,
+              tension: 0.4
+            }
+          ]
+        },
+        options: opciones
+      });
+    }
+
+    // Inicialización al cargar la página
+    document.addEventListener('DOMContentLoaded', () => {
+      crearGrafico('line');
+      crearGraficoComparativo();
+
+      // Cambiar tipo de gráfico con el selector
+      const tipoGraficoSelect = document.getElementById('tipoGrafico');
+      tipoGraficoSelect.addEventListener('change', (e) => {
+        crearGrafico(e.target.value);
+      });
+    });
+  </script>
+
 </div>

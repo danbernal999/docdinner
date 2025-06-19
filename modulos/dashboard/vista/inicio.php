@@ -39,7 +39,7 @@
         </p>
       </div>
 
-      <!-- Gráfico (placeholder) -->
+      <!-- Gráfico -->
       <div class="bg-gray-100 h-64 rounded-lg flex items-center justify-center p-4 mb-6">
         <canvas id="graficoAnalisis" class="w-full h-full"></canvas>
       </div>
@@ -199,7 +199,7 @@
       <!-- Columna de gráfica -->
       <div class="w-full md:w-2/5 lg:w-1/2">
         <div class="relative w-full aspect-square">
-          <canvas id="gastosChart" class="absolute inset-0 w-full h-full"></canvas>
+          <canvas id="gastosPastel" class="absolute inset-0 w-full h-full"></canvas>
         </div>
       </div>
     </div>
@@ -210,6 +210,8 @@
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="assets/js/dashboard/grafico.js"></script>
+<script src="assets/js/dashboard/graficoPastel.js"></script>
+
 
 
 

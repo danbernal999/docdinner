@@ -7,7 +7,8 @@
       <form method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
         <div>
           <label for="categoria" class="block text-sm font-medium">Buscar por Categoría:</label>
-          <select id="categoria" name="categoria" required class="mt-1 block w-full rounded-md bg-gray-100 border border-gray-300 py-2 pl-3 pr-10 focus:border-cyan-500 focus:outline-none focus:ring-primary sm:text-sm">
+          <div class="flex items-center gap-2 mt-1">
+          <select id="categoria" name="categoria" required class="w-full rounded-md bg-gray-100 border border-gray-300 py-2 pl-3 pr-10 focus:border-cyan-500 focus:outline-none focus:ring-primary sm:text-sm">
             <option value="">Seleccione una categoría</option>
             <option value="Alimentación" <?= $categoriaSeleccionada == 'Alimentación' ? 'selected' : '' ?>>Alimentación</option>
             <option value="Transporte" <?= $categoriaSeleccionada == 'Transporte' ? 'selected' : '' ?>>Transporte</option>
@@ -25,10 +26,14 @@
             <option value="Tecnología y software" <?= $categoriaSeleccionada == 'Tecnología y software' ? 'selected' : '' ?>>Tecnología y software</option>
             <option value="Otro" <?= $categoriaSeleccionada == 'Otro' ? 'selected' : '' ?>>Otro</option>
           </select>
+
+          <button type="button" onclick="window.location.href = 'index.php?ruta=main&modulo=productos';" class="ml-1 rounded-md px-4 py-2 text-lg font-bold shadow-2xl"><i class="ri-refresh-line"></i></button>
+        </div>
+
         </div>
         <div class="flex justify-end gap-2">
-          <button type="submit" name="buscar_categoria" class="rounded-md bg-neutral-950 px-5 py-2 text-sm font-semibold text-white shadow-lg hover:bg-cyan-500 transition">Buscar</button>
-          <button type="submit" name="ver_total_categoria" class="rounded-md bg-neutral-950 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-cyan-500 transition">Ver Total de la Categoría</button>
+          <button type="submit" name="buscar_categoria" class="rounded-md bg-neutral-900 px-5 py-2 text-sm font-semibold text-white shadow-lg hover:bg-cyan-500 transition">Buscar</button>
+          <button type="submit" name="ver_total_categoria" class="rounded-md bg-neutral-900 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-cyan-500 transition">Ver Total de la Categoría</button>
         </div>
       </form>
       <?php if ($total_categoria !== null): ?>
@@ -43,12 +48,12 @@
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-xl font-semibold">Lista de Gastos Fijos</h2>
         <div class="flex items-center gap-2">
-          <button data-modal-target="modal-crear-gasto" data-modal-toggle="modal-crear-gasto" class="rounded-md bg-neutral-950 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-cyan-500 transition">
+          <button data-modal-target="modal-crear-gasto" data-modal-toggle="modal-crear-gasto" class="rounded-md bg-neutral-900 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-cyan-500 transition">
             Añadir Gasto
           </button>
 
           <form method="POST">
-            <button type="submit" name="ver_total" class="rounded-md bg-neutral-950 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-cyan-500 transition">Ver Total de Gastos</button>
+            <button type="submit" name="ver_total" class="rounded-md bg-neutral-900 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-cyan-500 transition">Ver Total de Gastos</button>
           </form>
         </div>
       </div>
@@ -153,11 +158,9 @@
       </div>
     </div>
   <?php endforeach; ?>
-
-  <!-- Modal para añadir gasto -->
   
-    <!-- Modal para añadir gasto -->
-    <div id="modal-crear-gasto" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-[calc(100%)] max-h-full bg-black/70 backdrop-blur-md">
+  <!-- Modal para añadir gasto -->
+  <div id="modal-crear-gasto" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-[calc(100%)] max-h-full bg-black/70 backdrop-blur-md">
     <div class="relative p-4 w-full max-w-md max-h-full">
       <div class="relative bg-white rounded-lg shadow">
         <!-- Modal Header -->
@@ -220,7 +223,6 @@
   
   <!-- Script para toggle de modales -->
   <script src="assets/js/productos/modals.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </div>
 
 

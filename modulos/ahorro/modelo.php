@@ -18,7 +18,7 @@ class MetaAhorro {
 
     // Obtener historial de ahorros por ID de meta
     public function obtenerHistorialPorMeta(int $metaId){
-        $sql = "SELECT * FROM historial_ahorros WHERE meta_id = :meta_id";
+        $sql = "SELECT * FROM historial_ahorros WHERE meta_id = :meta_id ORDER BY fecha DESC"; // Ordenar por fecha para "último ahorro"
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([':meta_id' => $metaId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -28,7 +28,7 @@ class MetaAhorro {
     public function guardarMeta($nombre_meta, $cantidad_meta, $fecha_limite, $descripcion, $id_usuario) {
         try{
             $sql = "INSERT INTO metas_ahorro (usuario_id ,nombre_meta, cantidad_meta, fecha_limite, descripcion) 
-                    VALUES (:usuario_id, :nombre, :cantidad, :fecha, :descripcion)";
+                            VALUES (:usuario_id, :nombre, :cantidad, :fecha, :descripcion)";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':nombre' => $nombre_meta,
@@ -47,15 +47,25 @@ class MetaAhorro {
     // Funcion para la eliminacion de Metas de Ahorro
     public function eliminarMetaPorId($id, $id_usuario) {
         try {
+            $this->conn->beginTransaction(); // Iniciar transacción
+
+            // Eliminar historial de ahorros primero
+            $sql_historial = "DELETE FROM historial_ahorros WHERE meta_id = :meta_id";
+            $stmt_historial = $this->conn->prepare($sql_historial);
+            $stmt_historial->execute([':meta_id' => $id]);
+
+            // Luego eliminar la meta de ahorro
             $sql = "DELETE FROM metas_ahorro WHERE id = :id AND usuario_id = :usuario_id";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':id' => $id,
                 ':usuario_id' => $id_usuario
             ]);
-            return $stmt->rowCount() > 0; // Retorna true si se eliminó al menos una fila
+            
+            $this->conn->commit(); // Confirmar transacción
+            return true; // Retorna true si se eliminó al menos una fila de la meta
         } catch (PDOException $e) {
-            // Puedes loguear esto en lugar de hacer echo directamente
+            $this->conn->rollBack(); // Revertir transacción en caso de error
             return "Error al eliminar: " . $e->getMessage();
         }
     }
@@ -104,10 +114,11 @@ class MetaAhorro {
             return "La cantidad ahorrada debe ser mayor a 0.";
         }
 
-        $meta = $this->obtenerMetaPorId($meta_id);
-        if (!$meta) {
-            return "Meta de ahorro no encontrada o no pertenece al usuario.";
-        }
+        // Opcional: Verificar que la meta pertenezca al usuario antes de proceder
+        // $meta = $this->obtenerMetaPorId($meta_id); // Esta función ya no verifica el usuario_id
+        // if (!$meta || $meta['usuario_id'] != $id_usuario) {
+        //     return "Meta de ahorro no encontrada o no pertenece al usuario.";
+        // }
 
         try {
             $this->conn->beginTransaction();
@@ -136,4 +147,54 @@ class MetaAhorro {
         }
     }
 
+    // Nueva función para deshacer un ahorro específico
+    public function deshacerAhorro($historial_id, $meta_id, $cantidad_a_restar, $id_usuario) {
+        try {
+            $this->conn->beginTransaction();
+
+            // 1. Verificar que el registro de historial exista y pertenezca a la meta correcta
+            $sql_check_historial = "SELECT * FROM historial_ahorros WHERE id = :historial_id AND meta_id = :meta_id";
+            $stmt_check_historial = $this->conn->prepare($sql_check_historial);
+            $stmt_check_historial->execute([':historial_id' => $historial_id, ':meta_id' => $meta_id]);
+            $historial_entry = $stmt_check_historial->fetch(PDO::FETCH_ASSOC);
+
+            if (!$historial_entry) {
+                $this->conn->rollBack();
+                return "Entrada de historial no encontrada o no coincide con la meta.";
+            }
+
+            // 2. Restar la cantidad del ahorro de la meta principal
+            $sql_update_meta = "UPDATE metas_ahorro SET ahorrado = ahorrado - :cantidad WHERE id = :meta_id AND usuario_id = :usuario_id";
+            $stmt_update_meta = $this->conn->prepare($sql_update_meta);
+            $stmt_update_meta->execute([
+                ':cantidad' => $cantidad_a_restar,
+                ':meta_id' => $meta_id,
+                ':usuario_id' => $id_usuario
+            ]);
+
+            // Verificar si se actualizó la meta (opcional, pero buena práctica)
+            if ($stmt_update_meta->rowCount() === 0) {
+                $this->conn->rollBack();
+                return "No se pudo actualizar la meta de ahorro. Es posible que no exista o no pertenezca al usuario.";
+            }
+
+            // 3. Eliminar el registro del historial de ahorros
+            $sql_delete_historial = "DELETE FROM historial_ahorros WHERE id = :historial_id";
+            $stmt_delete_historial = $this->conn->prepare($sql_delete_historial);
+            $stmt_delete_historial->execute([':historial_id' => $historial_id]);
+
+            // Verificar si se eliminó el historial (opcional)
+            if ($stmt_delete_historial->rowCount() === 0) {
+                $this->conn->rollBack();
+                return "No se pudo eliminar el registro del historial.";
+            }
+
+            $this->conn->commit();
+            return true;
+
+        } catch (PDOException $e) {
+            $this->conn->rollBack();
+            return "Error al deshacer el ahorro: " . $e->getMessage();
+        }
+    }
 }

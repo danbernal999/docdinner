@@ -54,18 +54,17 @@
           </select>
         </div>
 
-        <!-- Presupuesto mensual deseado -->
+        <!-- Campo opcional: Otros Ingresos -->
         <div>
-          <label for="presupuesto_mensual" class="block text-gray-700 font-medium mb-1">Presupuesto mensual deseado</label>
+          <label for="otros_ingresos" class="block text-gray-700 font-medium mb-1">Otros Ingresos (opcional)</label>
           <input 
             type="number" 
-            name="presupuesto_mensual" 
-            id="presupuesto_mensual"
+            name="otros_ingresos" 
+            id="otros_ingresos"
             step="0.01"
             placeholder="Ej: 500000" 
-            value="<?= htmlspecialchars($_SESSION['presupuesto_mensual'] ?? '') ?>" 
+            value="<?= htmlspecialchars($_POST['otros_ingresos'] ?? '') ?>"            
             class="w-full px-4 py-2 border border-gray-300 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            required
           />
         </div>
 

@@ -1,3 +1,8 @@
+// DocDinner - Control de gastos personales
+// Copyright (c) 2025 Brayan Bernal, Michael Quintero
+// Licensed under the MIT License
+
+
 # 📦 Instalación de DocDinner
 
 Sigue estos pasos para instalar y ejecutar correctamente el proyecto **DocDinner** en tu entorno local:

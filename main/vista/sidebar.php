@@ -23,7 +23,7 @@ function linkActivo($modulo, $moduloActual) {
             <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-cyan-700 hover:text-cyan-50 <?= linkActivo('productos', $moduloActivo) ?>" 
                 href="index.php?ruta=main&modulo=productos">
                 <i class="ri-price-tag-3-line text-2xl"></i>
-                <span class="ml-2 text-sm font-medium hidden md:inline">Productos</span>
+                <span class="ml-2 text-sm font-medium hidden md:inline">Gastos</span>
             </a>
             <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-cyan-700 hover:text-cyan-50 <?= linkActivo('ahorro', $moduloActivo) ?>" 
                 href="index.php?ruta=main&modulo=ahorro">

@@ -1,7 +1,3 @@
-// DocDinner - Control de gastos personales
-// Copyright (c) 2025 Brayan Bernal, Michael Quintero
-// Licensed under the MIT License
-
 <?php
 
 $ruta = $_GET['ruta'] ?? 'home';

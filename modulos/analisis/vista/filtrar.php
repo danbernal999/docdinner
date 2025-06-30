@@ -1,48 +1,48 @@
-<div class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-4 md:p-8 text-neutral-950 max-w-svw font-sans">
-    <div class="space-y-8">
-        <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800">Análisis Avanzado de Finanzas</h2>
+<div class="bg-neutral-50 min-h-screen p-4 md:p-8 text-neutral-950 max-w-svw font-sans">
+    <div class="space-y-6">
+        <div class="bg-white p-6 rounded-2xl shadow-2xl border border-gray-100">
+            <h2 class="text-xl font-semibold mb-6 text-neutral-950">Análisis Avanzado de Finanzas</h2>
             <form method="GET" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 items-end">
                 <input type="hidden" name="ruta" value="main">
                 <input type="hidden" name="modulo" value="analisis">
 
                 <?php
-                // Helper para campos de entrada
-                function inputField($label, $name, $type, $value) {
-                    echo "<div>
-                            <label for=\"$name\" class=\"block text-sm font-medium text-neutral-700 mb-1\">$label</label>
-                            <input type=\"$type\" name=\"$name\" id=\"$name\" value=\"" . htmlspecialchars($value) . "\"
-                                class=\"w-full bg-gray-50 border border-gray-300 text-neutral-950 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 transition-all duration-200\">
-                        </div>";
-                }
-
-                // Helper para selects
-                function selectField($label, $name, $selectedValue, $options) {
-                    echo "<div>
-                            <label for=\"$name\" class=\"block text-sm font-medium text-neutral-700 mb-1\">$label</label>
-                            <select name=\"$name\" id=\"$name\"
-                                class=\"w-full bg-gray-50 border border-gray-300 text-neutral-950 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 transition-all duration-200\">";
-                    foreach ($options as $value => $text) {
-                        echo "<option value=\"$value\" " . (($selectedValue == $value) ? 'selected' : '') . ">$text</option>";
+                    // Helper para campos de entrada
+                    function inputField($label, $name, $type, $value) {
+                        echo "<div>
+                                <label for=\"$name\" class=\"block text-sm font-medium text-neutral-700 mb-1\">$label</label>
+                                <input type=\"$type\" name=\"$name\" id=\"$name\" value=\"" . htmlspecialchars($value) . "\"
+                                    class=\"w-full bg-gray-50 border border-gray-300 text-neutral-950 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 transition-all duration-200\">
+                            </div>";
                     }
-                    echo "</select>
-                        </div>";
-                }
 
-                inputField('Desde', 'inicio', 'date', $fechaInicio);
-                inputField('Hasta', 'fin', 'date', $fechaFin);
+                    // Helper para selects
+                    function selectField($label, $name, $selectedValue, $options) {
+                        echo "<div>
+                                <label for=\"$name\" class=\"block text-sm font-medium text-neutral-700 mb-1\">$label</label>
+                                <select name=\"$name\" id=\"$name\"
+                                    class=\"w-full bg-gray-50 border border-gray-300 text-neutral-950 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 transition-all duration-200\">";
+                        foreach ($options as $value => $text) {
+                            echo "<option value=\"$value\" " . (($selectedValue == $value) ? 'selected' : '') . ">$text</option>";
+                        }
+                        echo "</select>
+                            </div>";
+                    }
 
-                selectField('Tipo de Transacción', 'categoria', $categoria, [
-                    'todas' => 'Todas',
-                    'gastos' => 'Gastos',
-                    'ahorros' => 'Ahorros'
-                ]);
+                    inputField('Desde', 'inicio', 'date', $fechaInicio);
+                    inputField('Hasta', 'fin', 'date', $fechaFin);
 
-                selectField('Granularidad', 'granularidad', $granularidad, [
-                    'diaria' => 'Diaria',
-                    'mensual' => 'Mensual',
-                    'anual' => 'Anual'
-                ]);
+                    selectField('Tipo de Transacción', 'categoria', $categoria, [
+                        'todas' => 'Todas',
+                        'gastos' => 'Gastos',
+                        'ahorros' => 'Ahorros'
+                    ]);
+
+                    selectField('Granularidad', 'granularidad', $granularidad, [
+                        'diaria' => 'Diaria',
+                        'mensual' => 'Mensual',
+                        'anual' => 'Anual'
+                    ]);
                 ?>
 
                 <div class="sm:col-span-2 md:col-span-1 lg:col-span-1 flex items-end">
@@ -53,10 +53,11 @@
             </form>
         </div>
 
+        <!-- Gráficos de análisis & Desglose de Gastos -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-xl border border-gray-100 flex flex-col">
+            <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-2xl border border-gray-100 flex flex-col">
                 <div class="flex justify-between items-center mb-4">
-                    <h4 class="text-lg font-bold text-gray-800">Tendencia de Gastos</h4>
+                    <h4 class="text-xl font-semibold text-neutral-950">Tendencia de Gastos</h4>
                     <select id="tipoGraficoGastos" class="bg-gray-50 border border-gray-300 text-neutral-950 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 transition-all duration-200">
                         <option value="line">Línea</option>
                         <option value="bar">Barra</option>
@@ -67,23 +68,23 @@
                 </div>
             </div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 flex flex-col">
-                <h4 class="text-lg font-bold mb-4 text-gray-800">Desglose de Gastos por Categoría</h4>
+            <div class="bg-white p-6 rounded-2xl shadow-2xl border border-gray-100 flex flex-col">
+                <h4 class="text-xl font-semibold mb-4 text-neutral-950">Desglose de Gastos por Categoría</h4>
                 <div class="flex-grow bg-gray-50 h-80 rounded-lg flex items-center justify-center p-4">
                     <canvas id="graficoDesgloseCategorias"></canvas>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100">
-            <h4 class="text-lg font-bold mb-4 text-gray-800">Visualización de Ahorro (Periodo Actual vs. Anterior)</h4>
+        <div class="bg-white p-6 rounded-2xl shadow-2xl border border-gray-100">
+            <h4 class="text-xl font-semibold mb-4 text-neutral-950">Visualización de Ahorro (Periodo Actual vs. Anterior)</h4>
             <div class="bg-gray-50 h-80 rounded-lg flex items-center justify-center p-4">
                 <canvas id="graficoComparativo"></canvas>
             </div>
         </div>
 
-        <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800">Indicadores Clave (KPIs)</h2>
+        <div class="bg-white p-6 rounded-2xl shadow-2xl border border-gray-100">
+            <h2 class="text-xl font-semibold mb-6 text-gray-800">Indicadores Clave (KPIs)</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 <?php
                 // Helper para tarjetas KPI

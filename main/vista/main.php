@@ -71,5 +71,55 @@
     ?>
   </main>
 
+  <div id="notificationsModal" class="fixed inset-0 z-50 flex items-center justify-start bg-black bg-opacity-50 hidden">
+    <div class="bg-neutral-50 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] h-full overflow-y-auto p-6 relative">
+
+      <!-- Botón cerrar -->
+      <button id="closeNotifications" class="absolute top-4 right-4 text-neutral-500 hover:text-neutral-800">
+        <i class="ri-close-line text-3xl"></i>
+      </button>
+
+      <!-- Contenido dinámico -->
+      <div id="notificationsContent"></div>
+    </div>
+  </div>
+
+  <!-- ✅ Script para abrir/cerrar -->
+  <script>
+    const openBtn = document.getElementById('openNotifications');
+    const closeBtn = document.getElementById('closeNotifications');
+    const modal = document.getElementById('notificationsModal');
+    const content = document.getElementById('notificationsContent');
+
+    openBtn?.addEventListener('click', () => {
+      fetch('index.php?ruta=main&modulo=notificaciones')
+        .then(response => response.text())
+        .then(html => {
+          content.innerHTML = html;
+          modal.classList.remove('hidden');
+        });
+    });
+
+    closeBtn?.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      content.innerHTML = '';
+    });
+
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        content.innerHTML = '';
+      }
+    });
+
+    // Cerrar modal al presionar ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        modal.classList.add('hidden');
+        content.innerHTML = '';
+      }
+    });
+  </script>
+
 </body>
 </html>

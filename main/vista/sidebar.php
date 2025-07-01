@@ -33,11 +33,11 @@ function linkActivo($modulo, $moduloActual) {
         </div>
 
         <div class="flex flex-col w-full mb-4 border-t border-gray-700 pt-4">
-            <a class="relative flex items-center w-full h-12 px-3 rounded hover:bg-cyan-700 hover:text-cyan-50 <?= linkActivo('notificaciones', $moduloActivo) ?>" 
-                href="index.php?ruta=main&modulo=notificaciones">
+            <button id="openNotifications" class="relative flex items-center w-full h-12 px-3 rounded hover:bg-cyan-700 hover:text-cyan-50">
                 <i class="ri-chat-1-line text-2xl"></i>
                 <span class="ml-2 text-sm font-medium hidden md:inline">Notificaciones</span>
-            </a>
+            </button>
+
             <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-cyan-700 hover:text-cyan-50 <?= linkActivo('cuenta', $moduloActivo) ?>" 
                 href="index.php?ruta=main&modulo=cuenta">
                 <i class="ri-user-line text-2xl"></i>

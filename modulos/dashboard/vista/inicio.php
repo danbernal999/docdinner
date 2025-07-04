@@ -34,7 +34,7 @@
       <!-- Título y balance -->
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-semibold text-neutral-950">Balance General</h2>
-        <p class="text-sm text-gray-700">
+        <p class="text-sm text-neutral-50">
           Este mes gastaste un <span class="text-red-500 font-bold">+15%</span> más que el anterior.
         </p>
       </div>
@@ -83,6 +83,7 @@
   </div>
 
   <!-- Visualizacion de Ahorro -->
+   <!-- class="rounded-2xl overflow-hidden text-white shadow-lg relative" style="background: radial-gradient(ellipse at right top, #107667ed 0%, #ffffff 47%, #ffffff 100%)" -->
   <div class="bg-white p-6 rounded-xl shadow-2xl">
     <h2 class="text-xl font-semibold text-neutral-950 mb-4">Visualización Ahorro</h2>
     <!-- Contenedor con scroll -->
@@ -114,20 +115,19 @@
 <!-- Contenedor secundario: Productos y resumen del mes -->
 <div class="grid grid-cols-1 md:grid-cols-5 gap-5 mt-5">
   <!-- Resumen de Gastos Fijos -->
-  <div class="md:col-span-3 bg-white p-6 rounded-xl shadow-2xl h-full">
+  <div class="md:col-span-3 bg-white p-6 rounded-xl shadow-2xl h-full" >
     <!-- Título -->
     <div class="mb-4">
       <h3 class="text-lg font-semibold text-neutral-950">Resumen de Gastos Fijos</h3>
-      <p class="text-sm text-gray-600">Estadísticas rápidas de tus productos financieros mensuales.</p>
     </div>
 
     <!-- Estadísticas importantes -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
-      <!-- Total de Gastos Fijos -->
-      <div class="bg-gray-50 p-4 rounded-lg shadow">
-        <p class="text-sm text-gray-600">Total Gastos Fijos</p>
-        <p class="text-xl font-bold text-red-600">$<?= number_format($total_gastos) ?></p>
-      </div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-2">
+        <!-- Total de Gastos Fijos -->
+        <div class="bg-gray-50 p-4 rounded-lg shadow">
+          <p class="text-sm text-gray-600">Total Gastos Fijos</p>
+          <p class="text-xl font-bold text-red-600">$<?= number_format($total_gastos) ?></p>
+        </div>
 
       <!-- Gasto más alto -->
       <?php if ($gastoMasAlto): ?>
@@ -145,31 +145,43 @@
         </div>
       <?php endif; ?>
 
-      <!-- Próximo vencimiento -->
-      <div class="bg-gray-50 p-4 rounded-lg shadow">
-        <p class="text-sm text-gray-600">Próximo gasto programado</p>
-        <p class="text-base font-semibold text-gray-800">Internet: <span class="text-blue-600">05 Jun 2025</span></p>
-      </div>
+        <!-- Próximo vencimiento -->
+        <div class="bg-gray-50 p-4 rounded-lg shadow">
+          <p class="text-sm text-gray-600">Próximo gasto programado</p>
+          <p class="text-base font-semibold text-gray-800">Internet: <span class="text-blue-600">05 Jun 2025</span></p>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg shadow">
+          <p class="text-sm text-gray-600">Beta</p>
+          <p class="text-xl font-bold text-red-600">$<?= number_format($total_gastos) ?></p>
+        </div>
 
     </div>
 
-    <!-- Categorías principales -->
-    <div class="mt-6">
-      <h4 class="text-sm font-semibold text-gray-800 mb-2">Distribución por Categoría</h4>
-      <ul class="text-sm text-gray-700 space-y-1">
-        <li class="flex justify-between">
-          <span>Vivienda</span>
-          <span>$100.000.000</span>
-        </li>
-        <li class="flex justify-between">
-          <span>Transporte</span>
-          <span>$100.000</span>
-        </li>
-        <li class="flex justify-between">
-          <span>Hogar y Decoración</span>
-          <span>$50.000</span>
-        </li>
-      </ul>
+    <!-- Categorías De Iva Pagado -->
+    <div class="bg-gray-50 rounded-lg shadow p-4 text-sm text-gray-700 mt-6">
+      <h2 class="text-lg font-semibold text-neutral-900 mb-2">Resumen de IVA</h2>
+
+      <p>💸 IVA pagado este mes: <strong>$<?= number_format($ivaActual, 2, ',', '.') ?></strong></p>
+
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-2">
+        <p class="whitespace-nowrap">
+          📊 Variación mensual:
+          <strong class="<?= $variacion >= 0 ? 'text-green-600' : 'text-red-600' ?>">
+            <?= $variacion >= 0 ? '+' : '' ?><?= number_format($variacion, 1) ?>%
+          </strong>
+          <?= $ivaAnterior == 0 ? '(sin datos del mes anterior)' : '' ?>
+        </p>
+
+        <div class="max-w-[160px] md:max-w-[200px]">
+          <canvas id="ivaSparkline"
+                  height="50"
+                  width="160"
+                  class="w-full h-auto"
+                  data-iva-actual="<?= $ivaActual ?>"
+                  data-iva-anterior="<?= $ivaAnterior ?>"></canvas>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -187,9 +199,11 @@
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 <script src="assets/js/dashboard/grafico.js"></script>
 <script src="assets/js/dashboard/graficoPastel.js"></script>
 <script src="assets/js/dashboard/apiFinanciera.js"></script>
+<script src="assets/js/dashboard/graficoIva.js"></script>
 
 
 

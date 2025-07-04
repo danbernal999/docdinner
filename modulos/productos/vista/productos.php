@@ -68,6 +68,8 @@
             <tr>
               <th class="px-4 py-3 text-left text-sm font-semibold">Nombre</th>
               <th class="px-4 py-3 text-left text-sm font-semibold">Monto</th>
+              <th class="px-4 py-3 text-left text-sm font-semibold">IVA</th>
+              <th class="px-4 py-3 text-left text-sm font-semibold">Valor sin IVA</th>
               <th class="px-4 py-3 text-left text-sm font-semibold">Fecha</th>
               <th class="px-4 py-3 text-left text-sm font-semibold">Categoría</th>
               <th class="px-4 py-3 text-left text-sm font-semibold">Descripción</th>
@@ -81,6 +83,8 @@
               <tr>
                 <td class="whitespace-nowrap px-4 py-3 text-sm font-medium text-neutral-950"><?= htmlspecialchars($gasto['nombre_gasto']) ?></td>
                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600">$<?= number_format($gasto['monto'], 2, ',', '.') ?></td>
+                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600">$<?= number_format($gasto['valor_iva'] ?? 0, 2, ',', '.') ?></td>
+                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600">$<?= number_format($gasto['valor_sin_iva'] ?? 0, 2, ',', '.') ?></td>
                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= htmlspecialchars($gasto['fecha']) ?></td>
                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= htmlspecialchars($gasto['categoria']) ?></td>
                 <td class="px-4 py-3 text-sm text-gray-600"><?= htmlspecialchars($gasto['descripcion']) ?></td>
@@ -132,6 +136,7 @@
                 <input type="number" name="monto" id="monto_<?= $gasto['id'] ?>" step="0.01" value="<?= htmlspecialchars($gasto['monto']) ?>" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5" />
               </div>
             </div>
+
             <div class="mb-4">
               <label for="fecha_<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Fecha</label>
               <input type="date" name="fecha" id="fecha_<?= $gasto['id'] ?>" value="<?= htmlspecialchars($gasto['fecha']) ?>" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" />
@@ -152,6 +157,7 @@
               <label for="descripcion_<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Descripción</label>
               <textarea name="descripcion" id="descripcion_<?= $gasto['id'] ?>" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"><?= htmlspecialchars($gasto['descripcion']) ?></textarea>
             </div>
+
             <button type="submit" name="actualizarGasto" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Actualizar</button>
           </form>
         </div>
@@ -214,6 +220,29 @@
             <textarea name="descripcion" id="descripcion" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" required></textarea>
           </div>
 
+          <!-- Sección IVA -->
+          <div class="mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">¿Este gasto incluye IVA?</label>
+            <div class="flex items-center gap-3">
+              <input type="checkbox" id="incluir_iva" name="incluir_iva" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded">
+              <label for="incluir_iva" class="text-sm text-gray-700">Incluir IVA</label>
+            </div>
+          </div>
+
+          <div id="iva-section" class="mb-4 hidden">
+            <label for="tasa_iva" class="block mb-2 text-sm font-medium text-gray-900">Tasa de IVA</label>
+            <select id="tasa_iva" name="tasa_iva" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+              <option value="19">19%</option>
+              <option value="5">5%</option>
+              <option value="0">0% (Exento)</option>
+            </select>
+
+            <div class="mt-3 text-sm text-gray-700">
+              <p><strong>IVA estimado:</strong> <span id="iva_estimado">$0.00</span></p>
+              <p><strong>Valor sin IVA:</strong> <span id="valor_sin_iva">$0.00</span></p>
+            </div>
+          </div>
+
           <button type="submit" name="crearGasto" class="text-white bg-blue-700 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Guardar Gasto</button>
         </form>
       </div>
@@ -223,6 +252,8 @@
   
   <!-- Script para toggle de modales -->
   <script src="assets/js/productos/modals.js"></script>
+  <script src="assets/js/productos/iva.js"></script>
+
 </div>
 
 

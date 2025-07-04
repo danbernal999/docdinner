@@ -54,7 +54,11 @@ class ProductosController {
                 $fecha = $_POST['fecha'] ?? '';
                 $idUsuario = $_POST['id_usuario'] ?? '';
                 
-                
+                // Calcular IVA si aplica
+                $incluyeIVA = isset($_POST['incluir_iva']);
+                $tasaIVA = $incluyeIVA ? floatval($_POST['tasa_iva']) : 0;
+                $valorSinIVA = $incluyeIVA ? $monto / (1 + $tasaIVA / 100) : $monto;
+                $valorIVA = $monto - $valorSinIVA;
 
                 // Validación simple
                 if (empty($nombre) || empty($monto) || empty($categoria) || empty($descripcion) || empty($fecha)) {
@@ -62,7 +66,10 @@ class ProductosController {
                     exit();
                 }
 
-                $resultado = $this->productoModel->guardarGastoFijo($nombre, $monto, $categoria, $descripcion, $fecha, $idUsuario);
+                        // Guardar en base de datos con IVA
+            $resultado = $this->productoModel->guardarGastoFijo(
+                $nombre, $monto, $valorSinIVA, $valorIVA, $categoria, $descripcion, $fecha, $idUsuario
+            );
 
                 if ($resultado === true) {
                     header('Location: index.php?ruta=main&modulo=productos&mensaje=gasto_guardado');

@@ -3,7 +3,7 @@ function linkActivo($modulo, $moduloActual) {
     return $modulo === $moduloActual ? 'bg-cyan-500 text-white border-l-4 border-cyan-400' : '';
 }
 ?>
-<div class="fixed top-0 left-0 flex flex-col items-start w-20 md:w-60 h-full text-neutral-50 bg-neutral-950 p-3 transition-all duration-300">
+<div class="fixed bg-black top-0 left-0 flex flex-col items-start w-20 md:w-60 h-full text-neutral-50 p-3 transition-all duration-300">
     <a class="flex items-center w-full mb-3" href="index.php?ruta=main">
         <img src="assets/images/LogoDocDinnerHD-removebg-preview.png" alt="Logo DocDinner" width="50" height="50" class="mx-auto md:mx-0">
         <span class="ml-2 text-xl font-bold hidden md:inline">DocDinner</span>

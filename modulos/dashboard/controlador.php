@@ -39,8 +39,20 @@ class DashboardController {
         $deuda = max(0, $totalGastos - $saldoInicial);
         $_SESSION['saldo_disponible'] = $disponible;
 
+        // Obtener el IVA mensual actual y anterior
+        $mesActual = date('n');
+        $anioActual = date('Y');
+        $mesAnterior = $mesActual == 1 ? 12 : $mesActual - 1;
+        $anioAnterior = $mesActual == 1 ? $anioActual - 1 : $anioActual;
 
-        
+        $ivaActual = $this->productoModel->obtenerIVAMensualPorUsuario($id_usuario, $mesActual, $anioActual);
+        $ivaAnterior = $this->productoModel->obtenerIVAMensualPorUsuario($id_usuario, $mesAnterior, $anioAnterior);
+
+        $variacion = 0;
+        if ($ivaAnterior > 0) {
+            $variacion = (($ivaActual - $ivaAnterior) / $ivaAnterior) * 100;
+        }
+
 
         $foto     = $_SESSION['foto'] ?? '';
         $rutaFoto = obtenerRutaFoto($foto);

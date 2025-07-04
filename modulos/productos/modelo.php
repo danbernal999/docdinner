@@ -53,15 +53,17 @@ class Producto{
     }
 
     //Funcion para guardar o crear un nuevo producto(Gastos)
-    public function guardarGastoFijo($nombre, $monto, $categoria, $descripcion, $fecha, $idUsuario) {
+    public function guardarGastoFijo($nombre, $monto, $valorSinIVA, $valorIVA, $categoria, $descripcion, $fecha, $idUsuario) {
         try {
-            $sql = "INSERT INTO gastos_fijos (usuario_id, nombre_gasto, monto, categoria, descripcion, fecha) 
-                    VALUES (:id_usuario, :nombre_gasto, :monto, :categoria, :descripcion, :fecha)";
+            $sql = "INSERT INTO gastos_fijos (usuario_id, nombre_gasto, monto, valor_sin_iva, valor_iva, categoria, descripcion, fecha) 
+                    VALUES (:id_usuario, :nombre_gasto, :monto, :valor_sin_iva, :valor_iva, :categoria, :descripcion, :fecha)";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':id_usuario' => $idUsuario,
                 ':nombre_gasto' => $nombre,
                 ':monto' => $monto,
+                ':valor_sin_iva' => $valorSinIVA,
+                ':valor_iva' => $valorIVA,
                 ':categoria' => $categoria,
                 ':descripcion' => $descripcion,
                 ':fecha' => $fecha
@@ -74,30 +76,32 @@ class Producto{
 
     //Funcion para actualizar el producto(Gasto)
     public function actualizarGasto($id, $nombre, $monto, $fecha, $categoria, $descripcion) {
-        try {
-            $sql = "UPDATE gastos_fijos SET 
-                        nombre_gasto = :nombre, 
-                        monto = :monto, 
-                        fecha = :fecha, 
-                        categoria = :categoria, 
-                        descripcion = :descripcion 
-                    WHERE id = :id";
-            $stmt = $this->conn->prepare($sql);
+    try {
+        $sql = "UPDATE gastos_fijos SET 
+                    nombre_gasto = :nombre, 
+                    monto = :monto, 
+                    fecha = :fecha, 
+                    categoria = :categoria, 
+                    descripcion = :descripcion
+                WHERE id = :id";
 
-            $stmt->execute([
-                ':nombre' => $nombre,
-                ':monto' => $monto,
-                ':fecha' => $fecha,
-                ':categoria' => $categoria,
-                ':descripcion' => $descripcion,
-                ':id' => $id
-            ]);
+        $stmt = $this->conn->prepare($sql);
 
-            return true; // Retornar true si todo fue bien
-        } catch (PDOException $e) {
-            return "Error al actualizar gasto: " . $e->getMessage();
-        }
+        $stmt->execute([
+            ':nombre' => $nombre,
+            ':monto' => $monto,
+            ':fecha' => $fecha,
+            ':categoria' => $categoria,
+            ':descripcion' => $descripcion,
+            ':id' => $id
+        ]);
+
+        return true;
+    } catch (PDOException $e) {
+        return "Error al actualizar gasto: " . $e->getMessage();
     }
+}
+
 
     //Funcion para eliminar un gasto recibiendo el ID
     public function eliminarGasto($id) {
@@ -160,6 +164,22 @@ class Producto{
             'data' => $data
         ]);
     }
+
+    public function obtenerIVAMensualPorUsuario($id_usuario, $mes, $anio) {
+        $sql = "SELECT SUM(valor_iva) AS total_iva
+                FROM gastos_fijos
+                WHERE usuario_id = :id_usuario
+                AND MONTH(fecha) = :mes
+                AND YEAR(fecha) = :anio";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            ':id_usuario' => $id_usuario,
+            ':mes' => $mes,
+            ':anio' => $anio
+        ]);
+    return $stmt->fetch(PDO::FETCH_ASSOC)['total_iva'] ?? 0;
+}
+
 
     
 }

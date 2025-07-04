@@ -34,7 +34,7 @@
       <!-- Título y balance -->
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-semibold text-neutral-950">Balance General</h2>
-        <p class="text-sm text-neutral-50">
+        <p class="text-sm text-neutral-950">
           Este mes gastaste un <span class="text-red-500 font-bold">+15%</span> más que el anterior.
         </p>
       </div>

@@ -26,7 +26,7 @@ Sigue estos pasos para instalar y ejecutar correctamente el proyecto **DocDinner
 2. **Instala las dependencias con Composer:**
 
    ```bash
-   composer install
+   composer update
    ```
 
 3. **Configura la base de datos:**

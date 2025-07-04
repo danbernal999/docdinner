@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-06-2025 a las 04:19:11
+-- Tiempo de generación: 04-07-2025 a las 02:21:11
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.1.25
 
@@ -32,6 +32,8 @@ CREATE TABLE `gastos_fijos` (
   `usuario_id` int(11) NOT NULL,
   `nombre_gasto` varchar(100) NOT NULL,
   `monto` decimal(20,2) NOT NULL,
+  `valor_sin_iva` decimal(10,2) DEFAULT NULL,
+  `valor_iva` decimal(10,2) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `categoria` varchar(50) DEFAULT NULL,
   `descripcion` text DEFAULT NULL,
@@ -42,11 +44,11 @@ CREATE TABLE `gastos_fijos` (
 -- Volcado de datos para la tabla `gastos_fijos`
 --
 
-INSERT INTO `gastos_fijos` (`id`, `usuario_id`, `nombre_gasto`, `monto`, `fecha`, `categoria`, `descripcion`, `created_at`) VALUES
-(5, 2, 'Compensar', 200000.00, '2025-05-31', 'Salud y Belleza', 'Brackets', '2025-05-25 00:41:49'),
-(9, 10, 'Transporte', 150000.00, '2025-06-30', 'Transporte', 'Gasolina', '2025-06-10 00:16:15'),
-(10, 10, 'Vivienda', 600000.00, '2025-07-01', 'Vivienda', 'Apartamento', '2025-06-13 01:50:39'),
-(11, 10, 'CityDent', 62000.00, '2025-06-15', 'Salud y Belleza', 'Brackets', '2025-06-13 01:51:19');
+INSERT INTO `gastos_fijos` (`id`, `usuario_id`, `nombre_gasto`, `monto`, `valor_sin_iva`, `valor_iva`, `fecha`, `categoria`, `descripcion`, `created_at`) VALUES
+(9, 10, 'Transporte', 150000.00, NULL, NULL, '2025-06-30', 'Transporte', 'Gasolina', '2025-06-10 00:16:15'),
+(10, 10, 'Vivienda', 600000.00, NULL, NULL, '2025-07-01', 'Vivienda', 'Apartamento', '2025-06-13 01:50:39'),
+(11, 10, 'CityDent', 62000.00, NULL, NULL, '2025-06-15', 'Salud y Belleza', 'Brackets', '2025-06-13 01:51:19'),
+(13, 10, 'Compensar', 700000.00, NULL, NULL, '2025-03-10', 'Salud y Belleza', 'Cordales', '2025-06-19 19:50:27');
 
 -- --------------------------------------------------------
 
@@ -117,16 +119,18 @@ CREATE TABLE `usuarios` (
   `reset_expires` datetime DEFAULT NULL,
   `foto` varchar(255) DEFAULT NULL,
   `auth_provider` varchar(50) DEFAULT 'local',
-  `saldo_inicial` decimal(15,2) DEFAULT 0.00
+  `saldo_inicial` decimal(15,2) DEFAULT 0.00,
+  `presupuesto_mensual` decimal(10,2) DEFAULT 0.00,
+  `moneda` varchar(10) DEFAULT 'COP'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `password`, `fecha_registro`, `ultimo_login`, `reset_token`, `reset_expires`, `foto`, `auth_provider`, `saldo_inicial`) VALUES
-(2, 'draoky999', 'draoky@gmail.com', '$2y$10$BmJBKLB7BIpjJSx18sgj9uJFWbIEtkGfe0jCX3GerE2QphG6k8PqS', '2025-05-25 00:30:24', NULL, NULL, NULL, NULL, 'local', 0.00),
-(10, 'Brayan Bernal', 'bblopezbernal123@gmail.com', '', '2025-06-09 23:20:43', NULL, NULL, NULL, 'uploads/perfil_684b568864d6a.jpg', 'google', 700000.00);
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `password`, `fecha_registro`, `ultimo_login`, `reset_token`, `reset_expires`, `foto`, `auth_provider`, `saldo_inicial`, `presupuesto_mensual`, `moneda`) VALUES
+(2, 'draoky999', 'draoky@gmail.com', '$2y$10$BmJBKLB7BIpjJSx18sgj9uJFWbIEtkGfe0jCX3GerE2QphG6k8PqS', '2025-05-25 00:30:24', NULL, NULL, NULL, NULL, 'local', 0.00, 0.00, 'COP'),
+(10, 'Brayan Bernal', 'bblopezbernal123@gmail.com', '', '2025-06-09 23:20:43', NULL, NULL, NULL, 'uploads/perfil_6854645fb19df.jpeg', 'google', 1200000.00, 0.00, 'COP');
 
 --
 -- Índices para tablas volcadas
@@ -168,7 +172,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `gastos_fijos`
 --
 ALTER TABLE `gastos_fijos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_ahorros`
@@ -214,8 +218,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-/* 1/07/2023 - Iva */
-ALTER TABLE gastos_fijos
-  ADD COLUMN valor_sin_iva DECIMAL(10,2) AFTER monto,
-  ADD COLUMN valor_iva DECIMAL(10,2) AFTER valor_sin_iva;

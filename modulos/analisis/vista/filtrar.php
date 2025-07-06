@@ -54,7 +54,7 @@
         </div>
 
         <!-- Gráficos de análisis & Desglose de Gastos -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-2xl border border-gray-100 flex flex-col">
                 <div class="flex justify-between items-center mb-4">
                     <h4 class="text-xl font-semibold text-neutral-950">Tendencia de Gastos</h4>
@@ -76,10 +76,34 @@
             </div>
         </div>
 
-        <div class="bg-white p-6 rounded-2xl shadow-2xl border border-gray-100">
-            <h4 class="text-xl font-semibold mb-4 text-neutral-950">Visualización de Ahorro (Periodo Actual vs. Anterior)</h4>
-            <div class="bg-gray-50 h-80 rounded-lg flex items-center justify-center p-4">
-                <canvas id="graficoComparativo"></canvas>
+
+        <div class="grid grid-col-3 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-2xl shadow-2xl border border-gray-100">
+                <h4 class="text-xl font-semibold mb-4 text-neutral-950">Visualización de Ahorro (Periodo Actual vs. Anterior)</h4>
+                <div class="bg-gray-50 h-80 rounded-lg flex items-center justify-center p-4">
+                    <canvas id="graficoComparativo"></canvas>
+                </div>
+            </div>
+            
+            <!-- Resumen del Api Financiera -->
+            <div class="md:col-span-1 bg-white p-6 rounded-xl shadow-2xl h-full">
+                <!-- Componente: Finanzas en tiempo real -->
+                <h3 class="text-lg font-semibold text-neutral-950">Finanzas en Tiempo Real</h3>
+                <div id="datos-financieros" class="space-y-3 mt-6  overflow-y-auto max-h-[310px]">
+                <!-- Aquí se generarán las tarjetas de activos financieros -->
+                <!-- Las tarjetas se generarán dinámicamente con JavaScript --> 
+                </div>
+            </div>
+
+            
+                      <!-- Resumen del Api Financiera -->
+            <div class="md:col-span-1 bg-white p-6 rounded-xl shadow-2xl h-full">
+                <!-- Componente: Finanzas en tiempo real -->
+                <h3 class="text-lg font-semibold text-neutral-950">Proximo Datos en Beta</h3>
+                <div id="" class="space-y-3 mt-6  overflow-y-auto max-h-[250px]">
+                <!-- Aquí se generarán las tarjetas de activos financieros -->
+                <!-- Las tarjetas se generarán dinámicamente con JavaScript --> 
+                </div>
             </div>
         </div>
 
@@ -102,26 +126,12 @@
                 kpiCard('fas fa-bullseye', 'text-amber-600', 'bg-amber-50', 'border border-amber-100', 'Progreso Metas', $kpis['objetivoVentas'], 'de metas de ahorro');
                 ?>
             </div>
-
-            <div class="mt-8 flex flex-wrap gap-4 justify-center">
-                <?php
-                // Helper para botones de exportación
-                function exportButton($iconClass, $gradientClass, $text) {
-                    echo "<button class=\"{$gradientClass} text-white px-6 py-3 rounded-lg shadow-md hover:opacity-90 transition-all duration-300 transform hover:scale-105 flex items-center\">
-                            <i class=\"{$iconClass} mr-2\"></i>{$text}
-                        </button>";
-                }
-
-                exportButton('fas fa-file-pdf', 'bg-gradient-to-r from-purple-500 to-pink-500', 'Exportar PDF');
-                exportButton('fas fa-file-excel', 'bg-gradient-to-r from-green-500 to-teal-500', 'Exportar Excel');
-                exportButton('fas fa-file-csv', 'bg-gradient-to-r from-orange-500 to-red-500', 'Exportar CSV');
-                ?>
-            </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script> 
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
+    <script src="assets/js/analisis/apiFinanciera.js"></script>
     <script>
         let graficoAnalisisGastos, graficoComparativo, graficoDesgloseCategorias;
 

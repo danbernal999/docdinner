@@ -10,9 +10,9 @@ class Producto{
     public function obtenerTodosPorUsuario($id_usuario) {
         $sql = "SELECT * FROM gastos_fijos WHERE usuario_id = :usuario_id ORDER BY fecha DESC";
         $stmt = $this->conn->prepare($sql);
-            $stmt->execute([
-                ':usuario_id' => $id_usuario
-            ]);
+        $stmt->execute([
+            ':usuario_id' => $id_usuario
+        ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -20,43 +20,44 @@ class Producto{
     public function obtenerTotalGastosPorUsuario($id_usuario) {
         $sql = "SELECT SUM(monto) AS total_gastos FROM gastos_fijos WHERE usuario_id = :usuario_id";
         $stmt = $this->conn->prepare($sql);
-            $stmt->execute([
-                ':usuario_id' => $id_usuario
-            ]);
+        $stmt->execute([
+            ':usuario_id' => $id_usuario
+        ]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_gastos'] ?? 0;
     }
 
-    // Buscar gastos por categoría
-    public function buscarPorCategoria($categoria) {
-        $sql = "SELECT * FROM gastos_fijos WHERE categoria = :categoria";
+    // Buscar gastos por categoría (asegúrate de incluir id_usuario)
+    public function buscarPorCategoria($categoria, $id_usuario) {
+        $sql = "SELECT * FROM gastos_fijos WHERE categoria = :categoria AND usuario_id = :usuario_id";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([':categoria' => $categoria]);
+        $stmt->execute([':categoria' => $categoria, ':usuario_id' => $id_usuario]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Obtener total por categoría
-    public function obtenerTotalPorCategoria($categoria) {
-        $sql = "SELECT SUM(monto) AS total_categoria FROM gastos_fijos WHERE categoria = :categoria";
+    // Obtener total por categoría (asegúrate de incluir id_usuario)
+    public function obtenerTotalPorCategoria($categoria, $id_usuario) {
+        $sql = "SELECT SUM(monto) AS total_categoria FROM gastos_fijos WHERE categoria = :categoria AND usuario_id = :usuario_id";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([':categoria' => $categoria]);
+        $stmt->execute([':categoria' => $categoria, ':usuario_id' => $id_usuario]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_categoria'] ?? 0;
     }
 
-    // Obtener gastos ordenados por fecha o monto
-    public function obtenerOrdenado($orden) {
+    // Obtener gastos ordenados por fecha o monto (asegúrate de incluir id_usuario)
+    public function obtenerOrdenado($orden, $id_usuario) {
         $columna = ($orden === 'fecha') ? 'fecha' : 'monto';
-        $sql = "SELECT * FROM gastos_fijos ORDER BY $columna DESC";
-        $stmt = $this->conn->query($sql);
+        $sql = "SELECT * FROM gastos_fijos WHERE usuario_id = :usuario_id ORDER BY $columna DESC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':usuario_id' => $id_usuario]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //Funcion para guardar o crear un nuevo producto(Gastos)
-    public function guardarGastoFijo($nombre, $monto, $valorSinIVA, $valorIVA, $categoria, $descripcion, $fecha, $idUsuario) {
+    // Funcion para guardar o crear un nuevo producto(Gastos)
+    public function guardarGastoFijo($nombre, $monto, $valorSinIVA, $valorIVA, $categoria, $descripcion, $fecha, $idUsuario, $esRecurrente, $frecuenciaRecurrencia) {
         try {
-            $sql = "INSERT INTO gastos_fijos (usuario_id, nombre_gasto, monto, valor_sin_iva, valor_iva, categoria, descripcion, fecha) 
-                    VALUES (:id_usuario, :nombre_gasto, :monto, :valor_sin_iva, :valor_iva, :categoria, :descripcion, :fecha)";
+            $sql = "INSERT INTO gastos_fijos (usuario_id, nombre_gasto, monto, valor_sin_iva, valor_iva, categoria, descripcion, fecha, es_recurrente, frecuencia_recurrencia) 
+                     VALUES (:id_usuario, :nombre_gasto, :monto, :valor_sin_iva, :valor_iva, :categoria, :descripcion, :fecha, :es_recurrente, :frecuencia_recurrencia)";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':id_usuario' => $idUsuario,
@@ -66,7 +67,9 @@ class Producto{
                 ':valor_iva' => $valorIVA,
                 ':categoria' => $categoria,
                 ':descripcion' => $descripcion,
-                ':fecha' => $fecha
+                ':fecha' => $fecha,
+                ':es_recurrente' => $esRecurrente,
+                ':frecuencia_recurrencia' => $frecuenciaRecurrencia
             ]);
             return true;
         } catch (PDOException $e) {
@@ -74,36 +77,44 @@ class Producto{
         }
     }
 
-    //Funcion para actualizar el producto(Gasto)
-    public function actualizarGasto($id, $nombre, $monto, $fecha, $categoria, $descripcion) {
-    try {
-        $sql = "UPDATE gastos_fijos SET 
-                    nombre_gasto = :nombre, 
-                    monto = :monto, 
-                    fecha = :fecha, 
-                    categoria = :categoria, 
-                    descripcion = :descripcion
-                WHERE id = :id";
+    // Funcion para actualizar el producto(Gasto) - Ahora incluye campos de recurrencia
+    public function actualizarGasto($id, $nombre, $monto, $fecha, $categoria, $descripcion, $esRecurrente, $frecuenciaRecurrencia) {
+        try {
+            // Si el gasto no es recurrente, asegúrate de que frecuencia_recurrencia sea NULL
+            if (!$esRecurrente) {
+                $frecuenciaRecurrencia = null;
+            }
 
-        $stmt = $this->conn->prepare($sql);
+            $sql = "UPDATE gastos_fijos SET 
+                        nombre_gasto = :nombre, 
+                        monto = :monto, 
+                        fecha = :fecha, 
+                        categoria = :categoria, 
+                        descripcion = :descripcion,
+                        es_recurrente = :es_recurrente,
+                        frecuencia_recurrencia = :frecuencia_recurrencia
+                    WHERE id = :id";
 
-        $stmt->execute([
-            ':nombre' => $nombre,
-            ':monto' => $monto,
-            ':fecha' => $fecha,
-            ':categoria' => $categoria,
-            ':descripcion' => $descripcion,
-            ':id' => $id
-        ]);
+            $stmt = $this->conn->prepare($sql);
 
-        return true;
-    } catch (PDOException $e) {
-        return "Error al actualizar gasto: " . $e->getMessage();
+            $stmt->execute([
+                ':nombre' => $nombre,
+                ':monto' => $monto,
+                ':fecha' => $fecha,
+                ':categoria' => $categoria,
+                ':descripcion' => $descripcion,
+                ':es_recurrente' => $esRecurrente,
+                ':frecuencia_recurrencia' => $frecuenciaRecurrencia,
+                ':id' => $id
+            ]);
+
+            return true;
+        } catch (PDOException $e) {
+            return "Error al actualizar gasto: " . $e->getMessage();
+        }
     }
-}
 
-
-    //Funcion para eliminar un gasto recibiendo el ID
+    // Funcion para eliminar un gasto recibiendo el ID
     public function eliminarGasto($id) {
         try {
             $sql = "DELETE FROM gastos_fijos WHERE id = :id";
@@ -114,6 +125,7 @@ class Producto{
             return "Error al eliminar gasto: " . $e->getMessage();
         }
     }
+
     // Función para obtener el gasto fijo más alto de un usuario
     public function obtenerGastoFijoMasAlto($idUsuario) {
         try {
@@ -133,21 +145,20 @@ class Producto{
 
     //Funcion para obtener los valores de la grafia de Balance general Anual
     public function obtenerGastosMensuales($usuario_id){
-
         $sql = "SELECT 
                     MONTH(fecha) AS mes_num,
                     SUM(monto) AS total_gastos
                 FROM 
                     gastos_fijos
                 WHERE 
-                    usuario_id = ?
+                    usuario_id = :usuario_id
                 GROUP BY 
                     mes_num
                 ORDER BY 
                     mes_num";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$usuario_id]);
+        $stmt->execute([':usuario_id' => $usuario_id]);
         $resultado = $stmt->fetchAll(PDO::FETCH_KEY_PAIR); // [mes_num => total_gastos]
 
         // Armar array con los 12 meses (enero a diciembre)
@@ -177,10 +188,6 @@ class Producto{
             ':mes' => $mes,
             ':anio' => $anio
         ]);
-    return $stmt->fetch(PDO::FETCH_ASSOC)['total_iva'] ?? 0;
+        return $stmt->fetch(PDO::FETCH_ASSOC)['total_iva'] ?? 0;
+    }
 }
-
-
-    
-}
-?>

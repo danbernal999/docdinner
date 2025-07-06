@@ -5,7 +5,7 @@ const activos = [
   { simbolo: "MSFT", id: "msft", nombre: "Microsoft (MSFT)" },
   { simbolo: "TSLA", id: "tsla", nombre: "Tesla (TSLA)" },
   { simbolo: "GOOGL", id: "googl", nombre: "Alphabet (GOOGL)" },
-  { simbolo: "AMZN", id: "amzn", nombre: "Amazon (AMZN)" }
+  { simbolo: "AMZN", id: "amzn", nombre: "Amazon (AMZN)" },
 ];
 
 // Crear HTML

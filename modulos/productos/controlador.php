@@ -24,7 +24,6 @@ class ProductosController {
             $accion = $_GET['accion'];
 
             switch ($accion) {
-
                 case 'eliminar':
                     if (isset($_GET['id'])) {
                         $id = $_GET['id'];
@@ -54,6 +53,10 @@ class ProductosController {
                 $fecha = $_POST['fecha'] ?? '';
                 $idUsuario = $_POST['id_usuario'] ?? '';
                 
+                // Nuevos campos para recurrencia
+                $esRecurrente = isset($_POST['es_recurrente']) ? 1 : 0; // 1 si está marcado, 0 si no
+                $frecuenciaRecurrencia = $_POST['frecuencia_recurrencia'] ?? null;
+
                 // Calcular IVA si aplica
                 $incluyeIVA = isset($_POST['incluir_iva']);
                 $tasaIVA = $incluyeIVA ? floatval($_POST['tasa_iva']) : 0;
@@ -66,14 +69,22 @@ class ProductosController {
                     exit();
                 }
 
-                        // Guardar en base de datos con IVA
-            $resultado = $this->productoModel->guardarGastoFijo(
-                $nombre, $monto, $valorSinIVA, $valorIVA, $categoria, $descripcion, $fecha, $idUsuario
-            );
+                // Si es recurrente, la frecuencia no puede ser nula
+                if ($esRecurrente && empty($frecuenciaRecurrencia)) {
+                    header('Location: index.php?ruta=main&modulo=productos&mensaje=error_frecuencia_recurrencia');
+                    exit();
+                }
+
+                // Guardar en base de datos con IVA y recurrencia
+                $resultado = $this->productoModel->guardarGastoFijo(
+                    $nombre, $monto, $valorSinIVA, $valorIVA, $categoria, $descripcion, $fecha, $idUsuario, $esRecurrente, $frecuenciaRecurrencia
+                );
 
                 if ($resultado === true) {
                     header('Location: index.php?ruta=main&modulo=productos&mensaje=gasto_guardado');
                 } else {
+                    // Puedes loguear $resultado para depuración
+                    error_log("Error al guardar gasto: " . $resultado);
                     header('Location: index.php?ruta=main&modulo=productos&mensaje=error_bd');
                 }
                 exit();
@@ -88,14 +99,28 @@ class ProductosController {
                 $categoria = $_POST['categoria'] ?? '';
                 $descripcion = $_POST['descripcion'] ?? '';
 
+                // Nuevos campos para recurrencia en edición
+                $esRecurrente = isset($_POST['es_recurrente']) ? 1 : 0;
+                $frecuenciaRecurrencia = $_POST['frecuencia_recurrencia'] ?? null;
+
+                // Recalcular IVA para la actualización (asumiendo que el modal de edición no tiene la lógica de IVA en el frontend)
+                // Para simplificar, si no se envía la tasa de IVA en la edición, se asume que no se cambia el IVA.
+                // Si necesitas recalcular el IVA, deberías obtener el gasto actual de la DB primero
+                // o añadir los campos de IVA al formulario de edición.
+                // Por ahora, solo actualizaremos los campos de recurrencia y los existentes.
+                // Si el IVA es dinámico en la edición, necesitarías más lógica aquí.
+
                 if ($id) {
-                    $resultado = $this->productoModel->actualizarGasto($id, $nombre, $monto, $fecha, $categoria, $descripcion);
+                    $resultado = $this->productoModel->actualizarGasto(
+                        $id, $nombre, $monto, $fecha, $categoria, $descripcion, $esRecurrente, $frecuenciaRecurrencia
+                    );
 
                     if ($resultado === true) {
                         header("Location: index.php?ruta=main&modulo=productos&mensaje=gasto_actualizado");
                         exit();
                     } else {
-                        echo $resultado;
+                        error_log("Error al actualizar gasto: " . $resultado);
+                        echo $resultado; // Mostrar error para depuración
                         exit();
                     }
                 }
@@ -109,34 +134,34 @@ class ProductosController {
             // Buscar por categoría
             if (isset($_POST['buscar_categoria'])) {
                 $categoriaSeleccionada = $_POST['categoria'] ?? '';
-                $gastos = $this->productoModel->buscarPorCategoria($categoriaSeleccionada);
+                $gastos = $this->productoModel->buscarPorCategoria($categoriaSeleccionada, $id_usuario);
             }
 
             // Ver total por categoría
             if (isset($_POST['ver_total_categoria'])) {
                 $categoriaSeleccionada = $_POST['categoria'] ?? '';
-                $total_categoria = $this->productoModel->obtenerTotalPorCategoria($categoriaSeleccionada);
+                $total_categoria = $this->productoModel->obtenerTotalPorCategoria($categoriaSeleccionada, $id_usuario);
             }
 
             // Ordenar
             if (isset($_POST['ordenar_por'])) {
                 $ordenSeleccionado = $_POST['orden'] ?? '';
-                $gastos = $this->productoModel->obtenerOrdenado($ordenSeleccionado);
+                $gastos = $this->productoModel->obtenerOrdenado($ordenSeleccionado, $id_usuario);
             }
-
-            // Si no hay filtros aplicados, cargar todos
-            if (empty($gastos)) {
-                $gastos = $this->productoModel->obtenerTodosPorUsuario($id_usuario);
-            }
-
-            include 'modulos/productos/vista/productos.php';
-            return;
         }
 
-        //
+        // Si no hay POST ni GET de acciones específicas, o si los filtros no llenaron $gastos,
+        // cargar todos los gastos del usuario.
+        if (empty($gastos) && $id_usuario) {
+            $gastos = $this->productoModel->obtenerTodosPorUsuario($id_usuario);
+        }
 
-        // Si no hay POST ni GET, mostrar todos los gastos
-        $gastos = $this->productoModel->obtenerTodosPorUsuario($id_usuario);
+        // Manejo de mensajes de éxito/error de la URL
+        if (isset($_GET['mensaje'])) {
+            $mensaje = $_GET['mensaje'];
+            // Aquí podrías añadir lógica para mostrar estos mensajes en la vista
+        }
+
         include 'modulos/productos/vista/productos.php';
     }
 
@@ -150,4 +175,3 @@ class ProductosController {
         }
     }
 }
-?>

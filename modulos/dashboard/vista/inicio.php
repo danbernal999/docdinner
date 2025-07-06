@@ -115,7 +115,7 @@
 <!-- Contenedor secundario: Productos y resumen del mes -->
 <div class="grid grid-cols-1 md:grid-cols-5 gap-5 mt-5">
   <!-- Resumen de Gastos Fijos -->
-  <div class="md:col-span-3 bg-white p-6 rounded-xl shadow-2xl h-full" >
+  <div class="md:col-span-5 bg-white p-6 rounded-xl shadow-2xl h-full" > <!-- aGGGGG -->
     <!-- Título -->
     <div class="mb-4">
       <h3 class="text-lg font-semibold text-neutral-950">Resumen de Gastos Fijos</h3>
@@ -184,16 +184,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Resumen del Api Financiera -->
-  <div class="md:col-span-2 bg-white p-6 rounded-xl shadow-2xl h-full">
-    <!-- Componente: Finanzas en tiempo real -->
-    <h3 class="text-lg font-semibold text-neutral-950">Finanzas en Tiempo Real</h3>
-    <div id="datos-financieros" class="space-y-3 mt-6  overflow-y-auto max-h-[250px]">
-      <!-- Aquí se generarán las tarjetas de activos financieros -->
-      <!-- Las tarjetas se generarán dinámicamente con JavaScript --> 
-    </div>
-  </div>
 </div>
 
 
@@ -202,7 +192,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 <script src="assets/js/dashboard/grafico.js"></script>
 <script src="assets/js/dashboard/graficoPastel.js"></script>
-<script src="assets/js/dashboard/apiFinanciera.js"></script>
 <script src="assets/js/dashboard/graficoIva.js"></script>
 
 

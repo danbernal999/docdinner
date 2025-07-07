@@ -1,3 +1,10 @@
+<?php
+// Inicia la sesión si aún no ha sido iniciada.
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <div class="bg-white w-full max-w-sm h-full shadow-2xl flex flex-col overflow-y-auto rounded-r-2xl border-l-4 border-indigo-500">
 
     <div class="px-6 py-4 border-b bg-indigo-50">
@@ -6,6 +13,7 @@
         </h2>
     </div>
 
+    <!-- Sección: Metas de Ahorro -->
     <div class="px-6 py-3 border-b bg-neutral-50">
         <h3 class="text-xs font-semibold text-neutral-600 uppercase tracking-wide flex items-center gap-1">
             <i class="ri-pie-chart-2-line text-sm text-indigo-500"></i> Metas de Ahorro

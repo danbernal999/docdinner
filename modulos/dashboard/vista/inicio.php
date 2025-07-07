@@ -46,10 +46,10 @@
 
       <!-- Tarjetas de Ingreso, Gasto, Ahorro y Deuda alineadas horizontalmente -->
       <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <!-- Ingreso (Saldo Inicial) -->
+        <!-- Ingreso (Saldo Inicial Total) -->
         <div class="bg-white p-5 rounded-xl shadow-2xl">
           <div class="flex items-center justify-between">
-            <span class="font-medium text-neutral-800">Saldo Inicial</span>
+            <span class="font-medium text-neutral-800">Saldo Total</span>
             <span class="font-semibold text-yellow-500">$<?= number_format($saldoInicial) ?></span>
           </div>
         </div>
@@ -83,7 +83,6 @@
   </div>
 
   <!-- Visualizacion de Ahorro -->
-   <!-- class="rounded-2xl overflow-hidden text-white shadow-lg relative" style="background: radial-gradient(ellipse at right top, #107667ed 0%, #ffffff 47%, #ffffff 100%)" -->
   <div class="bg-white p-6 rounded-xl shadow-2xl">
     <h2 class="text-xl font-semibold text-neutral-950 mb-4">Visualización Ahorro</h2>
     <!-- Contenedor con scroll -->
@@ -115,7 +114,7 @@
 <!-- Contenedor secundario: Productos y resumen del mes -->
 <div class="grid grid-cols-1 md:grid-cols-5 gap-5 mt-5">
   <!-- Resumen de Gastos Fijos -->
-  <div class="md:col-span-5 bg-white p-6 rounded-xl shadow-2xl h-full" > <!-- aGGGGG -->
+  <div class="md:col-span-5 bg-white p-6 rounded-xl shadow-2xl h-full" >
     <!-- Título -->
     <div class="mb-4">
       <h3 class="text-lg font-semibold text-neutral-950">Resumen de Gastos Fijos</h3>
@@ -126,7 +125,7 @@
         <!-- Total de Gastos Fijos -->
         <div class="bg-gray-50 p-4 rounded-lg shadow">
           <p class="text-sm text-gray-600">Total Gastos Fijos</p>
-          <p class="text-xl font-bold text-red-600">$<?= number_format($total_gastos) ?></p>
+          <p class="text-xl font-bold text-red-600">$<?= number_format($totalGastos) ?></p>
         </div>
 
       <!-- Gasto más alto -->
@@ -151,9 +150,10 @@
           <p class="text-base font-semibold text-gray-800">Internet: <span class="text-blue-600">05 Jun 2025</span></p>
         </div>
 
+        <!-- Otros Ingresos (Anteriormente "Beta") -->
         <div class="bg-gray-50 p-4 rounded-lg shadow">
-          <p class="text-sm text-gray-600">Beta</p>
-          <p class="text-xl font-bold text-red-600">$<?= number_format($total_gastos) ?></p>
+          <p class="text-sm text-gray-600">Otros Ingresos</p>
+          <p class="text-xl font-bold text-green-600">$<?= number_format($otrosIngresosTotal) ?></p>
         </div>
 
     </div>
@@ -175,11 +175,11 @@
 
         <div class="max-w-[160px] md:max-w-[200px]">
           <canvas id="ivaSparkline"
-                  height="50"
-                  width="160"
-                  class="w-full h-auto"
-                  data-iva-actual="<?= $ivaActual ?>"
-                  data-iva-anterior="<?= $ivaAnterior ?>"></canvas>
+                      height="50"
+                      width="160"
+                      class="w-full h-auto"
+                      data-iva-actual="<?= $ivaActual ?>"
+                      data-iva-anterior="<?= $ivaAnterior ?>"></canvas>
         </div>
       </div>
     </div>
@@ -193,7 +193,3 @@
 <script src="assets/js/dashboard/grafico.js"></script>
 <script src="assets/js/dashboard/graficoPastel.js"></script>
 <script src="assets/js/dashboard/graficoIva.js"></script>
-
-
-
-

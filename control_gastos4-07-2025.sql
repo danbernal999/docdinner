@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-07-2025 a las 23:54:18
+-- Tiempo de generación: 07-07-2025 a las 22:21:10
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -51,10 +51,11 @@ INSERT INTO `gastos_fijos` (`id`, `usuario_id`, `nombre_gasto`, `monto`, `valor_
 (10, 10, 'Vivienda', 600000.00, NULL, NULL, '2025-07-01', 'Vivienda', 'Apartamento', '2025-06-13 01:50:39', 0, NULL),
 (11, 10, 'CityDent', 62000.00, NULL, NULL, '2025-06-15', 'Salud y Belleza', 'Brackets', '2025-06-13 01:51:19', 0, NULL),
 (13, 10, 'Compensar', 700000.00, NULL, NULL, '2025-03-10', 'Salud y Belleza', 'Cordales', '2025-06-19 19:50:27', 0, NULL),
-(15, 11, 'Zapatillas', 210000.00, 200000.00, 10000.00, '2025-07-05', 'Ropa y Accesorios', 'ss', '2025-07-04 18:43:02', 0, NULL),
+(15, 11, 'Zapatillas', 210000.00, 200000.00, 10000.00, '2025-06-07', 'Ropa y Accesorios', 'ss', '2025-07-04 18:43:02', 0, NULL),
 (16, 11, 'Controles', 410000.00, 410000.00, 0.00, '2025-02-28', 'Electrónica', 'sq', '2025-07-04 18:44:00', 0, NULL),
-(17, 11, 'Balon Adidas', 250000.00, 250000.00, 0.00, '2025-06-05', 'Deportes y Aire Libre', 'qq', '2025-07-04 18:44:21', 1, 'mensual'),
-(18, 11, 'ss', 250000.00, 250000.00, 0.00, '2025-06-04', 'Alimentación', 'ww', '2025-07-04 21:12:37', 1, 'semanal');
+(17, 11, 'Balon Adidas', 250000.00, 250000.00, 0.00, '2025-09-07', 'Deportes y Aire Libre', 'qq', '2025-07-04 18:44:21', 1, 'mensual'),
+(18, 11, 'ss', 250000.00, 250000.00, 0.00, '2025-06-04', 'Alimentación', 'ww', '2025-07-04 21:12:37', 1, 'semanal'),
+(19, 11, 'televisor', 4500000.00, 4285714.29, 214285.71, '2025-07-06', 'Entretenimiento', 'aa', '2025-07-07 19:00:33', 1, 'quincenal');
 
 -- --------------------------------------------------------
 
@@ -130,17 +131,18 @@ CREATE TABLE `usuarios` (
   `auth_provider` varchar(50) DEFAULT 'local',
   `saldo_inicial` decimal(15,2) DEFAULT 0.00,
   `presupuesto_mensual` decimal(10,2) DEFAULT 0.00,
-  `moneda` varchar(10) DEFAULT 'COP'
+  `moneda` varchar(10) DEFAULT 'COP',
+  `otros_ingresos` decimal(15,2) DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `password`, `fecha_registro`, `ultimo_login`, `reset_token`, `reset_expires`, `foto`, `auth_provider`, `saldo_inicial`, `presupuesto_mensual`, `moneda`) VALUES
-(2, 'draoky999', 'draoky@gmail.com', '$2y$10$BmJBKLB7BIpjJSx18sgj9uJFWbIEtkGfe0jCX3GerE2QphG6k8PqS', '2025-05-25 00:30:24', NULL, NULL, NULL, NULL, 'local', 0.00, 0.00, 'COP'),
-(10, 'Brayan Bernal', 'bblopezbernal123@gmail.com', '', '2025-06-09 23:20:43', NULL, NULL, NULL, 'uploads/perfil_6854645fb19df.jpeg', 'google', 1200000.00, 0.00, 'COP'),
-(11, 'Maicol Quintero', 'maicolestebanftw17@gmail.com', '', '2025-07-04 18:40:50', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocLUSVXAqmPHgQvD_Rmnjdm1Mhd1ItxXBAHj02Rv-O4EvfyQl1M=s96-c', 'google', 0.00, 0.00, 'COP');
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `password`, `fecha_registro`, `ultimo_login`, `reset_token`, `reset_expires`, `foto`, `auth_provider`, `saldo_inicial`, `presupuesto_mensual`, `moneda`, `otros_ingresos`) VALUES
+(2, 'draoky999', 'draoky@gmail.com', '$2y$10$BmJBKLB7BIpjJSx18sgj9uJFWbIEtkGfe0jCX3GerE2QphG6k8PqS', '2025-05-25 00:30:24', NULL, NULL, NULL, NULL, 'local', 0.00, 0.00, 'COP', 0.00),
+(10, 'Brayan Bernal', 'bblopezbernal123@gmail.com', '', '2025-06-09 23:20:43', NULL, NULL, NULL, 'uploads/perfil_6854645fb19df.jpeg', 'google', 1200000.00, 0.00, 'COP', 0.00),
+(11, 'Maicol Quintero', 'maicolestebanftw17@gmail.com', '', '2025-07-04 18:40:50', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocLUSVXAqmPHgQvD_Rmnjdm1Mhd1ItxXBAHj02Rv-O4EvfyQl1M=s96-c', 'google', 0.00, 0.00, 'COP', 0.00);
 
 --
 -- Índices para tablas volcadas
@@ -182,7 +184,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `gastos_fijos`
 --
 ALTER TABLE `gastos_fijos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_ahorros`

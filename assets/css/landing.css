@@ -399,8 +399,7 @@ div.navbar__link {
 /* ACERCA DE */
 .titulo__acerca {
     display: flex;
-    justify-content: center;
-    margin: 20px;
+    justify-content: left;
     width: 30%;
     letter-spacing: 10px;
     font-size: 30px;
@@ -413,25 +412,140 @@ div.navbar__link {
 
 p.uno, p.dos {
     text-align: start;
-    font-size: 25px;
+    font-size: 20px;
     letter-spacing: 1px;
     line-height: 150%;
-    margin: 20px 60px 0 0;
 }
 
 p.uno {
-    height: 40vh;
+    height: 25vh;
     letter-spacing: 2px;
 }
 
 p.dos {
-    height: 20vh;
+    height: 10vh;
     font-style: italic;
 }
 
 p.tres {
     text-align: start;
 }
+
+.seccion .cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* From Uiverse.io by Spacious74 */ 
+.seccion .outer {
+  width: 300px;
+  height: 250px;
+  border-radius: 10px;
+  padding: 1px;
+  background: radial-gradient(circle 230px at 0% 0%, #ffffff, #0c0d0d);
+  position: relative;
+}
+
+.seccion .dot {
+  width: 5px;
+  aspect-ratio: 1;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 0 10px #ffffff;
+  border-radius: 100px;
+  z-index: 2;
+  right: 10%;
+  top: 10%;
+  animation: moveDot 6s linear infinite;
+}
+
+@keyframes moveDot {
+  0%,
+  100% {
+    top: 10%;
+    right: 10%;
+  }
+  25% {
+    top: 10%;
+    right: calc(100% - 35px);
+  }
+  50% {
+    top: calc(100% - 30px);
+    right: calc(100% - 35px);
+  }
+  75% {
+    top: calc(100% - 30px);
+    right: 10%;
+  }
+}
+
+.seccion .card {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 9px;
+  border: solid 1px #202222;
+  background-size: 20px 20px;
+  background: radial-gradient(circle 280px at 0% 0%, #444444, #0c0d0d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+  color: #fff;
+}
+.seccion .ray {
+  width: 220px;
+  height: 45px;
+  border-radius: 100px;
+  position: absolute;
+  background-color: #c7c7c7;
+  opacity: 0.4;
+  box-shadow: 0 0 50px #fff;
+  filter: blur(10px);
+  transform-origin: 10%;
+  top: 0%;
+  left: 0;
+  transform: rotate(40deg);
+}
+
+.seccion .card .text {
+  font-weight: bolder;
+  font-size: 4rem;
+  background: linear-gradient(45deg, #000000 4%, #fff, #000);
+  background-clip: text;
+  color: transparent;
+}
+
+.seccion .line {
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  background-color: #2c2c2c;
+}
+.seccion .topl {
+  top: 10%;
+  background: linear-gradient(90deg, #888888 30%, #1d1f1f 70%);
+}
+.seccion .bottoml {
+  bottom: 10%;
+}
+.seccion .leftl {
+  left: 10%;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, #747474 30%, #222424 70%);
+}
+.seccion .rightl {
+  right: 10%;
+  width: 1px;
+  height: 100%;
+}
+
 
 /* CONTACTO */
 .contacto-section {

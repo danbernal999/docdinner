@@ -122,11 +122,50 @@
             deudas, permitiéndote alcanzar tus metas financieras sin <br>
             complicaciones.</p>
             
+            <p class="tres"><strong>National Foundation for Credit Counseling</strong></p><br>
             <p class="dos">"El 69% de las personas no llevan un registro detallado de sus  gastos, <br> lo que
-            puede llevar a deudas innecesarias y  dificultades financieras."</p>
+            puede llevar a deudas innecesarias y  dificultades financieras."</p><br>
 
-            <p class="tres"><strong>National Foundation for Credit Counseling</strong></p>
-        </div>
+
+            <div class="cards">
+                <div class="outer">
+                    <div class="dot"></div>
+                    <div class="card">
+                        <div class="ray"></div>
+                        <div class="text">+90%</div>
+                        <div>Satisfaccion de <br> Usuarios</div>
+                        <div class="line topl"></div>
+                        <div class="line leftl"></div>
+                        <div class="line bottoml"></div>
+                        <div class="line rightl"></div>
+                    </div>
+                </div>
+                <div class="outer">
+                    <div class="dot"></div>
+                    <div class="card">
+                        <div class="ray"></div>
+                        <div class="text">+60</div>
+                        <div>Metas <br> Financieras</div>
+                        <div class="line topl"></div>
+                        <div class="line leftl"></div>
+                        <div class="line bottoml"></div>
+                        <div class="line rightl"></div>
+                    </div>
+                </div>
+                <div class="outer">
+                    <div class="dot"></div>
+                    <div class="card">
+                        <div class="ray"></div>
+                        <div class="text">+50k</div>
+                        <div>Gasto <br> Organizados</div>
+                        <div class="line topl"></div>
+                        <div class="line leftl"></div>
+                        <div class="line bottoml"></div>
+                        <div class="line rightl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>    
     </section>
     
    <!-- CONTENIDO CONTACTO -->

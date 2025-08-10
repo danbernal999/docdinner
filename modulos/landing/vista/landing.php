@@ -1,237 +1,477 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css" integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">    
-    <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon">
-    <!-- Estilos Personalizados -->
-    <link rel="stylesheet" href="assets/css/landing.css">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DocDinner</title>
-</head>
-<body>
-    <nav class="navbar">
-        <div class="navbar__logo">
-            <img src="assets/images/LogoDocDinnerHD-removebg-preview.png" alt="Logo" width="100px">
-            <a href="#docdinner" class="menu"><h1>DocDinner</h1></a>
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="assets/images/LogoDocDinnerHD-removebg-preview.png" type="image/x-icon"/>
+    <meta property="og:title" content="DocDinner" />
+    <meta property="og:description" content="" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+    <link rel="stylesheet" href="./css/tailwind-build.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body class="bm-flex bm-min-h-[100vh] bm-flex-col bm-bg-black bm-text-white">
+    <!-- NavBar -->
+    <header class="bm-max-w-lg:bm-px-4 bm-max-w-lg:bm-mr-auto bm-fixed bm-top-3 bm-z-20 bm-flex bm-h-[60px] bm-w-full bm-bg-opacity-0 bm-px-[5%] lg:bm-justify-around">
+      <a class="bm-flex bm-items-center bm-gap-2 bm-h-[100px] bm-p-[5px]" href="">
+        <img src="assets/images/LogoDocDinnerHD-removebg-preview.png" alt="logo" class="bm-h-full bm-w-auto"/>
+        <h1 class="bm-text-xl bm-font-bold bm-text-white">DocDinner</h1>
+      </a>
+
+      <div class="collapsible-header animated-collapse max-lg:bm-shadow-md" id="collapsed-header-items">
+        <div class="bm-flex bm-h-full bm-w-max bm-gap-5 bm-text-base max-lg:bm-mt-[30px] max-lg:bm-flex-col max-lg:bm-place-items-end max-lg:bm-gap-5 lg:bm-mx-auto lg:bm-place-items-center">
+          <a class="header-links" href="acerca"> Acerca </a>
+          <a class="header-links" href="funciones"> Funciones </a>
+          <a class="header-links" href="tecnologias"> Caracteristicas </a>
+          <a class="header-links" href="fqa"> FQA </a>
+        </div>
+        <div class="bm-mx-4 bm-flex bm-place-items-center bm-gap-[20px] bm-text-base max-md:bm-w-full max-md:bm-flex-col max-md:bm-place-content-center">
+          <a href="index.php?ruta=login" aria-label="signup" class="bm-rounded-full bm-bg-white bm-px-3 bm-py-2 bm-text-black bm-transition-transform bm-duration-[0.3s] hover:bm-translate-x-2">
+            <span>Empezar</span>
+            <i class="bi bi-stars"></i>
+          </a>
+        </div>
+      </div>
+      <button class="bi bi-list bm-absolute bm-right-3 bm-top-3 bm-z-50 bm-text-3xl bm-text-white lg:bm-hidden" onclick="toggleHeader()" aria-label="menu" id="collapse-btn"></button>
+    </header>
+
+    <!-- Inicio -->
+    <section class="hero-section bm-relative bm-flex bm-min-h-[100vh] bm-w-full bm-max-w-[100vw] bm-flex-col bm-overflow-hidden max-md:bm-mt-[50px]" id="hero-section">
+      <div class="bm-flex bm-h-full bm-min-h-[100vh] bm-w-full bm-flex-col bm-place-content-center bm-gap-6 bm-p-[5%] max-xl:bm-place-items-center max-lg:bm-p-4">
+        <div class="bm-flex bm-flex-col bm-place-content-center bm-items-center">
+
+          <!-- Bienvenidos -->
+          <div class="reveal-up bm-mt-10 bm-max-w-[450px] bm-p-2 bm-text-center bm-text-gray-300 max-lg:bm-max-w-full bm-flex bm-flex-col bm-place-items-center">
+          </div>
+
+          <!-- Frase -->
+          <div class="reveal-up gradient-text bm-text-center bm-text-6xl bm-font-semibold bm-uppercase bm-leading-[80px] max-lg:bm-text-4xl max-md:bm-leading-snug">
+            <span class=""> Simplifica tus finanzas </span>
+            <br />
+            <span class=""> toma el control de tu futuro. </span>
+          </div>
+
+          <!-- Empezar & Documentacion -->
+          <div class="reveal-up bm-mt-10 bm-flex bm-place-items-center bm-gap-4">
+            <a class="btn bm-flex bm-gap-2 !bm-bg-black !bm-text-white bm-transition-colors bm-duration-[0.3s] hover:!bm-bg-white hover:!bm-text-black" href="index.php?ruta=documentacion">
+              <i class="bi bi-play-circle-fill"></i>
+              <span>Documentacion</span>
+            </a>
+          </div>
         </div>
 
-        <div class="navbar__menu">
-            <li><a href="#acerca" class="menu">Acerca</a></li>
-            <li><a href="#contacto" class="menu">Contacto</a></li>
-            <li><a href="#faqs" class="menu">FAQs</a></li>
-        </div>
+        <!-- Imagen Dashboard -->
+        <div class="reveal-up bm-relative bm-mt-8 bm-flex bm-w-full bm-place-content-center bm-place-items-center" id="dashboard-container">
+          <div class="bm-relative bm-max-w-[80%] bm-overflow-hidden bm-rounded-xl bm-bg-transparent max-md:bm-max-w-full" id="dashboard">
+            <img src="./assets/images/home/dashboard.png" alt="dashboard" class="bm-h-full bm-w-full bm-object-cover bm-opacity-90 max-lg:bm-object-contain"/>
+          </div>
 
-        <div class="navbar__link">
-            <i class="ri-links-line"></i>
-            <a href="">Link</a>
         </div>
-    </nav>
-
-    <!-- CONTENIDO PRINCIPAL -->
-    <section id="docdinner" class="contenedor">
-        <div class="bienvenida">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    class="sparkle2"
-                >
-                    <path
-                    class="path2"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                    stroke="black"
-                    fill="black"
-                    d="M14.187 8.096L15 5.25L15.813 8.096C16.0231 8.83114 16.4171 9.50062 16.9577 10.0413C17.4984 10.5819 18.1679 10.9759 18.903 11.186L21.75 12L18.904 12.813C18.1689 13.0231 17.4994 13.4171 16.9587 13.9577C16.4181 14.4984 16.0241 15.1679 15.814 15.903L15 18.75L14.187 15.904C13.9769 15.1689 13.5829 14.4994 13.0423 13.9587C12.5016 13.4181 11.8321 13.0241 11.097 12.814L8.25 12L11.096 11.187C11.8311 10.9769 12.5006 10.5829 13.0413 10.0423C13.5819 9.50162 13.9759 8.83214 14.186 8.097L14.187 8.096Z"
-                    ></path>
-                    <path
-                    class="path2"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                    stroke="black"
-                    fill="black"
-                    d="M6 14.25L5.741 15.285C5.59267 15.8785 5.28579 16.4206 4.85319 16.8532C4.42059 17.2858 3.87853 17.5927 3.285 17.741L2.25 18L3.285 18.259C3.87853 18.4073 4.42059 18.7142 4.85319 19.1468C5.28579 19.5794 5.59267 20.1215 5.741 20.715L6 21.75L6.259 20.715C6.40725 20.1216 6.71398 19.5796 7.14639 19.147C7.5788 18.7144 8.12065 18.4075 8.714 18.259L9.75 18L8.714 17.741C8.12065 17.5925 7.5788 17.2856 7.14639 16.853C6.71398 16.4204 6.40725 15.8784 6.259 15.285L6 14.25Z"
-                    ></path>
-                    <path
-                    class="path2"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                    stroke="black"
-                    fill="black"
-                    d="M6.5 4L6.303 4.5915C6.24777 4.75718 6.15472 4.90774 6.03123 5.03123C5.90774 5.15472 5.75718 5.24777 5.5915 5.303L5 5.5L5.5915 5.697C5.75718 5.75223 5.90774 5.84528 6.03123 5.96877C6.15472 6.09226 6.24777 6.24282 6.303 6.4085L6.5 7L6.697 6.4085C6.75223 6.24282 6.84528 6.09226 6.96877 5.96877C7.09226 5.84528 7.24282 5.75223 7.4085 5.697L8 5.5L7.4085 5.303C7.24282 5.24777 7.09226 5.15472 6.96877 5.03123C6.84528 4.90774 6.75223 4.75718 6.697 4.5915L6.5 4Z"
-                    ></path>
-                </svg>
-            <h2 href="#" class="btn-shine">Bienvenido a DocDinner</h2>
-        </div>
-        <hr>
-        <span>Simplifica tus finanzas, toma <br>el control de tu futuro.</span>
+      </div>
     </section>
 
-    <!-- Botón Empezar -->
-    <div class="boton__empezar">
-        <a href="index.php?ruta=login"> 
-            <button class="button">
-            <div class="dots_border"></div>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    class="sparkle"
-                >
-                    <path
-                    class="path"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                    stroke="black"
-                    fill="black"
-                    d="M14.187 8.096L15 5.25L15.813 8.096C16.0231 8.83114 16.4171 9.50062 16.9577 10.0413C17.4984 10.5819 18.1679 10.9759 18.903 11.186L21.75 12L18.904 12.813C18.1689 13.0231 17.4994 13.4171 16.9587 13.9577C16.4181 14.4984 16.0241 15.1679 15.814 15.903L15 18.75L14.187 15.904C13.9769 15.1689 13.5829 14.4994 13.0423 13.9587C12.5016 13.4181 11.8321 13.0241 11.097 12.814L8.25 12L11.096 11.187C11.8311 10.9769 12.5006 10.5829 13.0413 10.0423C13.5819 9.50162 13.9759 8.83214 14.186 8.097L14.187 8.096Z"
-                    ></path>
-                    <path
-                    class="path"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                    stroke="black"
-                    fill="black"
-                    d="M6 14.25L5.741 15.285C5.59267 15.8785 5.28579 16.4206 4.85319 16.8532C4.42059 17.2858 3.87853 17.5927 3.285 17.741L2.25 18L3.285 18.259C3.87853 18.4073 4.42059 18.7142 4.85319 19.1468C5.28579 19.5794 5.59267 20.1215 5.741 20.715L6 21.75L6.259 20.715C6.40725 20.1216 6.71398 19.5796 7.14639 19.147C7.5788 18.7144 8.12065 18.4075 8.714 18.259L9.75 18L8.714 17.741C8.12065 17.5925 7.5788 17.2856 7.14639 16.853C6.71398 16.4204 6.40725 15.8784 6.259 15.285L6 14.25Z"
-                    ></path>
-                    <path
-                    class="path"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                    stroke="black"
-                    fill="black"
-                    d="M6.5 4L6.303 4.5915C6.24777 4.75718 6.15472 4.90774 6.03123 5.03123C5.90774 5.15472 5.75718 5.24777 5.5915 5.303L5 5.5L5.5915 5.697C5.75718 5.75223 5.90774 5.84528 6.03123 5.96877C6.15472 6.09226 6.24777 6.24282 6.303 6.4085L6.5 7L6.697 6.4085C6.75223 6.24282 6.84528 6.09226 6.96877 5.96877C7.09226 5.84528 7.24282 5.75223 7.4085 5.697L8 5.5L7.4085 5.303C7.24282 5.24777 7.09226 5.15472 6.96877 5.03123C6.84528 4.90774 6.75223 4.75718 6.697 4.5915L6.5 4Z"
-                    ></path>
-                </svg>
-                <span class="text_button">Empezar</span>
-            </button>
-        </a>
-    </div>
+    <!-- Acerca  -->
+    <section class="bm-relative bm-flex bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-overflow-hidden bm-p-8">
+      <h2 class="reveal-up bm-text-3xl max-md:bm-text-xl">Tecnologias Usadas</h2>
 
-    <!-- CONTENIDO ACERCA -->
-    <section id="acerca" class="seccion">
-        <div class="titulo__acerca">
-            <h2>Acerca De</h2>
+      <!-- Iconos De Cada Tecnologia -->
+      <div class="reveal-up carousel-container">
+        <div class="carousel lg:w-place-content-center bm-mt-6 bm-flex bm-w-full bm-gap-5 max-md:bm-gap-2">
+          <!-- Agregar las tecnologias Usadas  -->
+          <div class="carousel-img bm-h-[60px] bm-w-[150px]">
+            <img src="./assets/images/brand-logos/google-color-svgrepo-com.svg" alt="Google" class="bm-h-full bm-w-full" srcset="" />
+          </div>
+          <div class="carousel-img bm-h-[60px] bm-w-[150px]">
+            <img src="./assets/images/brand-logos/html-5-svgrepo-com.svg" alt="Microsoft" class="bm-h-full bm-w-full" srcset="" />
+          </div>
+          <div class="carousel-img bm-h-[60px] bm-w-[150px]">
+            <img src="./assets/images/brand-logos/tailwind-svgrepo-com.svg" alt="Adobe" class="bm-h-full bm-w-full" srcset="" />
+          </div>
+          <div class="carousel-img bm-h-[60px] bm-w-[150px]">
+            <img src="./assets/images/brand-logos/javascript-svgrepo-com.svg" alt="Adobe" class="bm-h-full bm-w-full" srcset="" />
+          </div>
+          <div class="carousel-img bm-h-[60px] bm-w-[150px]">
+            <img src="./assets/images/brand-logos/php2-svgrepo-com.svg" alt="Adobe" class="bm-h-full bm-w-full" srcset="" />
+          </div>
+          <div class="carousel-img bm-h-[60px] bm-w-[150px]">
+            <img src="./assets/images/brand-logos/github-color-svgrepo-com.svg" alt="Adobe" class="bm-h-full bm-w-full" srcset="" />
+          </div>
         </div>
-        <div class="parrafos">
-            <p class="uno">DocDinner es una solución inteligente para gestionar tus <br>
-            finanzas personales de manera sencilla, eficiente y segura. <br>
-            Nuestra misión es ayudarte a tomar el control de tus gastos y <br>
-            deudas, permitiéndote alcanzar tus metas financieras sin <br>
-            complicaciones.</p>
-            
-            <p class="tres"><strong>National Foundation for Credit Counseling</strong></p><br>
-            <p class="dos">"El 69% de las personas no llevan un registro detallado de sus  gastos, <br> lo que
-            puede llevar a deudas innecesarias y  dificultades financieras."</p><br>
+      </div>
+    </section>
 
+    <!-- Funciones -->
+    <section class="bm-relative bm-flex bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-overflow-hidden bm-p-6">
+        <div class="bm-mt-8 bm-flex bm-flex-col bm-place-items-center bm-gap-5">
+            <div class="reveal-up bm-mt-5 bm-flex bm-flex-col bm-gap-3 bm-text-center">
+                <h2 class="bm-text-4xl bm-font-medium bm-text-gray-200 max-md:bm-text-3xl">Beneficios Importantes</h2>
+            </div>
 
-            <div class="cards">
-                <div class="outer">
-                    <div class="dot"></div>
-                    <div class="card">
-                        <div class="ray"></div>
-                        <div class="text">+90%</div>
-                        <div>Satisfaccion de <br> Usuarios</div>
-                        <div class="line topl"></div>
-                        <div class="line leftl"></div>
-                        <div class="line bottoml"></div>
-                        <div class="line rightl"></div>
+            <div class="bm-mt-6 bm-flex bm-max-w-[100%] bm-flex-wrap bm-place-content-center bm-gap-8 max-lg:bm-flex-col">
+                <!-- Beneficio 1 -->
+                <div class="reveal-up bm-flex bm-h-[400px] bm-w-[450px] bm-flex-col bm-gap-3 bm-text-center max-md:bm-w-[320px]">
+                    <div class="border-gradient bm-h-[200px] bm-w-full bm-overflow-hidden max-md:bm-h-[150px]">
+                        <div class="bm-flex bm-h-full bm-w-full bm-place-content-center bm-place-items-end bm-p-2">
+                        <i class="bi-check2-circle bm-text-7xl bm-text-gray-200 max-md:bm-text-5xl"></i>
+                        </div>
+                    </div>
+                    <div class="bm-flex bm-flex-col bm-gap-4 bm-p-2">
+                        <h3 class="bm-mt-8 bm-text-2xl bm-font-normal max-md:bm-text-xl">Ahorra horas de gestión</h3>
+                        <div class="bm-text-gray-300">
+                        Registra gastos, ingresos y deudas en segundos, sin hojas de cálculo complicadas.
+                        </div>
                     </div>
                 </div>
-                <div class="outer">
-                    <div class="dot"></div>
-                    <div class="card">
-                        <div class="ray"></div>
-                        <div class="text">+60</div>
-                        <div>Metas <br> Financieras</div>
-                        <div class="line topl"></div>
-                        <div class="line leftl"></div>
-                        <div class="line bottoml"></div>
-                        <div class="line rightl"></div>
-                    </div>
-                </div>
-                <div class="outer">
-                    <div class="dot"></div>
-                    <div class="card">
-                        <div class="ray"></div>
-                        <div class="text">+50k</div>
-                        <div>Gasto <br> Organizados</div>
-                        <div class="line topl"></div>
-                        <div class="line leftl"></div>
-                        <div class="line bottoml"></div>
-                        <div class="line rightl"></div>
-                    </div>
-                </div>
-            </div>
-        </div>    
-    </section>
-    
-   <!-- CONTENIDO CONTACTO -->
-    <section id="contacto" class="seccion contacto-section">
-        <div class="contacto-container">
-            <!-- Mapa -->
-            <div class="mapa-container">
-                <div id="mapa" class="mapa"></div>
-            </div>
 
-            <!-- Formulario -->
-            <div class="formulario-container">
-                <h3 class="formulario-titulo">Contactanos</h3>
-                <form class="formulario">
-                    <input type="text" name="name" placeholder="Nombre" required>
-                    <input type="email" name="email" placeholder="E-mail" required>
-                    <input type="text" name="phone" placeholder="Teléfono">
-                    <textarea name="message" placeholder="Mensaje" required></textarea>
-                    <button type="submit">Enviar Mensaje →</button>
-                </form>
-                <br><br>
-                <button id="googleLogin">
-                    <i class="ri-google-fill"></i> Iniciar sesión con Google
-                </button>
+                <!-- Beneficio 2 -->
+                <div class="reveal-up bm-flex bm-h-[400px] bm-w-[450px] bm-flex-col bm-gap-3 bm-text-center max-md:bm-w-[320px]">
+                    <div class="border-gradient bm-h-[200px] bm-w-full bm-overflow-hidden max-md:bm-h-[150px]">
+                        <div class="bm-flex bm-h-full bm-w-full bm-place-content-center bm-place-items-end bm-p-2">
+                        <i class="bi-phone-fill bm-text-7xl bm-text-gray-200 max-md:bm-text-5xl"></i>
+                        </div>
+                    </div>
+                    <div class="bm-flex bm-flex-col bm-gap-4 bm-p-2">
+                        <h3 class="bm-mt-8 bm-text-2xl bm-font-normal max-md:bm-text-xl">Interfaz intuitiva</h3>
+                        <div class="bm-text-gray-300">
+                        Navega fácilmente por tu información con un diseño claro y agradable.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Beneficio 3 -->
+                <div class="reveal-up bm-flex bm-h-[400px] bm-w-[450px] bm-flex-col bm-gap-3 bm-text-center max-md:bm-w-[320px]">
+                    <div class="border-gradient bm-h-[200px] bm-w-full bm-overflow-hidden max-md:bm-h-[150px]">
+                        <div class="bm-flex bm-h-full bm-w-full bm-place-content-center bm-place-items-end bm-p-2">
+                        <i class="bi-bar-chart-fill bm-text-7xl bm-text-gray-200 max-md:bm-text-5xl"></i>
+                        </div>
+                    </div>
+                    <div class="bm-flex bm-flex-col bm-gap-4 bm-p-2">
+                        <h3 class="bm-mt-8 bm-text-2xl bm-font-normal max-md:bm-text-xl">Toma decisiones rápidas</h3>
+                        <div class="bm-text-gray-300">
+                        Obtén estadísticas y gráficos en tiempo real para controlar tu dinero al instante.
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTENIDO FAQs -->
-    <section id="faqs" class="seccion fqas-section">
-        <div class="fqas-container">
-            <!-- Lado Izquierdo -->
-            <div class="fqas-info">
-                <h2>Preguntas Frecuentes</h2>
-                <p>Usa la aplicacion mas facil de control de gastos y deudas.</p>
-                <a href="#" class="boton">Estas listo?</a>
+    <!-- Funciones -->
+    <section class="bm-relative bm-flex bm-min-h-[80vh] bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-overflow-hidden bm-p-6">
+        <div class="bm-mt-8 bm-flex bm-flex-col bm-place-items-center bm-gap-5">
+            <div class="reveal-up bm-mt-5 bm-flex bm-flex-col bm-gap-3 bm-text-center">
+            <h2 class="bm-text-4xl bm-font-medium bm-text-gray-200 max-md:bm-text-2xl">Funciones Importantes</h2>
+            </div>
+            <div class="bm-mt-6 bm-flex bm-max-w-[80%] bm-flex-wrap bm-place-content-center bm-gap-8 max-lg:bm-flex-col">
+
+            <div class="reveal-up bm-flex bm-h-[200px] bm-w-[450px] bm-gap-8 bm-rounded-xl bm-border bm-border-outlineColor bm-bg-secondary bm-p-8 max-md:bm-w-[320px]">
+                <div class="bm-text-4xl max-md:bm-text-2xl">
+                <i class="bi bi-wallet2"></i>
+                </div>
+                <div class="bm-flex bm-flex-col bm-gap-4">
+                <h3 class="bm-text-2xl max-md:bm-text-xl">Control de gastos</h3>
+                <p class="bm-text-gray-300 max-md:bm-text-sm">
+                    Registra y organiza tus gastos de manera sencilla para tener un panorama claro de tus finanzas.
+                </p>
+                </div>
             </div>
 
-            <!-- Lado Derecho -->
-            <div class="fqas-preguntas">
-                <details>
-                    <summary>¿Qué puedo hacer con DocDinner?</summary>
-                    <p>Con DocDinner puedes llevar un control detallado de todos tus gastos, desde pequeñas compras hasta grandes inversiones.</p>
-                </details>
-                <details>
-                    <summary>¿Qué beneficios ofrece DocDinner?</summary>
-                    <p>DocDinner te ayuda a tener un mejor control financiero, recordándote en qué has gastado tu dinero para que no pierdas el rumbo de tus finanzas.</p>
-                </details>
-                <details>
-                    <summary>¿DocDinner es gratis?</summary>
-                    <p>Sí, DocDinner es completamente gratis y puedes usarla siempre que lo necesites.</p>
-                </details>
-                <details>
-                    <summary>¿Necesito crear una cuenta para usar DocDinner?</summary>
-                    <p>Sí, necesitas registrarte para que podamos guardar y proteger tus datos de forma segura, y así puedas acceder a ellos desde cualquier dispositivo.</p>
-                </details>
-                <details>
-                    <summary>¿Cómo puedo registrar mis gastos en DocDinner?</summary>
-                    <p>Una vez que inicies sesión, puedes ingresar tus gastos fácilmente desde el panel principal. Solo debes indicar el monto, la categoría y una breve descripción.</p>
-                </details>
+            <div class="reveal-up bm-flex bm-h-[200px] bm-w-[450px] bm-gap-8 bm-rounded-xl bm-border bm-border-outlineColor bm-bg-secondary bm-p-8 max-md:bm-w-[320px]">
+                <div class="bm-text-4xl max-md:bm-text-2xl">
+                <i class="bi bi-graph-up-arrow"></i>
+                </div>
+                <div class="bm-flex bm-flex-col bm-gap-4">
+                <h3 class="bm-text-2xl max-md:bm-text-xl">Reportes claros</h3>
+                <p class="bm-text-gray-300 max-md:bm-text-sm">
+                    Visualiza gráficos y estadísticas que te ayudarán a tomar mejores decisiones financieras.
+                </p>
+                </div>
+            </div>
+
+            <div class="reveal-up bm-flex bm-h-[200px] bm-w-[450px] bm-gap-8 bm-rounded-xl bm-border bm-border-outlineColor bm-bg-secondary bm-p-8 max-md:bm-w-[320px]">
+                <div class="bm-text-4xl max-md:bm-text-2xl">
+                <i class="bi bi-cloud-fill"></i>
+                </div>
+                <div class="bm-flex bm-flex-col bm-gap-4">
+                <h3 class="bm-text-2xl max-md:bm-text-xl">Respaldo en la nube</h3>
+                <p class="bm-text-gray-300 max-md:bm-text-sm">
+                    Guarda de forma segura toda tu información para acceder a ella desde cualquier dispositivo.
+                </p>
+                </div>
+            </div>
+
+            <div class="reveal-up bm-flex bm-h-[200px] bm-w-[450px] bm-gap-8 bm-rounded-xl bm-border bm-border-outlineColor bm-bg-secondary bm-p-8 max-md:bm-w-[320px]">
+                <div class="bm-text-4xl max-md:bm-text-2xl">
+                <i class="bi bi-shield-lock-fill"></i>
+                </div>
+                <div class="bm-flex bm-flex-col bm-gap-4">
+                <h3 class="bm-text-2xl max-md:bm-text-xl">Seguridad avanzada</h3>
+                <p class="bm-text-gray-300 max-md:bm-text-sm">
+                    Protege tus datos con cifrado y autenticación en dos pasos para mayor tranquilidad.
+                </p>
+                </div>
+            </div>
+
+            <div class="reveal-up bm-flex bm-h-[200px] bm-w-[450px] bm-gap-8 bm-rounded-xl bm-border bm-border-outlineColor bm-bg-secondary bm-p-8 max-md:bm-w-[320px]">
+                <div class="bm-text-4xl max-md:bm-text-2xl">
+                <i class="bi bi-bell-fill"></i>
+                </div>
+                <div class="bm-flex bm-flex-col bm-gap-4">
+                <h3 class="bm-text-2xl max-md:bm-text-xl">Recordatorios</h3>
+                <p class="bm-text-gray-300 max-md:bm-text-sm">
+                    Recibe notificaciones para no olvidar pagos y mantenerte siempre al día.
+                </p>
+                </div>
+            </div>
+
+            <div class="reveal-up bm-flex bm-h-[200px] bm-w-[450px] bm-gap-8 bm-rounded-xl bm-border bm-border-outlineColor bm-bg-secondary bm-p-8 max-md:bm-w-[320px]">
+                <div class="bm-text-4xl max-md:bm-text-2xl">
+                <i class="bi bi-phone-fill"></i>
+                </div>
+                <div class="bm-flex bm-flex-col bm-gap-4">
+                <h3 class="bm-text-2xl max-md:bm-text-xl">Acceso desde cualquier lugar</h3>
+                <p class="bm-text-gray-300 max-md:bm-text-sm">
+                    Gestiona tus finanzas desde tu móvil, tablet o computadora sin complicaciones.
+                </p>
+                </div>
+            </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Seccion para los scripts -->
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-    <script src="assets/js/landing/maps.js"></script>
-</body>
+    <!-- Caracteristicas -->
+    <section class="bm-relative bm-flex bm-min-h-[80vh] bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-overflow-hidden bm-p-6">
+      <div class="reveal-up bm-flex bm-min-h-[60vh] bm-place-content-center bm-place-items-center bm-gap-[10%] max-lg:bm-flex-col max-lg:bm-gap-10">
+        
+        <!-- Imagen del dashboard de DocDinner -->
+        <div class="bm-flex">
+          <div class="bm-max-h-[650px] bm-max-w-[850px] bm-overflow-hidden bm-rounded-lg bm-shadow-lg bm-shadow-[rgba(24,223,230,0.44)]">
+            <img src="./assets/images/home/dash.png" alt="Panel de control DocDinner" class="bm-h-full bm-w-full bm-object-cover"/>
+          </div>
+        </div>
+
+        <!-- Texto y beneficios -->
+        <div class="bm-mt-6 bm-flex bm-max-w-[450px] bm-flex-col bm-gap-4">
+          <h3 class="bm-text-4xl bm-font-medium max-md:bm-text-2xl">
+            Simplifica tus finanzas con DocDinner
+          </h3>
+
+          <div class="bm-mt-4 bm-flex bm-flex-col bm-gap-3">
+            <h4 class="bm-text-xl bm-font-medium">
+              <i class="bi bi-check2-circle !bm-text-2xl"></i>
+              Control de ingresos y gastos
+            </h4>
+            <span class="bm-text-lg bm-text-gray-300 max-md:bm-text-base">
+              Registra, organiza y analiza tus movimientos financieros en un solo lugar.
+            </span>
+          </div>
+
+          <div class="bm-mt-4 bm-flex bm-flex-col bm-gap-3">
+            <h4 class="bm-text-xl bm-font-medium">
+              <i class="bi bi-check2-circle !bm-text-2xl"></i>
+              Alertas y notificaciones inteligentes
+            </h4>
+            <span class="bm-text-lg bm-text-gray-300 max-md:bm-text-base">
+              Recibe avisos cuando tus gastos superen lo planificado o detectemos cambios importantes.
+            </span>
+          </div>
+
+          <div class="bm-mt-4 bm-flex bm-flex-col bm-gap-3">
+            <h4 class="bm-text-xl bm-font-medium">
+              <i class="bi bi-check2-circle !bm-text-2xl"></i>
+              Reportes claros y visuales
+            </h4>
+            <span class="bm-text-lg bm-text-gray-300 max-md:bm-text-base">
+              Visualiza gráficos y estadísticas para tomar mejores decisiones financieras.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bm-relative bm-flex bm-min-h-[80vh] bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-overflow-hidden bm-p-6">
+      <div class="reveal-up bm-flex bm-min-h-[60vh] bm-place-content-center bm-place-items-center bm-gap-[10%] max-lg:bm-flex-col max-lg:bm-gap-10">
+        <!-- Texto -->
+        <div class="bm-mt-6 bm-flex bm-max-w-[450px] bm-flex-col bm-gap-4">
+          <h3 class="bm-text-4xl bm-font-medium max-md:bm-text-2xl">Análisis financiero claro y potente</h3>
+
+          <div class="bm-mt-4 bm-flex bm-flex-col bm-gap-3">
+            <h4 class="bm-text-xl bm-font-medium">
+              <i class="bi bi-check2-circle !bm-text-2xl"></i>
+              Fácil de interpretar
+            </h4>
+            <span class="bm-text-lg bm-text-gray-300 max-md:bm-text-base">Obtén gráficos y reportes que muestran de forma clara tus ingresos, gastos y tendencias.</span>
+          </div>
+
+          <div class="bm-mt-4 bm-flex bm-flex-col bm-gap-3">
+            <h4 class="bm-text-xl bm-font-medium">
+              <i class="bi bi-check2-circle !bm-text-2xl"></i>
+              Todo en un solo panel
+            </h4>
+            <span class="bm-text-lg bm-text-gray-300 max-md:bm-text-base">Visualiza en un dashboard único toda tu información financiera en tiempo real.</span>
+          </div>
+
+          <div class="bm-mt-4 bm-flex bm-flex-col bm-gap-3">
+            <h4 class="bm-text-xl bm-font-medium"><i class="bi bi-check2-circle !bm-text-2xl">
+              </i>Predicciones inteligentes
+            </h4>
+            <span class="bm-text-lg bm-text-gray-300 max-md:bm-text-base">Anticipa gastos futuros y planifica mejor gracias a nuestro sistema de proyecciones.</span>
+          </div>
+        </div>
+
+        <!-- Imagen -->
+        <div class="bm-flex">
+          <div class="bm-max-h-[650px] bm-max-w-[850px] bm-overflow-hidden bm-rounded-lg bm-shadow-lg bm-shadow-[rgba(49,212,233,0.44)]">
+            <img src="./assets/images/home/insights.png" alt="Panel de análisis DocDinner" class="bm-h-full bm-w-full bm-object-cover"/>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bm-relative bm-mt-5 bm-flex bm-min-h-[80vh] bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-justify-center bm-overflow-hidden bm-p-6">
+      <h3 class="bm-text-4xl bm-font-medium bm-text-gray-200 max-md:bm-text-2xl">Desarrolladores</h3>
+
+      <div class="bm-mt-8 bm-flex bm-flex-wrap bm-gap-10 bm-justify-center">
+        
+        <!-- Daniel Bernal -->
+        <div class="reveal-up bm-flex bm-h-fit bm-w-[320px] bm-flex-col bm-gap-4 bm-rounded-lg bm-border bm-border-outlineColor bm-bg-secondary bm-p-4">
+          <div class="bm-flex bm-items-center bm-gap-3">
+            <div class="bm-h-[60px] bm-w-[60px] bm-overflow-hidden bm-rounded-full">
+              <img src="./assets/images/people/danelbernal.jpg" 
+                  class="bm-h-full bm-w-full bm-object-cover" 
+                  alt="Daniel Bernal" />
+            </div>
+            <div class="bm-flex bm-flex-col">
+              <span class="bm-font-semibold bm-text-gray-100">Daniel Bernal</span>
+              <span class="bm-text-gray-400">Bogotá, Colombia</span>
+
+              <a href="https://co.linkedin.com/in/danielbernallopez" target="_blank" class="bm-text-sky-400 hover:bm-underline bm-flex bm-items-center bm-gap-1">
+                <i class="bi bi-linkedin"></i> LinkedIn
+              </a>
+            </div>
+          </div>
+          <p class="bm-text-gray-300 bm-text-sm">
+            Co-fundador & Desarrollador Full Stack de DocDinner. <br><br>
+            Especializado en el diseño e implementación de interfaces modernas y atractivas <br> con un enfoque en la optimización de la experiencia de usuario. <br><br> Desarrollador de software con sólidos conocimientos en frontend y backend, capaz de <br> transformar ideas en soluciones digitales eficientes, escalables y visualmente impactantes.
+          </p>
+        </div>
+
+        <!-- Michael Quintero -->
+        <div class="reveal-up bm-flex bm-h-fit bm-w-[320px] bm-flex-col bm-gap-4 bm-rounded-lg bm-border bm-border-outlineColor bm-bg-secondary bm-p-4">
+          <div class="bm-flex bm-items-center bm-gap-3">
+            <div class="bm-h-[60px] bm-w-[60px] bm-overflow-hidden bm-rounded-full">
+              <img src="" 
+                  class="bm-h-full bm-w-full bm-object-cover" 
+                  alt="Nombre Compañero" />
+            </div>
+            <div class="bm-flex bm-flex-col">
+              <span class="bm-font-semibold bm-text-gray-100">Michael Quintero</span>
+              <span class="bm-text-gray-400">Bogota, Colombia</span>
+            </div>
+          </div>
+          <p class="bm-text-gray-300 bm-text-sm">
+            Co-fundador & Desarrollador Backend de DocDinner. <br>
+            Especialista en bases de datos y arquitectura de sistemas, con experiencia en el diseño <br> optimización y mantenimiento de infraestructuras tecnológicas eficientes y seguras.
+          </p>
+          <a href="https://linkedin.com/in/usuario-compañero" 
+            target="_blank" 
+            class="bm-text-sky-400 hover:bm-underline">
+            Ver perfil en LinkedIn
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FQA -->
+    <section class="bm-flex bm-w-full bm-flex-col bm-place-content-center bm-place-items-center bm-gap-[10%] bm-p-[5%] bm-px-[10%]">
+      <h3 class="bm-text-4xl bm-font-medium bm-text-gray-300 max-md:bm-text-2xl">Preguntas Frecuentes</h3>
+
+      <div class="bm-mt-5 bm-flex bm-min-h-[300px] bm-w-full bm-max-w-[850px] bm-flex-col bm-gap-4">
+        <div class="faq bm-w-full bm-rounded-md bm-border-[1px] bm-border-solid bm-border-[#1F2123] bm-bg-[#080808]">
+        <div class="faq-accordion bm-flex bm-w-full bm-select-none bm-text-xl max-md:bm-text-lg">
+            <span>¿DocDinner es gratis?</span>
+            <i class="bi bi-plus bm-ml-auto bm-font-semibold"></i>
+        </div>
+        <div class="content">Sí, puedes usar DocDinner de forma gratuita. Algunas funciones premium estarán disponibles en futuras versiones.</div>
+        </div>
+
+        <div class="faq bm-w-full bm-rounded-md bm-border-[1px] bm-border-solid bm-border-[#1F2123] bm-bg-[#080808]">
+        <div class="faq-accordion bm-flex bm-w-full bm-select-none bm-text-xl max-md:bm-text-lg">
+            <span>¿Puedo sugerir nuevas funciones?</span>
+            <i class="bi bi-plus bm-ml-auto bm-font-semibold"></i>
+        </div>
+        <div class="content">
+            ¡Claro! Nos encanta recibir ideas. Puedes enviarnos tus sugerencias a través de nuestro
+            <a href="mailto:docdinnerbg@gmail.com" class="bm-underline">correo de soporte</a>.
+        </div>
+        </div>
+
+        <div class="faq bm-w-full bm-rounded-md bm-border-[1px] bm-border-solid bm-border-[#1F2123] bm-bg-[#080808]">
+        <div class="faq-accordion bm-flex bm-w-full bm-select-none bm-text-xl max-md:bm-text-lg">
+            <span>¿DocDinner funciona en todos los dispositivos?</span>
+            <i class="bi bi-plus bm-ml-auto bm-font-semibold"></i>
+        </div>
+        <div class="content">
+            Sí, está optimizado para funcionar en móviles, tabletas y computadoras de escritorio.
+        </div>
+        </div>
+
+        <div class="faq bm-w-full bm-rounded-md bm-border-[1px] bm-border-solid bm-border-[#1F2123] bm-bg-[#080808]">
+        <div class="faq-accordion bm-flex bm-w-full bm-select-none bm-text-xl max-md:bm-text-lg">
+            <span>¿Cada cuánto se actualiza la aplicación?</span>
+            <i class="bi bi-plus bm-ml-auto bm-font-semibold"></i>
+        </div>
+        <div class="content">
+            Publicamos mejoras y nuevas funciones de forma periódica, aproximadamente cada mes.
+        </div>
+        </div>
+      </div>
+
+      <div class="bm-mt-20 bm-flex bm-flex-col bm-place-items-center bm-gap-4">
+        <div class="bm-text-3xl max-md:bm-text-2xl">¿Todavía tienes dudas?</div>
+        <a href="mailto:docdinnerbg@gmail.com" class="btn !bm-rounded-full !bm-border-[1px] !bm-border-solid !bm-border-gray-300 !bm-bg-transparent bm-transition-colors bm-duration-[0.3s]">Contáctanos</a>
+      </div>
+    </section>
+
+    <footer class="bm-mt-auto bm-flex bm-w-full bm-place-content-around bm-gap-3 bm-p-[5%] bm-px-[10%] bm-text-white max-md:bm-flex-col">
+      <div class="bm-flex bm-h-full bm-w-[250px] bm-flex-col bm-place-items-center bm-gap-6 max-md:bm-w-full">
+        <img src="./assets/logo/colombia-colombia-svgrepo-com.svg" alt="logo" srcset="" class="bm-flex bm-w-[150px]"/>
+        <div>Bogota, Colombia</div>
+      </div>
+
+      <div class="bm-flex bm-h-full bm-w-[250px] bm-flex-col bm-gap-4">
+        <h2 class="bm-text-3xl max-md:bm-text-xl">General</h2>
+        <div class="bm-flex bm-flex-col bm-gap-3 max-md:bm-text-sm">
+          <a href="empezar" class="footer-link">Empezar</a>
+          <a href="tecnologias" class="footer-link">Tecnologias</a>
+          <a href="beneficios" class="footer-link">Beneficios</a>
+          <a href="contacto" class="footer-link">Contacto</a>
+        </div>
+      </div>
+
+      <div class="bm-flex bm-h-full bm-w-[250px] bm-flex-col bm-gap-4">
+        <h2 class="bm-text-3xl max-md:bm-text-xl">Recursos</h2>
+        <div class="bm-flex bm-flex-col bm-gap-3 max-md:bm-text-sm">
+          <a href="acerca" class="footer-link">Acerca</a>
+          <a href="fqa" class="footer-link">FAQ</a>
+          <a href="contacto" class="footer-link">Contacto</a>
+          <a href="documentacion" class="footer-link">Privacy policy</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js" integrity="sha512-B1lby8cGcAUU3GR+Fd809/ZxgHbfwJMp0jLTVfHiArTuUt++VqSlJpaJvhNtRf3NERaxDNmmxkdx2o+aHd4bvw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/ScrollTrigger.min.js" integrity="sha512-AY2+JxnBETJ0wcXnLPCcZJIJx0eimyhz3OJ55k2Jx4RtYC+XdIi2VtJQ+tP3BaTst4otlGG1TtPJ9fKrAUnRdQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="./index.js"></script>
+  <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="assets/js/landing/maps.js"></script>
 </html>
+

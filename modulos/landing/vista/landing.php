@@ -25,10 +25,11 @@
 
       <div class="collapsible-header animated-collapse max-lg:bm-shadow-md" id="collapsed-header-items">
         <div class="bm-flex bm-h-full bm-w-max bm-gap-5 bm-text-base max-lg:bm-mt-[30px] max-lg:bm-flex-col max-lg:bm-place-items-end max-lg:bm-gap-5 lg:bm-mx-auto lg:bm-place-items-center">
-          <a class="header-links" href="acerca"> Acerca </a>
-          <a class="header-links" href="funciones"> Funciones </a>
-          <a class="header-links" href="tecnologias"> Caracteristicas </a>
-          <a class="header-links" href="fqa"> FQA </a>
+          <a class="header-links" href="#hero-section"> Acerca </a>
+          <a class="header-links" href="#funciones"> Funciones </a>
+          <a class="header-links" href="#caracteristicas"> Caracteristicas </a>
+          <a class="header-links" href="#equipo">Equipo</a>
+          <a class="header-links" href="#fqa"> FQA </a>
         </div>
         <div class="bm-mx-4 bm-flex bm-place-items-center bm-gap-[20px] bm-text-base max-md:bm-w-full max-md:bm-flex-col max-md:bm-place-content-center">
           <a href="index.php?ruta=login" aria-label="signup" class="bm-rounded-full bm-bg-white bm-px-3 bm-py-2 bm-text-black bm-transition-transform bm-duration-[0.3s] hover:bm-translate-x-2">
@@ -76,7 +77,7 @@
     </section>
 
     <!-- Acerca  -->
-    <section class="bm-relative bm-flex bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-overflow-hidden bm-p-8">
+    <section id="" class="bm-relative bm-flex bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-overflow-hidden bm-p-8">
       <h2 class="reveal-up bm-text-3xl max-md:bm-text-xl">Tecnologias Usadas</h2>
 
       <!-- Iconos De Cada Tecnologia -->
@@ -106,7 +107,7 @@
     </section>
 
     <!-- Funciones -->
-    <section class="bm-relative bm-flex bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-overflow-hidden bm-p-6">
+    <section id="funciones" class="bm-relative bm-flex bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-overflow-hidden bm-p-6">
         <div class="bm-mt-8 bm-flex bm-flex-col bm-place-items-center bm-gap-5">
             <div class="reveal-up bm-mt-5 bm-flex bm-flex-col bm-gap-3 bm-text-center">
                 <h2 class="bm-text-4xl bm-font-medium bm-text-gray-200 max-md:bm-text-3xl">Beneficios Importantes</h2>
@@ -246,7 +247,7 @@
     </section>
 
     <!-- Caracteristicas -->
-    <section class="bm-relative bm-flex bm-min-h-[80vh] bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-overflow-hidden bm-p-6">
+    <section id="caracteristicas" class="bm-relative bm-flex bm-min-h-[80vh] bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-overflow-hidden bm-p-6">
       <div class="reveal-up bm-flex bm-min-h-[60vh] bm-place-content-center bm-place-items-center bm-gap-[10%] max-lg:bm-flex-col max-lg:bm-gap-10">
         
         <!-- Imagen del dashboard de DocDinner -->
@@ -334,7 +335,8 @@
       </div>
     </section>
 
-    <section class="bm-relative bm-mt-5 bm-flex bm-min-h-[80vh] bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-justify-center bm-overflow-hidden bm-p-6">
+    <!-- Equipo -->
+    <section id="equipo" class="bm-relative bm-mt-5 bm-flex bm-min-h-[80vh] bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-justify-center bm-overflow-hidden bm-p-6">
       <h3 class="bm-text-4xl bm-font-medium bm-text-gray-200 max-md:bm-text-2xl">Desarrolladores</h3>
 
       <div class="bm-mt-8 bm-flex bm-flex-wrap bm-gap-10 bm-justify-center">
@@ -389,7 +391,7 @@
     </section>
 
     <!-- FQA -->
-    <section class="bm-flex bm-w-full bm-flex-col bm-place-content-center bm-place-items-center bm-gap-[10%] bm-p-[5%] bm-px-[10%]">
+    <section id="fqa" class="bm-flex bm-w-full bm-flex-col bm-place-content-center bm-place-items-center bm-gap-[10%] bm-p-[5%] bm-px-[10%]">
       <h3 class="bm-text-4xl bm-font-medium bm-text-gray-300 max-md:bm-text-2xl">Preguntas Frecuentes</h3>
 
       <div class="bm-mt-5 bm-flex bm-min-h-[300px] bm-w-full bm-max-w-[850px] bm-flex-col bm-gap-4">

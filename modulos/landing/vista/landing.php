@@ -38,10 +38,11 @@
           </a>
         </div>
       </div>
+      <!-- Menu Hamburguesa -->
       <button class="bi bi-list bm-absolute bm-right-3 bm-top-3 bm-z-50 bm-text-3xl bm-text-white lg:bm-hidden" onclick="toggleHeader()" aria-label="menu" id="collapse-btn"></button>
     </header>
 
-    <!-- Inicio -->
+    <!-- Acerca -->
     <section class="hero-section bm-relative bm-flex bm-min-h-[100vh] bm-w-full bm-max-w-[100vw] bm-flex-col bm-overflow-hidden max-md:bm-mt-[50px]" id="hero-section">
       <div class="bm-flex bm-h-full bm-min-h-[100vh] bm-w-full bm-flex-col bm-place-content-center bm-gap-6 bm-p-[5%] max-xl:bm-place-items-center max-lg:bm-p-4">
         <div class="bm-flex bm-flex-col bm-place-content-center bm-items-center">
@@ -57,11 +58,11 @@
             <span class=""> toma el control de tu futuro. </span>
           </div>
 
-          <!-- Empezar & Documentacion -->
+          <!-- Documentacion -->
           <div class="reveal-up bm-mt-10 bm-flex bm-place-items-center bm-gap-4">
-            <a class="btn bm-flex bm-gap-2 !bm-bg-black !bm-text-white bm-transition-colors bm-duration-[0.3s] hover:!bm-bg-white hover:!bm-text-black" href="index.php?ruta=documentacion">
+            <a class="btn bm-flex bm-gap-2 !bm-bg-black !bm-text-white bm-transition-colors bm-duration-[0.3s] hover:!bm-bg-white hover:!bm-text-black" href="index.php?ruta=documentacion.html" aria-label="documentacion">
               <i class="bi bi-play-circle-fill"></i>
-              <span>Documentacion</span>
+              <button>Documentacion</button>
             </a>
           </div>
         </div>
@@ -71,13 +72,12 @@
           <div class="bm-relative bm-max-w-[80%] bm-overflow-hidden bm-rounded-xl bm-bg-transparent max-md:bm-max-w-full" id="dashboard">
             <img src="./assets/images/home/dashboard.png" alt="dashboard" class="bm-h-full bm-w-full bm-object-cover bm-opacity-90 max-lg:bm-object-contain"/>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- Acerca  -->
-    <section id="" class="bm-relative bm-flex bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-overflow-hidden bm-p-8">
+    <!-- Tecnologias  -->
+    <section id="tecnologias" class="bm-relative bm-flex bm-w-full bm-max-w-[100vw] bm-flex-col bm-place-content-center bm-place-items-center bm-overflow-hidden bm-p-8">
       <h2 class="reveal-up bm-text-3xl max-md:bm-text-xl">Tecnologias Usadas</h2>
 
       <!-- Iconos De Cada Tecnologia -->
@@ -435,13 +435,13 @@
         </div>
       </div>
 
-      <div class="bm-mt-20 bm-flex bm-flex-col bm-place-items-center bm-gap-4">
+      <div class="bm-mt-5 bm-flex bm-flex-col bm-place-items-center bm-gap-4">
         <div class="bm-text-3xl max-md:bm-text-2xl">¿Todavía tienes dudas?</div>
         <a href="mailto:docdinnerbg@gmail.com" class="btn !bm-rounded-full !bm-border-[1px] !bm-border-solid !bm-border-gray-300 !bm-bg-transparent bm-transition-colors bm-duration-[0.3s]">Contáctanos</a>
       </div>
     </section>
 
-    <footer class="bm-mt-auto bm-flex bm-w-full bm-place-content-around bm-gap-3 bm-p-[5%] bm-px-[10%] bm-text-white max-md:bm-flex-col">
+    <footer class="bm-mt-auto bm-flex bm-w-full bm-place-content-around bm-gap-3 bm-p-[2%] bm-px-[10%] bm-text-white max-md:bm-flex-col">
       <div class="bm-flex bm-h-full bm-w-[250px] bm-flex-col bm-place-items-center bm-gap-6 max-md:bm-w-full">
         <img src="./assets/logo/colombia-colombia-svgrepo-com.svg" alt="logo" srcset="" class="bm-flex bm-w-[150px]"/>
         <div>Bogota, Colombia</div>
@@ -450,20 +450,20 @@
       <div class="bm-flex bm-h-full bm-w-[250px] bm-flex-col bm-gap-4">
         <h2 class="bm-text-3xl max-md:bm-text-xl">General</h2>
         <div class="bm-flex bm-flex-col bm-gap-3 max-md:bm-text-sm">
-          <a href="empezar" class="footer-link">Empezar</a>
-          <a href="tecnologias" class="footer-link">Tecnologias</a>
-          <a href="beneficios" class="footer-link">Beneficios</a>
-          <a href="contacto" class="footer-link">Contacto</a>
+          <a href="index.php?ruta=login" class="footer-link">Empezar</a>
+          <a href="#tecnologias" class="footer-link">Tecnologias</a>
+          <a href="#funciones" class="footer-link">Beneficios</a>
+          <a href="#equipo" class="footer-link">Equipo</a>
         </div>
       </div>
 
       <div class="bm-flex bm-h-full bm-w-[250px] bm-flex-col bm-gap-4">
         <h2 class="bm-text-3xl max-md:bm-text-xl">Recursos</h2>
         <div class="bm-flex bm-flex-col bm-gap-3 max-md:bm-text-sm">
-          <a href="acerca" class="footer-link">Acerca</a>
-          <a href="fqa" class="footer-link">FAQ</a>
-          <a href="contacto" class="footer-link">Contacto</a>
-          <a href="documentacion" class="footer-link">Privacy policy</a>
+          <a href="#hero-section" class="footer-link">Acerca</a>
+           <a href="#caracteristicas" class="footer-link">Caracteristicas</a>
+          <a href="#fqa" class="footer-link">FAQ</a>
+          <a href="#documentacion" class="footer-link">Privacy policy</a>
         </div>
       </div>
     </footer>

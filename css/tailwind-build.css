@@ -490,8 +490,8 @@ video {
     width: 450px
 }
 
-.bm-w-\[50px\] {
-    width: 50px
+.bm-w-\[80px\] {
+    width: 80px
 }
 
 .bm-w-\[25px\] {
@@ -922,7 +922,7 @@ video {
 }
 
 .bm-shadow-primary {
-    --bm-shadow-color: #7e22ce;
+    --bm-shadow-color: #22b4ce;
     --bm-shadow: var(--bm-shadow-colored)
 }
 

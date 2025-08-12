@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <!-- Estilos Personalizados -->
-    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href="assets/css2/login.css">
     <title>Login / Registro</title>
 </head>
 <body class="body-login">

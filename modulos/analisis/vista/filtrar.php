@@ -100,7 +100,7 @@
             <div class="md:col-span-1 bg-white p-6 rounded-xl shadow-2xl h-full">
                 <!-- Componente: Finanzas en tiempo real -->
                 <h3 class="text-lg font-semibold text-neutral-950">Proximo Datos en Beta</h3>
-                <div id="" class="space-y-3 mt-6  overflow-y-auto max-h-[250px]">
+                <div id="cardsDivisas" class="space-y-3 mt-6  overflow-y-auto max-h-[310px]">
                 <!-- Aquí se generarán las tarjetas de activos financieros -->
                 <!-- Las tarjetas se generarán dinámicamente con JavaScript --> 
                 </div>
@@ -132,6 +132,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
     <script src="assets/js/analisis/apiFinanciera.js"></script>
+    <script src="assets/js/analisis/apiDivisas.js"></script>
     <script>
         let graficoAnalisisGastos, graficoComparativo, graficoDesgloseCategorias;
 

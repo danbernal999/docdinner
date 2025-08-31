@@ -54,10 +54,13 @@ class Producto{
     }
 
     // Funcion para guardar o crear un nuevo producto(Gastos)
-    public function guardarGastoFijo($nombre, $monto, $valorSinIVA, $valorIVA, $categoria, $descripcion, $fecha, $idUsuario, $esRecurrente, $frecuenciaRecurrencia) {
+    public function guardarGastoFijo($nombre, $monto, $valorSinIVA, $valorIVA, $categoria, $descripcion, $fecha, $idUsuario, $esRecurrente, $frecuenciaRecurrencia, $total_cuotas = 0, $cuotas_pagadas = 0) {
         try {
-            $sql = "INSERT INTO gastos_fijos (usuario_id, nombre_gasto, monto, valor_sin_iva, valor_iva, categoria, descripcion, fecha, es_recurrente, frecuencia_recurrencia) 
-                     VALUES (:id_usuario, :nombre_gasto, :monto, :valor_sin_iva, :valor_iva, :categoria, :descripcion, :fecha, :es_recurrente, :frecuencia_recurrencia)";
+            $sql = "INSERT INTO gastos_fijos 
+                    (usuario_id, nombre_gasto, monto, valor_sin_iva, valor_iva, categoria, descripcion, fecha, es_recurrente, frecuencia_recurrencia, total_cuotas, cuotas_pagadas) 
+                    VALUES 
+                    (:id_usuario, :nombre_gasto, :monto, :valor_sin_iva, :valor_iva, :categoria, :descripcion, :fecha, :es_recurrente, :frecuencia_recurrencia, :total_cuotas, :cuotas_pagadas)";
+            
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':id_usuario' => $idUsuario,
@@ -69,18 +72,19 @@ class Producto{
                 ':descripcion' => $descripcion,
                 ':fecha' => $fecha,
                 ':es_recurrente' => $esRecurrente,
-                ':frecuencia_recurrencia' => $frecuenciaRecurrencia
-            ]);
-            return true;
-        } catch (PDOException $e) {
-            return "Error al guardar gasto fijo: " . $e->getMessage();
+                ':frecuencia_recurrencia' => $frecuenciaRecurrencia,
+                ':total_cuotas' => $total_cuotas,
+                ':cuotas_pagadas' => $cuotas_pagadas
+                ]);
+                return true;
+            } catch (PDOException $e) {
+                return "Error al guardar gasto fijo: " . $e->getMessage();
         }
     }
 
     // Funcion para actualizar el producto(Gasto) - Ahora incluye campos de recurrencia
-    public function actualizarGasto($id, $nombre, $monto, $fecha, $categoria, $descripcion, $esRecurrente, $frecuenciaRecurrencia) {
+    public function actualizarGasto($id, $nombre, $monto, $fecha, $categoria, $descripcion, $esRecurrente, $frecuenciaRecurrencia, $total_cuotas = 0, $cuotas_pagadas = 0) {
         try {
-            // Si el gasto no es recurrente, asegúrate de que frecuencia_recurrencia sea NULL
             if (!$esRecurrente) {
                 $frecuenciaRecurrencia = null;
             }
@@ -92,7 +96,9 @@ class Producto{
                         categoria = :categoria, 
                         descripcion = :descripcion,
                         es_recurrente = :es_recurrente,
-                        frecuencia_recurrencia = :frecuencia_recurrencia
+                        frecuencia_recurrencia = :frecuencia_recurrencia,
+                        total_cuotas = :total_cuotas,
+                        cuotas_pagadas = :cuotas_pagadas
                     WHERE id = :id";
 
             $stmt = $this->conn->prepare($sql);
@@ -105,6 +111,8 @@ class Producto{
                 ':descripcion' => $descripcion,
                 ':es_recurrente' => $esRecurrente,
                 ':frecuencia_recurrencia' => $frecuenciaRecurrencia,
+                ':total_cuotas' => $total_cuotas,
+                ':cuotas_pagadas' => $cuotas_pagadas,
                 ':id' => $id
             ]);
 
@@ -204,6 +212,15 @@ class Producto{
         $stmt->execute();
         
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function obtenerGastosConCuotas($id_usuario) {
+        $sql = "SELECT id, nombre_gasto, monto, total_cuotas, cuotas_pagadas 
+                FROM gastos_fijos 
+                WHERE usuario_id = :usuario_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':usuario_id' => $id_usuario]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

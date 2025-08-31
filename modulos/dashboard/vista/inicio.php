@@ -141,7 +141,7 @@
       <h3 class="text-lg font-semibold text-neutral-950">Resumen Financiero</h3>
     </div>
     <!-- Estadísticas importantes -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-2">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mt-2">
       
       <!-- Otros Ingresos -->
       <div class="bg-gray-50 p-4 rounded-lg shadow">
@@ -194,6 +194,22 @@
           <p class="text-gray-500 text-sm">No tienes gastos próximos</p>
         <?php endif; ?>
       </div>
+
+      <div class="bg-gray-50 p-5 rounded-lg shadow">
+        <div class="flex items-center justify-between">
+          <span class="font-medium text-neutral-800">Cuotas pagadas</span>
+          <span class="font-semibold text-blue-600">
+            <?= (int)$cuotas_pagadas_total ?> / <?= (int)$total_cuotas_total ?>
+          </span>
+        </div>
+        <p class="text-xs text-gray-500 mt-1">
+          Pendiente aprox: $<?= number_format($pendiente_total, 0, ',', '.') ?>
+        </p>
+      </div>
+
+
+
+
     </div>
 
     <!-- Categorías De Iva Pagado -->
@@ -220,7 +236,7 @@
             <canvas id="ivaSparkline"
                     height="50"
                     width="160"
-                    class="w-full h-auto"
+                    class="w-full h-50"
                     data-iva-actual="<?= $ivaActual ?>"
                     data-iva-anterior="<?= $ivaAnterior ?>">
             </canvas>

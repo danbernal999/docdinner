@@ -73,6 +73,8 @@
                             <th class="px-4 py-3 text-left text-sm font-semibold">Fecha</th>
                             <th class="px-4 py-3 text-left text-sm font-semibold">Categoría</th>
                             <th class="px-4 py-3 text-left text-sm font-semibold">Recurrente</th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold">Cuotas</th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold">Pagadas</th>
                             <th class="px-4 py-3 text-left text-sm font-semibold">Frecuencia</th>
                             <th class="px-4 py-3 text-left text-sm font-semibold">Descripción</th>
                             <th class="px-4 py-3 text-left text-sm font-semibold">Acciones</th>
@@ -91,6 +93,8 @@
                                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= htmlspecialchars($gasto['categoria']) ?></td>
                                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= $gasto['es_recurrente'] ? 'Sí' : 'No' ?></td>
                                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= $gasto['es_recurrente'] ? htmlspecialchars(ucfirst($gasto['frecuencia_recurrencia'])) : 'N/A' ?></td>
+                                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= $gasto['total_cuotas'] ?? 'N/A' ?></td>
+                                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= $gasto['cuotas_pagadas'] ?? '0' ?></td>
                                 <td class="px-4 py-3 text-sm text-gray-600"><?= htmlspecialchars($gasto['descripcion']) ?></td>
                                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600">
                                     <div class="flex flex-col gap-2">
@@ -180,6 +184,17 @@
                                 ?>
                             </select>
                         </div>
+
+                        <div class="mb-4 hidden">
+                            <label for="total_cuotas_<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Número de cuotas</label>
+                            <input type="number" name="total_cuotas" id="total_cuotas_<?= $gasto['id'] ?>" value="<?= htmlspecialchars($gasto['total_cuotas']) ?>" min="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="cuotas_pagadas<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Cuotas pagadas</label>
+                            <input type="number" name="cuotas_pagadas" id="cuotas_pagadas_<?= $gasto['id'] ?>" value="<?= htmlspecialchars($gasto['cuotas_pagadas']) ?>" min="0" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                        </div>
+
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
                                 const esRecurrenteCheckboxEdit = document.getElementById('es_recurrente_edit_<?= $gasto['id'] ?>');
@@ -312,6 +327,14 @@
                             <p><strong>Valor sin IVA:</strong> <span id="valor_sin_iva">$0.00</span></p>
                         </div>
                     </div>
+
+                    <div id="cuotas-section" class="mb-4 hidden">
+                        <label for="total_cuotas" class="block mb-2 text-sm font-medium text-gray-900">Número de cuotas</label>
+                        <input type="number" name="total_cuotas" id="total_cuotas" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" min="1">
+                        <label for="cuotas_pagadas" class="block mt-3 mb-2 text-sm font-medium text-gray-900">Cuotas pagadas</label>
+                        <input type="number" name="cuotas_pagadas" id="cuotas_pagadas" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" min="0">
+                    </div>
+
 
                     <button type="submit" name="crearGasto" class="text-white bg-blue-700 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Guardar Gasto</button>
                 </form>

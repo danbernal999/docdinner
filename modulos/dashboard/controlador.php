@@ -4,8 +4,7 @@
 include 'modulos/ahorro/modelo.php';
 // Incluye el modelo de productos/gastos.
 include 'modulos/productos/modelo.php';
-// Incluimos el modelo de configuración para obtener los datos del usuario (saldo inicial, otros ingresos).
-// Es crucial para obtener los valores de configuración desde la base de datos.
+// Incluye el modelo de configuración.
 include 'modulos/configuracion/modelo.php'; 
 // Incluye la utilidad para obtener la ruta de la foto de perfil.
 require_once 'utils/fotoPerfil.php';
@@ -13,21 +12,18 @@ require_once 'utils/fotoPerfil.php';
 class DashboardController {
     private $AhorroModel;
     private $productoModel;
-    private $configuracionModel; // Añadimos la propiedad para el modelo de configuración.
-    private $fotoPerfil; // Se mantiene si es parte de una estructura más grande, aunque no se inicializa aquí.
+    private $configuracionModel;
     private $db;
 
-    // Constructor que inicializa los modelos con la conexión a la base de datos.
     public function __construct($db) {
         $this->db = $db;
         $this->AhorroModel = new MetaAhorro($this->db);
         $this->productoModel = new Producto($this->db);
-        // Inicializamos el modelo de configuración aquí.
         $this->configuracionModel = new ConfiguracionModel($this->db); 
     }
 
     public function dashboard() {
-        // Inicia la sesión si aún no ha sido iniciada.
+        // Iniciar sesión si no está activa
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -38,10 +34,12 @@ class DashboardController {
             exit;
         }
 
-        // --- Cargar datos de configuración del usuario si no están en sesión ---
-        // Esto es VITAL para que 'saldo_inicial' y 'otros_ingresos' se obtengan de la BD
-        // y estén disponibles para los cálculos.
-        if (!isset($_SESSION['saldo_inicial']) || !isset($_SESSION['otros_ingresos']) || !isset($_SESSION['moneda']) || !isset($_SESSION['presupuesto_mensual'])) {
+        // --- CONFIGURACIÓN DEL USUARIO ---
+        if (!isset($_SESSION['saldo_inicial']) || 
+            !isset($_SESSION['otros_ingresos']) || 
+            !isset($_SESSION['moneda']) || 
+            !isset($_SESSION['presupuesto_mensual'])) 
+        {
             $config_data = $this->configuracionModel->obtenerConfiguracion($id_usuario);
             $_SESSION['saldo_inicial'] = $config_data['saldo_inicial'] ?? 0;
             $_SESSION['otros_ingresos'] = $config_data['otros_ingresos'] ?? 0;
@@ -49,25 +47,20 @@ class DashboardController {
             $_SESSION['presupuesto_mensual'] = $config_data['presupuesto_mensual'] ?? 0;
         }
 
-        // --- Obtener Saldo Inicial BASE y Otros Ingresos desde la sesión ---
-        // Estos valores ya han sido cargados o actualizados desde la BD/sesión.
+        // --- SALDOS ---
         $saldoInicialBase = $_SESSION['saldo_inicial'] ?? 0;
         $otrosIngresosTotal = $_SESSION['otros_ingresos'] ?? 0;
-
-        // --- Calcular el Saldo Total Disponible ---
-        // Este es el valor que se mostrará en la tarjeta "Saldo Total".
         $saldoInicial = $saldoInicialBase + $otrosIngresosTotal;
 
-        // Obtener el total de gastos del usuario.
-        // Se asegura que la variable se llame $totalGastos para coincidir con la vista.
+        // Total de gastos
         $totalGastos = $this->productoModel->obtenerTotalGastosPorUsuario($id_usuario);
 
-        // Calcular disponible y deuda.
-        $disponible = max(0, $saldoInicial - $totalGastos); // Usamos $totalGastos aquí
-        $deuda = max(0, $totalGastos - $saldoInicial);     // Usamos $totalGastos aquí
+        // Disponible y deuda
+        $disponible = max(0, $saldoInicial - $totalGastos);
+        $deuda = max(0, $totalGastos - $saldoInicial);
         $_SESSION['saldo_disponible'] = $disponible;
 
-        // Obtener el IVA mensual actual y anterior.
+        // --- IVA MENSUAL ---
         $mesActual = date('n');
         $anioActual = date('Y');
         $mesAnterior = $mesActual == 1 ? 12 : $mesActual - 1;
@@ -76,25 +69,60 @@ class DashboardController {
         $ivaActual = $this->productoModel->obtenerIVAMensualPorUsuario($id_usuario, $mesActual, $anioActual);
         $ivaAnterior = $this->productoModel->obtenerIVAMensualPorUsuario($id_usuario, $mesAnterior, $anioAnterior);
 
-        $variacion = 0;
-        if ($ivaAnterior > 0) {
-            $variacion = (($ivaActual - $ivaAnterior) / $ivaAnterior) * 100;
-        }
+        $variacion = ($ivaAnterior > 0) 
+            ? (($ivaActual - $ivaAnterior) / $ivaAnterior) * 100 
+            : 0;
 
+        // --- FOTO DE PERFIL ---
         $foto = $_SESSION['foto'] ?? '';
         $rutaFoto = obtenerRutaFoto($foto);
 
+        // --- DATOS VARIOS ---
         $gastoMasAlto = $this->productoModel->obtenerGastoFijoMasAlto($id_usuario);
         $result = $this->AhorroModel->obtenerTodasLasMetasPorUsuario($id_usuario);
-
-        // Obtener el próximo gasto programado
         $proximoGasto = $this->productoModel->obtenerProximoGastoPorUsuario($id_usuario);
-        
 
-        
-        // Incluye la vista del dashboard, pasando todas las variables.
+        // --- GASTOS Y PRODUCTOS CON CUOTAS ---
+        $gastosDash = $this->productoModel->obtenerTodosPorUsuario($id_usuario);
+        $productosDash = $this->productoModel->obtenerGastosConCuotas($id_usuario);
+
+        $cuotasPagadasTot = 0;
+        $totalCuotasTot   = 0;
+        $pendienteTot     = 0.0;
+
+        // Sumar cuotas de gastos_fijos (si usas allí también cuotas)
+        foreach ($gastosDash as $g) {
+            $tc = (int)($g['total_cuotas'] ?? 0);
+            $cp = (int)($g['cuotas_pagadas'] ?? 0);
+            $monto = (float)($g['monto'] ?? 0);
+
+            if ($tc > 0) {
+                $totalCuotasTot += $tc;
+                $cuotasPagadasTot += $cp;
+                $pendienteTot += max(0, ($tc - $cp) * ($monto / $tc));
+            }
+        }
+
+        // Sumar cuotas de productos (aquí sí se actualiza el CRUD)
+        foreach ($productosDash as $p) {
+            $tc = (int)($p['total_cuotas'] ?? 0);
+            $cp = (int)($p['cuotas_pagadas'] ?? 0);
+            $monto = (float)($p['monto'] ?? 0);
+
+            if ($tc > 0) {
+                $totalCuotasTot += $tc;
+                $cuotasPagadasTot += $cp;
+                $pendienteTot += max(0, ($tc - $cp) * ($monto / $tc));
+            }
+        }
+
+        // Variables para la vista
+        $cuotas_pagadas_total = $cuotasPagadasTot;
+        $total_cuotas_total   = $totalCuotasTot;
+        $pendiente_total      = $pendienteTot;
+
+        // --- INCLUIR LA VISTA DEL DASHBOARD ---
         include 'modulos/dashboard/vista/inicio.php';
     }
 }
 
-?>

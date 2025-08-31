@@ -26,6 +26,7 @@
     </div>
   </div>
 </header>
+
 <!-- Contenedor principal: grid para el Balance y Visualzacion ahorro -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
   <!-- Columna principal: Gráfico + tarjetas -->
@@ -34,14 +35,34 @@
       <!-- Título y balance -->
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-semibold text-neutral-950">Balance General</h2>
-        <p class="text-sm text-neutral-950">
-          Este mes gastaste un <span class="text-red-500 font-bold">+15%</span> más que el anterior.
-        </p>
+        <?php if ($totalGastos < $saldoInicial): ?>
+          <p class="text-sm text-neutral-950">
+            Este mes estás dentro de tu saldo ✅, aún tienes disponible 
+            <span class="text-green-600 font-bold">
+              $<?= number_format($disponible) ?>
+            </span>.
+          </p>
+
+        <?php elseif ($totalGastos == $saldoInicial): ?>
+          <p class="text-sm text-neutral-950">
+            Este mes gastaste exactamente lo que tenías 💸. Tu saldo está en 
+            <span class="text-yellow-500 font-bold">$0</span>.
+          </p>
+
+        <?php else: ?>
+          <p class="text-sm text-neutral-950">
+            Este mes gastaste de más ❌. Tu deuda actual es 
+            <span class="text-red-500 font-bold">
+              $<?= number_format($deuda) ?>
+            </span>.
+          </p>
+        <?php endif; ?>
+
       </div>
 
       <!-- Gráfico -->
       <div class="bg-gray-100 h-64 rounded-lg flex items-center justify-center p-4 mb-6">
-        <canvas id="graficoAnalisis" class="w-full h-full"></canvas>
+        
       </div>
 
       <!-- Tarjetas de Ingreso, Gasto, Ahorro y Deuda alineadas horizontalmente -->
@@ -112,21 +133,31 @@
 </div>
 
 <!-- Contenedor secundario: Productos y resumen del mes -->
-<div class="grid grid-cols-1 md:grid-cols-5 gap-5 mt-5">
+<div class="grid grid-cols-2 md:grid-cols-5 gap-5 mt-4">
   <!-- Resumen de Gastos Fijos -->
-  <div class="md:col-span-5 bg-white p-6 rounded-xl shadow-2xl h-full" >
+  <div class="md:col-span-5 bg-white p-6 rounded-xl shadow-2xl h-full">
     <!-- Título -->
     <div class="mb-4">
-      <h3 class="text-lg font-semibold text-neutral-950">Resumen de Gastos Fijos</h3>
+      <h3 class="text-lg font-semibold text-neutral-950">Resumen Financiero</h3>
     </div>
-
     <!-- Estadísticas importantes -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-2">
-        <!-- Total de Gastos Fijos -->
-        <div class="bg-gray-50 p-4 rounded-lg shadow">
-          <p class="text-sm text-gray-600">Total Gastos Fijos</p>
-          <p class="text-xl font-bold text-red-600">$<?= number_format($totalGastos) ?></p>
-        </div>
+      
+      <!-- Otros Ingresos -->
+      <div class="bg-gray-50 p-4 rounded-lg shadow">
+        <p class="text-sm text-gray-600">Otros Ingresos</p>
+        <p class="text-xl font-bold text-green-600">
+          $<?= number_format($otrosIngresosTotal) ?>
+        </p>
+      </div>
+
+      <!-- Total de Gastos Fijos -->
+      <div class="bg-gray-50 p-4 rounded-lg shadow">
+        <p class="text-sm text-gray-600">Total Gastos Fijos</p>
+        <p class="text-xl font-bold text-red-600">
+          $<?= number_format($totalGastos) ?>
+        </p>
+      </div>
 
       <!-- Gasto más alto -->
       <?php if ($gastoMasAlto): ?>
@@ -140,56 +171,68 @@
       <?php else: ?>
         <div class="bg-gray-50 p-4 rounded-lg shadow">
           <p class="text-sm text-gray-600">Gasto más alto</p>
-          <p class="text-base font-semibold text-gray-800 text-gray-400">No hay datos disponibles</p>
+          <p class="text-base font-semibold text-gray-400">No hay datos disponibles</p>
         </div>
       <?php endif; ?>
 
-        <!-- Próximo vencimiento -->
-        <div class="bg-gray-50 p-4 rounded-lg shadow">
-          <p class="text-sm text-gray-600">Próximo gasto programado</p>
-          <p class="text-base font-semibold text-gray-800">Internet: <span class="text-blue-600">05 Jun 2025</span></p>
-        </div>
+      <!-- Próximo vencimiento -->
+      <div class="bg-gray-50 p-4 rounded-lg shadow">
+        <p class="text-sm text-gray-600">Próximo gasto programado</p>
 
-        <!-- Otros Ingresos (Anteriormente "Beta") -->
-        <div class="bg-gray-50 p-4 rounded-lg shadow">
-          <p class="text-sm text-gray-600">Otros Ingresos</p>
-          <p class="text-xl font-bold text-green-600">$<?= number_format($otrosIngresosTotal) ?></p>
-        </div>
-
+        <?php if (!empty($proximoGasto)): ?>
+          <p class="text-base font-semibold text-gray-800">
+            <?= htmlspecialchars($proximoGasto['nombre_gasto']) ?>
+            <span class="text-blue-600">
+              <?= date("d M Y", strtotime($proximoGasto['fecha'])) ?>
+            </span>
+          </p>
+          <p class="text-sm text-gray-600">
+            <?= htmlspecialchars($proximoGasto['categoria']) ?> - 
+            $<?= number_format($proximoGasto['monto'], 0, ',', '.') ?>
+          </p>
+        <?php else: ?>
+          <p class="text-gray-500 text-sm">No tienes gastos próximos</p>
+        <?php endif; ?>
+      </div>
     </div>
 
     <!-- Categorías De Iva Pagado -->
-    <div class="bg-gray-50 rounded-lg shadow p-4 text-sm text-gray-700 mt-6">
-      <h2 class="text-lg font-semibold text-neutral-900 mb-2">Resumen de IVA</h2>
+    <div class="my-4">
+        <h3 class="text-lg font-semibold text-neutral-950">Resumen de IVA</h3>
+    </div>
 
-      <p>💸 IVA pagado este mes: <strong>$<?= number_format($ivaActual, 2, ',', '.') ?></strong></p>
-
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-2">
-        <p class="whitespace-nowrap">
-          📊 Variación mensual:
-          <strong class="<?= $variacion >= 0 ? 'text-green-600' : 'text-red-600' ?>">
-            <?= $variacion >= 0 ? '+' : '' ?><?= number_format($variacion, 1) ?>%
-          </strong>
-          <?= $ivaAnterior == 0 ? '(sin datos del mes anterior)' : '' ?>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="rounded-lg text-sm text-neutral-700 mt-6">
+        <p>💸 IVA pagado este mes: 
+          <strong>$<?= number_format($ivaActual, 2, ',', '.') ?></strong>
         </p>
 
-        <div class="max-w-[160px] md:max-w-[200px]">
-          <canvas id="ivaSparkline"
-                      height="50"
-                      width="160"
-                      class="w-full h-auto"
-                      data-iva-actual="<?= $ivaActual ?>"
-                      data-iva-anterior="<?= $ivaAnterior ?>"></canvas>
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-2">
+          <p class="whitespace-nowrap">
+            📊 Variación mensual:
+            <strong class="<?= $variacion >= 0 ? 'text-green-600' : 'text-red-600' ?>">
+              <?= $variacion >= 0 ? '+' : '' ?><?= number_format($variacion, 1) ?>%
+            </strong>
+            <?= $ivaAnterior == 0 ? '(sin datos del mes anterior)' : '' ?>
+          </p>
+
+          <div class="max-w-[160px] md:max-w-[200px]">
+            <canvas id="ivaSparkline"
+                    height="50"
+                    width="160"
+                    class="w-full h-auto"
+                    data-iva-actual="<?= $ivaActual ?>"
+                    data-iva-anterior="<?= $ivaAnterior ?>">
+            </canvas>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 <script src="assets/js/dashboard/grafico.js"></script>
-<script src="assets/js/dashboard/graficoPastel.js"></script>
 <script src="assets/js/dashboard/graficoIva.js"></script>

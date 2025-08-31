@@ -190,4 +190,20 @@ class Producto{
         ]);
         return $stmt->fetch(PDO::FETCH_ASSOC)['total_iva'] ?? 0;
     }
+
+    public function obtenerProximoGastoPorUsuario($usuario_id) {
+        $sql = "SELECT id, nombre_gasto, fecha, monto, categoria 
+                FROM gastos_fijos
+                WHERE usuario_id = :usuario_id 
+                AND fecha >= CURDATE()
+                ORDER BY fecha ASC 
+                LIMIT 1";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":usuario_id", $usuario_id, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 }

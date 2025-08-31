@@ -86,6 +86,11 @@ class DashboardController {
 
         $gastoMasAlto = $this->productoModel->obtenerGastoFijoMasAlto($id_usuario);
         $result = $this->AhorroModel->obtenerTodasLasMetasPorUsuario($id_usuario);
+
+        // Obtener el próximo gasto programado
+        $proximoGasto = $this->productoModel->obtenerProximoGastoPorUsuario($id_usuario);
+        
+
         
         // Incluye la vista del dashboard, pasando todas las variables.
         include 'modulos/dashboard/vista/inicio.php';

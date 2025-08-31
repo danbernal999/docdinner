@@ -92,10 +92,11 @@
                                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= htmlspecialchars($gasto['fecha']) ?></td>
                                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= htmlspecialchars($gasto['categoria']) ?></td>
                                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= $gasto['es_recurrente'] ? 'Sí' : 'No' ?></td>
-                                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= $gasto['es_recurrente'] ? htmlspecialchars(ucfirst($gasto['frecuencia_recurrencia'])) : 'N/A' ?></td>
-                                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= $gasto['total_cuotas'] ?? 'N/A' ?></td>
-                                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= $gasto['cuotas_pagadas'] ?? '0' ?></td>
+                                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= $gasto['total_cuotas'] > 0 ? $gasto['total_cuotas'] : 'N/A' ?></td>
+                                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= $gasto['cuotas_pagadas'] > 0 ? $gasto['cuotas_pagadas'] : '0' ?></td>
+                                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600"><?= !empty($gasto['frecuencia_recurrencia']) ? ucfirst($gasto['frecuencia_recurrencia']) : 'N/A' ?></td>
                                 <td class="px-4 py-3 text-sm text-gray-600"><?= htmlspecialchars($gasto['descripcion']) ?></td>
+
                                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600">
                                     <div class="flex flex-col gap-2">
                                         <!-- Botón Editar: activa el modal correspondiente -->
@@ -137,6 +138,7 @@
                             <label for="nombre_gasto_<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Nombre del Gasto</label>
                             <input type="text" name="nombre_gasto" id="nombre_gasto_<?= $gasto['id'] ?>" value="<?= htmlspecialchars($gasto['nombre_gasto']) ?>" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" />
                         </div>
+
                         <div class="mb-4">
                             <label for="monto_<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Monto</label>
                             <div class="relative">
@@ -149,6 +151,7 @@
                             <label for="fecha_<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Fecha</label>
                             <input type="date" name="fecha" id="fecha_<?= $gasto['id'] ?>" value="<?= htmlspecialchars($gasto['fecha']) ?>" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" />
                         </div>
+
                         <div class="mb-4">
                             <label for="categoria_<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Categoría</label>
                             <select name="categoria" id="categoria_<?= $gasto['id'] ?>" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
@@ -161,7 +164,6 @@
                                 ?>
                             </select>
                         </div>
-
                         <!-- Sección para Gasto Recurrente en edición -->
                         <div class="mb-4">
                             <label class="block mb-2 text-sm font-medium text-gray-900">¿Es un gasto recurrente?</label>
@@ -185,7 +187,7 @@
                             </select>
                         </div>
 
-                        <div class="mb-4 hidden">
+                        <div class="mb-4">
                             <label for="total_cuotas_<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Número de cuotas</label>
                             <input type="number" name="total_cuotas" id="total_cuotas_<?= $gasto['id'] ?>" value="<?= htmlspecialchars($gasto['total_cuotas']) ?>" min="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                         </div>
@@ -213,7 +215,6 @@
                                 });
                             });
                         </script>
-
 
                         <div class="mb-4">
                             <label for="descripcion_<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Descripción</label>

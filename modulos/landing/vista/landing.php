@@ -463,7 +463,7 @@
           <a href="#hero-section" class="footer-link">Acerca</a>
            <a href="#caracteristicas" class="footer-link">Caracteristicas</a>
           <a href="#fqa" class="footer-link">FAQ</a>
-          <a href="#documentacion" class="footer-link">Privacy policy</a>
+          <a href="index.php?ruta=documentacion" class="footer-link">Politicas de Privacidad</a>
         </div>
       </div>
     </footer>

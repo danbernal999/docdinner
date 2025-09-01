@@ -103,23 +103,16 @@ class DashboardController {
             }
         }
 
-        // Sumar cuotas de productos (aquí sí se actualiza el CRUD)
-        foreach ($productosDash as $p) {
-            $tc = (int)($p['total_cuotas'] ?? 0);
-            $cp = (int)($p['cuotas_pagadas'] ?? 0);
-            $monto = (float)($p['monto'] ?? 0);
-
-            if ($tc > 0) {
-                $totalCuotasTot += $tc;
-                $cuotasPagadasTot += $cp;
-                $pendienteTot += max(0, ($tc - $cp) * ($monto / $tc));
-            }
-        }
-
         // Variables para la vista
         $cuotas_pagadas_total = $cuotasPagadasTot;
         $total_cuotas_total   = $totalCuotasTot;
         $pendiente_total      = $pendienteTot;
+
+
+        // En DashboardController->dashboard()
+        $gastosTimeline = $this->productoModel->obtenerTodosPorUsuario($id_usuario); 
+        $ahorrosTimeline = $this->AhorroModel->obtenerTodasLasMetasPorUsuario($id_usuario);
+
 
         // --- INCLUIR LA VISTA DEL DASHBOARD ---
         include 'modulos/dashboard/vista/inicio.php';

@@ -60,7 +60,7 @@
 
           <!-- Documentacion -->
           <div class="reveal-up bm-mt-10 bm-flex bm-place-items-center bm-gap-4">
-            <a class="btn bm-flex bm-gap-2 !bm-bg-black !bm-text-white bm-transition-colors bm-duration-[0.3s] hover:!bm-bg-white hover:!bm-text-black" href="index.php?ruta=documentacion.html" aria-label="documentacion">
+            <a class="btn bm-flex bm-gap-2 !bm-bg-black !bm-text-white bm-transition-colors bm-duration-[0.3s] hover:!bm-bg-white hover:!bm-text-black" href="index.php?ruta=documentacion" aria-label="documentacion">
               <i class="bi bi-play-circle-fill"></i>
               <button>Documentacion</button>
             </a>

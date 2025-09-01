@@ -33,8 +33,8 @@
   <div class="md:col-span-2">
     <div class="bg-white p-6 rounded-xl shadow-2xl">
       <!-- Título y balance -->
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-semibold text-neutral-950">Balance General</h2>
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="text-lg font-semibold text-neutral-950">Linea de Tiempo - Gastos & Ahorros</h2>
         <?php if ($totalGastos < $saldoInicial): ?>
           <p class="text-sm text-neutral-950">
             Este mes estás dentro de tu saldo ✅, aún tienes disponible 
@@ -60,15 +60,63 @@
 
       </div>
 
-      <!-- Gráfico -->
-      <div class="bg-gray-100 h-64 rounded-lg flex items-center justify-center p-4 mb-6">
-        
+      <!-- Linea de Tiempo -->
+      <div class="bg-neutral-50 rounded-lg p-6 mb-2">
+        <!-- Timeline de Gastos -->
+        <h2 class="text-lg font-bold text-neutral-900 mb-4">🧾 Gastos Registrados</h2>
+        <div class="flex items-center justify-between relative">
+          <div class="absolute top-1/2 left-0 w-full border-t border-gray-300"></div>
+
+          <?php if (!empty($gastosTimeline)): ?>
+            <?php foreach ($gastosTimeline as $g): ?>
+              <div class="flex flex-col items-center text-center relative">
+                <div class="w-4 h-4 bg-red-500 rounded-full border-2 border-white"></div>
+                <time class="mt-2 text-sm font-semibold text-neutral-950">
+                  <?= date("d/m", strtotime($g['fecha'])) ?>
+                </time>
+                <p class="text-neutral-900 font-medium">
+                  <?= htmlspecialchars($g['nombre_gasto']) ?>
+                </p>
+                <p class="text-xs text-gray-600">
+                  $<?= number_format($g['monto'], 0, ',', '.') ?>
+                </p>
+              </div>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <p class="text-sm text-gray-500">No hay gastos registrados.</p>
+          <?php endif; ?>
+        </div>
+
+        <!-- Timeline de Ahorros -->
+        <h2 class="text-lg font-bold text-neutral-900 mt-8 mb-4">💰 Ahorros Registrados</h2>
+        <div class="flex items-center justify-between relative">
+          <div class="absolute top-1/2 left-0 w-full border-t border-gray-300"></div>
+
+          <?php if (!empty($ahorrosTimeline)): ?>
+            <?php foreach ($ahorrosTimeline as $a): ?>
+              <div class="flex flex-col items-center text-center relative">
+                <div class="w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
+                <time class="mt-2 text-sm font-semibold text-neutral-950">
+                  <?= date("d/m", strtotime($a['creada_en'])) ?>
+                </time>
+                <p class="text-neutral-900 font-medium">
+                  <?= htmlspecialchars($a['nombre_meta']) ?>
+                </p>
+                <p class="text-xs text-gray-600">
+                  $<?= number_format($a['cantidad_meta'], 0, ',', '.') ?>
+                </p>
+              </div>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <p class="text-sm text-gray-500">No hay ahorros registrados.</p>
+          <?php endif; ?>
+        </div>
       </div>
 
       <!-- Tarjetas de Ingreso, Gasto, Ahorro y Deuda alineadas horizontalmente -->
       <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
         <!-- Ingreso (Saldo Inicial Total) -->
-        <div class="bg-white p-5 rounded-xl shadow-2xl">
+        <div class="bg-white p-4 rounded-xl shadow-2xl">
           <div class="flex items-center justify-between">
             <span class="font-medium text-neutral-800">Saldo Total</span>
             <span class="font-semibold text-yellow-500">$<?= number_format($saldoInicial) ?></span>
@@ -76,7 +124,7 @@
         </div>
 
         <!-- Gasto -->
-        <div class="bg-white p-5 rounded-xl shadow-2xl">
+        <div class="bg-white p-4 rounded-xl shadow-2xl">
           <div class="flex items-center justify-between">
             <span class="font-medium text-neutral-800">Gasto</span>
             <span class="font-semibold text-cyan-500">$<?= number_format($totalGastos) ?></span>
@@ -84,7 +132,7 @@
         </div>
 
         <!-- Disponible -->
-        <div class="bg-white p-5 rounded-xl shadow-2xl">
+        <div class="bg-white p-4 rounded-xl shadow-2xl">
           <div class="flex items-center justify-between">
             <span class="font-medium text-neutral-800">Disponible</span>
             <span class="font-semibold text-green-500">$<?= number_format($disponible) ?></span>
@@ -92,20 +140,19 @@
         </div>
 
         <!-- Deuda (si existe) -->
-        <div class="bg-white p-5 rounded-xl shadow-2xl">
+        <div class="bg-white p-4 rounded-xl shadow-2xl">
           <div class="flex items-center justify-between">
             <span class="font-medium text-neutral-800">Deuda</span>
             <span class="font-semibold text-red-500"><?= $deuda > 0 ? "-$" . number_format($deuda) : "$0" ?></span>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
   <!-- Visualizacion de Ahorro -->
   <div class="bg-white p-6 rounded-xl shadow-2xl">
-    <h2 class="text-xl font-semibold text-neutral-950 mb-4">Visualización Ahorro</h2>
+    <h2 class="text-lg font-semibold text-neutral-950 mb-4">Visualización Ahorro</h2>
     <!-- Contenedor con scroll -->
     <div class="flex flex-col space-y-4 max-h-80 overflow-y-auto pr-2">
       <!-- Div de cada meta de ahorro -->
@@ -213,12 +260,12 @@
     </div>
 
     <!-- Categorías De Iva Pagado -->
-    <div class="my-4">
+    <div class="my-2">
         <h3 class="text-lg font-semibold text-neutral-950">Resumen de IVA</h3>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="rounded-lg text-sm text-neutral-700 mt-6">
+      <div class="rounded-lg text-sm text-neutral-700 mt-2">
         <p>💸 IVA pagado este mes: 
           <strong>$<?= number_format($ivaActual, 2, ',', '.') ?></strong>
         </p>

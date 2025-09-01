@@ -9,6 +9,10 @@ switch ($ruta) {
         $controller = new LandingController();
         $controller->index(); //Funcion del index. no tiene mucha ciencia 
         break;
+    
+    case 'documentacion':
+        include 'modulos/landing/vista/documentacion.php';
+        break;
 
     case 'login':
         include 'auth/controlador.php';

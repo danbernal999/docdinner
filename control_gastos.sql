@@ -235,3 +235,6 @@ ALTER TABLE gastos_fijos
 ADD COLUMN total_cuotas INT DEFAULT 0,
 ADD COLUMN cuotas_pagadas INT DEFAULT 0;
 
+ALTER TABLE gastos_fijos 
+ADD COLUMN incluir_iva TINYINT(1) DEFAULT 0 AFTER descripcion,
+ADD COLUMN tasa_iva DECIMAL(5,2) DEFAULT 0 AFTER incluir_iva;

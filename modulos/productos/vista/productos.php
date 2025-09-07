@@ -134,6 +134,7 @@
                     <!-- Modal body: Formulario de edición -->
                     <form action="index.php?ruta=main&modulo=productos" method="POST" class="p-4">
                         <input type="hidden" name="id" value="<?= $gasto['id'] ?>">
+                        
                         <div class="mb-4">
                             <label for="nombre_gasto_<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Nombre del Gasto</label>
                             <input type="text" name="nombre_gasto" id="nombre_gasto_<?= $gasto['id'] ?>" value="<?= htmlspecialchars($gasto['nombre_gasto']) ?>" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" />
@@ -218,7 +219,7 @@
 
                         <div class="mb-4">
                             <label for="descripcion_<?= $gasto['id'] ?>" class="block mb-2 text-sm font-medium text-gray-900">Descripción</label>
-                            <textarea name="descripcion" id="descripcion_<?= $gasto['id'] ?>" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"><?= htmlspecialchars($gasto['descripcion']) ?></textarea>
+                            <textarea name="descripcion" id="descripcion_<?= $gasto['id'] ?>" rows="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"><?= htmlspecialchars($gasto['descripcion']) ?></textarea>
                         </div>
 
                         <button type="submit" name="actualizarGasto" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Actualizar</button>
@@ -280,7 +281,7 @@
 
                     <div class="mb-4">
                         <label for="descripcion" class="block mb-2 text-sm font-medium text-gray-900">Descripción</label>
-                        <textarea name="descripcion" id="descripcion" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" required></textarea>
+                        <textarea name="descripcion" id="descripcion" rows="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" required></textarea>
                     </div>
 
                     <!-- Sección para Gasto Recurrente -->
@@ -329,7 +330,7 @@
                         </div>
                     </div>
 
-                    <div id="cuotas-section" class="mb-4 hidden">
+                    <div id="cuotas-section" class="mb-4">
                         <label for="total_cuotas" class="block mb-2 text-sm font-medium text-gray-900">Número de cuotas</label>
                         <input type="number" name="total_cuotas" id="total_cuotas" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" min="1">
                         <label for="cuotas_pagadas" class="block mt-3 mb-2 text-sm font-medium text-gray-900">Cuotas pagadas</label>

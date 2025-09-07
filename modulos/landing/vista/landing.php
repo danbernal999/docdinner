@@ -70,7 +70,7 @@
         <!-- Imagen Dashboard -->
         <div class="reveal-up bm-relative bm-mt-8 bm-flex bm-w-full bm-place-content-center bm-place-items-center" id="dashboard-container">
           <div class="bm-relative bm-max-w-[80%] bm-overflow-hidden bm-rounded-xl bm-bg-transparent max-md:bm-max-w-full" id="dashboard">
-            <img src="./assets/images/home/dashboard.png" alt="dashboard" class="bm-h-full bm-w-full bm-object-cover bm-opacity-90 max-lg:bm-object-contain"/>
+            <img src="./assets/images/home/dashboardLanding.png" alt="dashboard" class="bm-h-full bm-w-full bm-object-cover bm-opacity-90 max-lg:bm-object-contain"/>
           </div>
         </div>
       </div>

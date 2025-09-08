@@ -54,7 +54,7 @@ class Producto{
     }
 
     // Funcion para guardar o crear un nuevo producto(Gastos)
-    public function guardarGastoFijo($nombre, $monto, $valorSinIVA, $valorIVA, $categoria, $descripcion, $fecha, $idUsuario, $esRecurrente, $frecuenciaRecurrencia, $total_cuotas = 0, $cuotas_pagadas = 0) {
+    public function guardarGastoFijo($nombre, $monto, $valorSinIVA, $valorIVA, $categoria, $fecha, $idUsuario, $esRecurrente, $frecuenciaRecurrencia, $total_cuotas = 0, $cuotas_pagadas = 0, $descripcion = null) {
         try {
             $sql = "INSERT INTO gastos_fijos 
                     (usuario_id, nombre_gasto, monto, valor_sin_iva, valor_iva, categoria, descripcion, fecha, es_recurrente, frecuencia_recurrencia, total_cuotas, cuotas_pagadas) 
@@ -83,7 +83,7 @@ class Producto{
     }
 
     // Funcion para actualizar el producto(Gasto) - Ahora incluye campos de recurrencia
-    public function actualizarGasto($id, $nombre, $monto, $fecha, $categoria, $descripcion, $esRecurrente, $frecuenciaRecurrencia, $total_cuotas = 0, $cuotas_pagadas = 0) {
+    public function actualizarGasto($id, $nombre, $monto, $fecha, $categoria, $esRecurrente, $frecuenciaRecurrencia, $total_cuotas = 0, $cuotas_pagadas = 0, $descripcion = null) {
         try {
             if (!$esRecurrente) {
                 $frecuenciaRecurrencia = null;

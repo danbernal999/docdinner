@@ -1,10 +1,9 @@
 <?php
-
 function getDB() {
-    $host = "localhost";
-    $dbname = "control_gastos";
-    $username = "root";
-    $password = "";
+    $host = getenv("DB_HOST") ?: "localhost";
+    $dbname = getenv("DB_NAME") ?: "control_gastos";
+    $username = getenv("DB_USER") ?: "root";
+    $password = getenv("DB_PASSWORD") ?: "";
 
     try {
         $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
@@ -14,8 +13,8 @@ function getDB() {
         die("Error en la conexión: " . $e->getMessage());
     }
 }
-
 ?>
+
 
 
 

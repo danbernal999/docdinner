@@ -1,21 +1,23 @@
-# Imagen base con PHP y Apache
 FROM php:8.3-apache
 
-# Instala extensiones necesarias (puedes añadir más si tu proyecto las requiere)
+# Instala extensiones PHP necesarias
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Copia los archivos del proyecto al contenedor
+# Copia los archivos al contenedor
 COPY . /var/www/html/
 
-# Habilita mod_rewrite (por si usas URLs limpias o .htaccess)
+# Habilita mod_rewrite
 RUN a2enmod rewrite
 
-# Cambia la configuración de Apache para escuchar en el puerto 8080 (el que Railway expone)
-RUN sed -i 's/80/8080/g' /etc/apache2/sites-available/000-default.conf \
-    && sed -i 's/80/8080/g' /etc/apache2/ports.conf
+# Fix del warning de ServerName
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Reemplaza la configuración de Apache para escuchar en 8080
+RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf \
+    && sed -i 's/<VirtualHost \*:80>/<VirtualHost \*:8080>/' /etc/apache2/sites-available/000-default.conf
 
 # Exponer puerto
 EXPOSE 8080
 
-# Inicia Apache en primer plano
+# Arrancar Apache
 CMD ["apache2-foreground"]

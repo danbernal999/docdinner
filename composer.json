@@ -1,7 +1,8 @@
 {
-    "require": {
-        "phpmailer/phpmailer": "^6.10",
-        "google/apiclient": "^2.0",
-        "dompdf/dompdf": "^3.1"
-    }
+  "require": {
+    "php": ">=8.2",
+    "phpmailer/phpmailer": "^6.10",
+    "google/apiclient": "^2.0",
+    "dompdf/dompdf": "^3.1"
+  }
 }

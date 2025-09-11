@@ -19,4 +19,5 @@ RUN composer install --ignore-platform-reqs
 EXPOSE 8080
 
 # Usar el servidor embebido de PHP con tu router
-CMD ["php", "-S", "0.0.0.0:8080", "-t", ".", "router.php"]
+CMD ["php", "-S", "0.0.0.0:8080", "index.php"]
+

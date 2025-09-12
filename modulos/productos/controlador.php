@@ -58,10 +58,12 @@ class ProductosController {
                 // Guardar en base de datos
                 $resultado = $this->productoModel->guardarGastoFijo(
                     $nombre, $monto, $valorSinIVA, $valorIVA, 
-                    $categoria, $descripcion, $fecha, $idUsuario, 
+                    $categoria, $fecha, $idUsuario, 
                     $esRecurrente, $frecuenciaRecurrencia, 
-                    $total_cuotas, $cuotas_pagadas
+                    $total_cuotas, $cuotas_pagadas, 
+                    $descripcion
                 );
+
 
                 if ($resultado === true) {
                     header('Location: index.php?ruta=main&modulo=productos&mensaje=gasto_guardado');

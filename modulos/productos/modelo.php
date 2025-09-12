@@ -83,7 +83,7 @@ class Producto{
     }
 
     // Funcion para actualizar el producto(Gasto) - Ahora incluye campos de recurrencia
-    public function actualizarGasto($id, $nombre, $monto, $fecha, $categoria, $esRecurrente, $frecuenciaRecurrencia, $total_cuotas = 0, $cuotas_pagadas = 0, $descripcion = null) {
+    public function actualizarGasto($id, $nombre, $monto, $fecha, $categoria, $descripcion, $esRecurrente, $frecuenciaRecurrencia, $total_cuotas = 0, $cuotas_pagadas = 0) {
         try {
             if (!$esRecurrente) {
                 $frecuenciaRecurrencia = null;

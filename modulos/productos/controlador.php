@@ -19,6 +19,29 @@ class ProductosController {
         $mensaje = null;
         $id_usuario = $_SESSION['usuario_id'] ?? null;
 
+        // Manejo de acciones GET
+        if (isset($_GET['accion'])) {
+            $accion = $_GET['accion'];
+
+            switch ($accion) {
+                case 'eliminar':
+                    if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                        $resultado = $this->productoModel->eliminarGasto($id);
+
+                        if ($resultado === true) {
+                            header("Location: index.php?ruta=main&modulo=productos&mensaje=gasto_eliminado");
+                        } else {
+                            echo $resultado;
+                        }
+                        exit();
+                    } else {
+                        echo "ID no recibido.";
+                        exit();
+                    }
+            }
+        }
+
         // Manejo de acciones POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Crear gasto

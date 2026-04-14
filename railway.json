@@ -5,6 +5,7 @@
   },
   "deploy": {
     "startCommand": "vendor/bin/heroku-php-apache2",
-    "restartPolicyType": "ON_FAILURE"
+    "restartPolicyType": "ON_FAILURE",
+    "region": "us-west1"
   }
 }
